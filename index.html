@@ -20,7 +20,7 @@
       --wilson-orange: #f97316;
       --bg: #f4f7fa;
       --bg-card: #ffffff;
-      --border: #e2e8f0;
+      --border: #cbd5e1;
       --text-main: #1e293b;
       --text-muted: #64748b;
       --dark-surface: #0f172a;
@@ -71,7 +71,7 @@
       z-index: 100;
     }
     .header-inner {
-      max-width: 1480px;
+      max-width: 1520px;
       margin: 0 auto;
       padding: 12px 24px;
       display: flex;
@@ -134,6 +134,13 @@
       color: #ffffff;
     }
     .btn-tecnovoa:hover { background: var(--tecnovoa-primary-dark); color: #fff; }
+    .btn-gnettrack {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #047857;
+      font-weight: 700;
+    }
+    .btn-gnettrack:hover { background: #10b981; color: #fff; }
     .btn-sim {
       background: #fff7ed;
       border-color: var(--wilson-orange);
@@ -147,7 +154,7 @@
 
     /* Container */
     .container {
-      max-width: 1480px;
+      max-width: 1520px;
       margin: 20px auto;
       padding: 0 24px;
       display: flex;
@@ -190,7 +197,7 @@
       color: var(--text-muted);
     }
 
-    /* Tabs Header */
+    /* Tabs & Sub-Filters */
     .nav-tabs-card {
       background: #ffffff;
       border: 1px solid var(--border);
@@ -201,16 +208,23 @@
     .nav-tabs-bar {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
       background: #f8fafc;
       border-bottom: 1px solid var(--border);
-      padding: 8px 12px 0;
+      padding: 8px 14px 0;
+      gap: 8px;
+    }
+    .tab-buttons-group {
+      display: flex;
+      flex-wrap: wrap;
       gap: 6px;
     }
     .tab-btn {
       font-family: 'Poppins', sans-serif;
       font-size: 13px;
       font-weight: 600;
-      padding: 9px 18px;
+      padding: 9px 16px;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       background: transparent;
@@ -233,17 +247,43 @@
       box-shadow: 0 -2px 6px rgba(0,0,0,0.02);
     }
 
+    /* Operator Filter Pills */
+    .op-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 8px;
+    }
+    .op-pill {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .op-pill:hover { border-color: var(--tecnovoa-primary); color: var(--text-main); }
+    .op-pill.active {
+      background: var(--tecnovoa-primary);
+      color: #ffffff;
+      border-color: var(--tecnovoa-primary);
+    }
+
     /* Workspace 2 Columns */
     .tab-content-area {
       padding: 18px;
     }
     .workspace-split {
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 390px;
       gap: 18px;
       align-items: start;
     }
-    @media (max-width: 1100px) {
+    @media (max-width: 1150px) {
       .workspace-split { grid-template-columns: 1fr; }
     }
 
@@ -300,24 +340,88 @@
       border-color: var(--tecnovoa-cyan);
       color: #fff;
     }
-    .stage-3d-legend {
+
+    /* 2D Schematic Stage Container */
+    .stage-2d-box {
+      position: relative;
+      background: #090d16;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--dark-border);
+      min-height: 540px;
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Plan Overlays with Clickable Pins */
+    .plan-overlay-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      background: #0f172a;
+    }
+    .plan-overlay-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .plan-pin-node {
       position: absolute;
-      bottom: 12px;
-      left: 12px;
-      right: 12px;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.65);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
       z-index: 10;
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 6px;
+    }
+    .plan-pin-node:hover, .plan-pin-node.selected {
+      transform: translate(-50%, -50%) scale(1.25);
+      z-index: 20;
+      box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.5), 0 6px 18px rgba(0,0,0,0.8);
+    }
+    .plan-pin-label {
+      position: absolute;
+      top: 105%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.92);
+      color: #f8fafc;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      border: 1px solid #475569;
+      pointer-events: none;
+    }
+
+    /* Common Legend Bar */
+    .legend-bar {
+      margin-top: 12px;
       padding: 8px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      color: #cbd5e1;
-      pointer-events: none;
+      font-size: 11.5px;
+      color: var(--text-muted);
     }
     .legend-indicators {
       display: flex;
@@ -347,8 +451,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
     }
     .inspector-badge {
@@ -509,17 +613,7 @@
       background: #0f172a;
     }
 
-    /* SUBTEL Radar & Antenna Map */
-    .radar-container {
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 18px;
-    }
-    @media (max-width: 1000px) {
-      .radar-container { grid-template-columns: 1fr; }
-    }
-
-    /* Tables & Link Budget */
+    /* Cards & Tables */
     .card-block {
       background: #ffffff;
       border: 1px solid var(--border);
@@ -549,6 +643,7 @@
       padding: 8px 10px;
       border-bottom: 1px solid #e2e8f0;
       text-align: left;
+      white-space: nowrap;
     }
     th {
       background: #f8fafc;
@@ -559,6 +654,34 @@
     }
     tr:hover td { background: #f1f5f9; }
 
+    /* Checklist */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 14px;
+    }
+    .check-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .check-card h4 {
+      font-size: 12.5px;
+      color: var(--tecnovoa-primary);
+      margin-bottom: 8px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+    .check-item input { margin-top: 2px; }
+    .check-item.done span { text-decoration: line-through; color: var(--text-muted); }
+
     /* Footer */
     footer {
       background: #0f172a;
@@ -568,7 +691,7 @@
       border-top: 3px solid var(--tecnovoa-primary);
     }
     .footer-inner {
-      max-width: 1480px;
+      max-width: 1520px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
@@ -585,7 +708,7 @@
       margin-bottom: 8px;
     }
     .footer-bottom {
-      max-width: 1480px;
+      max-width: 1520px;
       margin: 16px auto 0;
       display: flex;
       justify-content: space-between;
@@ -625,13 +748,20 @@
       <button id="btnWilsonToggle" class="btn btn-sim" onclick="toggleWilsonSim()">
         📡 Amplificador Wilson: <strong id="wilsonStatusLabel">OFF (Estado Actual)</strong>
       </button>
-      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none; max-width:320px;">
+      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none; max-width:300px;">
         <option value="office200_1ant">weBoost Office 200 LATAM (SKU 531047) — 1 Domo</option>
         <option value="office200_2ant" selected>weBoost Office 200 LATAM (SKU 531047) — 2 Domos</option>
         <option value="wilsonpro_1300r">WilsonPro Enterprise 1300R (Rack 19" + Cloud)</option>
         <option value="wilsonpro_4300r">WilsonPro Enterprise 4300R (4 Puertos Multi-Tower)</option>
       </select>
-      <button class="btn btn-tecnovoa" onclick="exportCSV()">⬇️ Exportar Mediciones CSV</button>
+      <button class="btn btn-gnettrack" onclick="exportGNetTrack()" title="Exportar log en formato oficial G-NetTrack Lite (.txt / .csv)">
+        📶 Exportar G-NetTrack Lite
+      </button>
+      <button class="btn btn-tecnovoa" onclick="exportCSV()">⬇️ Exportar CSV</button>
+      <label class="btn" style="cursor:pointer;" title="Importar mediciones de terreno (.csv)">
+        📂 Importar CSV
+        <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="importCSV(event)" />
+      </label>
       <a class="btn" href="./531047-530047_office200_ss_LATAM_102721b%20(1).pdf" target="_blank">📄 Datasheet Office 200 PDF</a>
     </div>
   </div>
@@ -649,7 +779,7 @@
     <div class="kpi-card kpi-alert">
       <div class="kpi-title">Piso -1 Informática (P5–P6 Álvaro Carreño)</div>
       <div class="kpi-val" id="kpiBasementVal" style="color:var(--dead)">-111 dBm</div>
-      <div class="kpi-desc" id="kpiBasementDesc">Sombra severa por 2 losas de hormigón armado</div>
+      <div class="kpi-desc" id="kpiBasementDesc">Sombra severa por 2 losas de hormigón armado (-35 dB)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-title">Éxito Llamadas de Voz Piso -1</div>
@@ -663,204 +793,377 @@
     </div>
   </div>
 
-  <!-- Main Tabs Card -->
+  <!-- Main View Tabs Card -->
   <div class="nav-tabs-card">
     <div class="nav-tabs-bar">
-      <button class="tab-btn active" onclick="switchMainTab('tab3d', this)">
-        🧊 Plano 3D Interactivo del Edificio
-      </button>
-      <button class="tab-btn" onclick="switchMainTab('tabFotos', this)">
-        📸 Galería Fotográfica de Terreno (20 Fotos)
-      </button>
-      <button class="tab-btn" onclick="switchMainTab('tabRadar', this)">
-        📡 Mapa de Antenas y Torres SUBTEL (GIS)
-      </button>
-      <button class="tab-btn" onclick="switchMainTab('tabPlano2d', this)">
-        📐 Cortes Arquitectónicos GMM (Planos JPG)
-      </button>
-      <button class="tab-btn" onclick="switchMainTab('tabCalculadora', this)">
-        🧮 Presupuesto de Enlace y Hardware Wilson
-      </button>
+      <div class="tab-buttons-group">
+        <button class="tab-btn active" id="btnTab3d" onclick="switchMainTab('tab3d', this)">
+          🧊 Modelo 3D Interactivo
+        </button>
+        <button class="tab-btn" id="btnTabSchematic" onclick="switchMainTab('tabSchematic', this)">
+          📐 Corte Esquemático 2D D-D'
+        </button>
+        <button class="tab-btn" id="btnTabPlanSection" onclick="switchMainTab('tabPlanSection', this)">
+          🖼️ Plano Corte D-D' (JPG)
+        </button>
+        <button class="tab-btn" id="btnTabPlanFloor1" onclick="switchMainTab('tabPlanFloor1', this)">
+          🗺️ Plano Planta Nivel 1 (JPG)
+        </button>
+        <button class="tab-btn" id="btnTabFotos" onclick="switchMainTab('tabFotos', this)">
+          📸 Fotos de Terreno (20 Fotos)
+        </button>
+        <button class="tab-btn" id="btnTabRadar" onclick="switchMainTab('tabRadar', this)">
+          📡 Radar Antenas SUBTEL
+        </button>
+      </div>
+
+      <!-- Operator Filter Pills -->
+      <div class="op-filter-group" id="opFilterContainer">
+        <span style="font-size:11.5px; font-weight:700; color:var(--text-muted); margin-right:4px;">Telco:</span>
+        <button class="op-pill active" onclick="setOperator('ALL', this)">Promedio 4 Telcos</button>
+        <button class="op-pill" onclick="setOperator('Entel', this)">Entel</button>
+        <button class="op-pill" onclick="setOperator('Movistar', this)">Movistar</button>
+        <button class="op-pill" onclick="setOperator('Claro', this)">Claro</button>
+        <button class="op-pill" onclick="setOperator('WOM', this)">WOM</button>
+      </div>
     </div>
 
-    <!-- TAB 1: Plano 3D Edificio -->
-    <div id="tab3d" class="tab-content-area">
+    <div class="tab-content-area">
       <div class="workspace-split">
-        <!-- 3D Canvas Box -->
-        <div class="stage-3d-box">
-          <div class="stage-3d-toolbar">
-            <div class="stage-3d-group">
-              <button class="btn-3d active" id="btnModeXray" onclick="set3dMode('xray')">🔬 Rayos-X (Subterráneo -1)</button>
-              <button class="btn-3d" id="btnModeFull" onclick="set3dMode('full')">🏢 Edificio Completo</button>
-              <button class="btn-3d" id="btnModeExplode" onclick="set3dMode('explode')">💥 Vista Explotada</button>
-            </div>
-            <div class="stage-3d-group">
-              <button class="btn-3d" id="btnRotate3d" onclick="toggle3dAutoRotate()">🔄 Rotación Auto</button>
-              <button class="btn-3d" onclick="reset3dCamera()">🎯 Reset Vista</button>
-              <button class="btn-3d" onclick="exportBuildingOBJ()">⬇️ Exportar OBJ</button>
+
+        <!-- Left Stage Area -->
+        <div>
+          <!-- VIEW 1: 3D MODEL -->
+          <div id="tab3d" class="view-panel">
+            <div class="stage-3d-box">
+              <div class="stage-3d-toolbar">
+                <div class="stage-3d-group">
+                  <button class="btn-3d active" id="btnModeXray" onclick="set3dMode('xray')">🔬 Rayos-X (Subterráneo -1)</button>
+                  <button class="btn-3d" id="btnModeFull" onclick="set3dMode('full')">🏢 Edificio Completo</button>
+                  <button class="btn-3d" id="btnModeExplode" onclick="set3dMode('explode')">💥 Vista Explotada</button>
+                </div>
+                <div class="stage-3d-group">
+                  <button class="btn-3d" id="btnRotate3d" onclick="toggle3dAutoRotate()">🔄 Rotación Auto</button>
+                  <button class="btn-3d" onclick="reset3dCamera()">🎯 Reset Vista</button>
+                  <button class="btn-3d" onclick="exportBuildingOBJ()">⬇️ Exportar OBJ</button>
+                </div>
+              </div>
+
+              <div id="threeJsCanvas"></div>
             </div>
           </div>
 
-          <div id="threeJsCanvas"></div>
+          <!-- VIEW 2: 2D ARCHITECTURAL SCHEMATIC D-D' WITH MEASUREMENTS & WILSON400 COAX -->
+          <div id="tabSchematic" class="view-panel" style="display:none;">
+            <div class="stage-2d-box">
+              <svg id="schematicSvg" class="diagram-svg" viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#0f172a"/>
+                    <stop offset="100%" stop-color="#1e293b"/>
+                  </linearGradient>
+                  <pattern id="earthHatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="0" x2="0" y2="12" stroke="#334155" stroke-width="2" />
+                  </pattern>
+                </defs>
 
-          <div class="stage-3d-legend">
+                <!-- Sky & Earth Background -->
+                <rect x="0" y="0" width="1100" height="330" fill="url(#skyGrad)" />
+                <rect x="0" y="330" width="1100" height="210" fill="#090d16" />
+                <rect x="0" y="470" width="1100" height="70" fill="url(#earthHatch)" opacity="0.5" />
+
+                <!-- Structural Grid Axes (T to A, matching Corte D-D') -->
+                <g stroke="#334155" stroke-dasharray="4 4" stroke-width="1" font-size="11" fill="#94a3b8" text-anchor="middle">
+                  <line x1="90" y1="40" x2="90" y2="505"/><circle cx="90" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="90" y="522" stroke="none">T</text>
+                  <line x1="205" y1="40" x2="205" y2="505"/><circle cx="205" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="205" y="522" stroke="none">S</text>
+                  <line x1="320" y1="40" x2="320" y2="505"/><circle cx="320" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="320" y="522" stroke="none">R</text>
+                  <line x1="435" y1="40" x2="435" y2="505"/><circle cx="435" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="435" y="522" stroke="none">Q</text>
+                  <line x1="535" y1="40" x2="535" y2="505"/><circle cx="535" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="535" y="522" stroke="none">P</text>
+                  <line x1="650" y1="40" x2="650" y2="505"/><circle cx="650" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="650" y="522" stroke="none">O</text>
+                  <line x1="755" y1="40" x2="755" y2="505"/><circle cx="755" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="755" y="522" stroke="none">N/M</text>
+                  <line x1="875" y1="40" x2="875" y2="505"/><circle cx="875" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="875" y="522" stroke="none">K</text>
+                  <line x1="1010" y1="40" x2="1010" y2="505"/><circle cx="1010" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="1010" y="522" stroke="none">A–D</text>
+                </g>
+
+                <!-- Building Structure: Rooftop Caseta (Eje P-Q) -->
+                <rect x="425" y="75" width="120" height="65" fill="#1e293b" stroke="#64748b" stroke-width="2" />
+                <text x="485" y="95" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">CASETA AZOTEA</text>
+                <text x="485" y="110" fill="#94a3b8" font-size="10" text-anchor="middle">Cota +8,25 m</text>
+
+                <!-- Level 2 (+4,35 m) -->
+                <rect x="75" y="140" width="965" height="90" fill="#162032" stroke="#64748b" stroke-width="2" />
+                <text x="255" y="185" fill="#64748b" font-size="12" font-weight="700" text-anchor="middle">PLANTA NIVEL 2 (+4,35 m) — Administración / SECPLAN / Alcaldía</text>
+
+                <!-- Level 1 (+0,45 m) -->
+                <rect x="75" y="230" width="965" height="100" fill="#1a2639" stroke="#94a3b8" stroke-width="2" />
+                <!-- Racks Room in Level 1 (Eje P-Q) -->
+                <rect x="435" y="232" width="100" height="96" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" stroke-width="1.5" />
+                <text x="485" y="254" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle">RACKS Y CENTRAL</text>
+                <text x="485" y="267" fill="#38bdf8" font-size="10" text-anchor="middle">SERVIDORES (GI 07/08)</text>
+                <text x="240" y="275" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle">PLANTA NIVEL 1 (+0,45 m) — DIDECO / Salud / Educación</text>
+                <text x="955" y="255" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">ACCESO PRINCIPAL</text>
+                <text x="955" y="270" fill="#94a3b8" font-size="10" text-anchor="middle">Av. Salvador Allende</text>
+
+                <!-- Heavy Reinforced Concrete Slab -->
+                <rect x="70" y="326" width="975" height="10" fill="#475569" />
+                <text x="15" y="323" fill="#94a3b8" font-size="10" font-weight="700">N ±0,00</text>
+                <text x="15" y="465" fill="#f87171" font-size="10" font-weight="700">N -3,20m</text>
+
+                <!-- Level -1 Underground Offices -->
+                <rect x="90" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+                <text x="147" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">RELACIONES PÚBLICAS</text>
+                <text x="147" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Jefatura + 2 Profesionales</text>
+
+                <rect x="205" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+                <text x="262" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">JEFE INFORMÁTICA</text>
+                <text x="262" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Álvaro Carreño + Emergencia</text>
+
+                <rect x="320" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+                <text x="377" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">2 TÉC. INFORMÁTICA</text>
+                <text x="377" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">+ Bodega TI (Ejes Q–R)</text>
+
+                <rect x="435" y="336" width="100" height="134" fill="#172033" stroke="#64748b" stroke-width="2" />
+                <text x="485" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">HALL / ASCENSOR</text>
+                <text x="485" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Núcleo Escalera Eje P–Q</text>
+
+                <rect x="535" y="336" width="220" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+                <text x="645" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">ARCHIVO E INVENTARIO</text>
+                <text x="645" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Encargado + Bodega + Archivo (Ejes K–P)</text>
+
+                <rect x="755" y="336" width="120" height="134" fill="#0d1526" stroke="#475569" stroke-width="2" stroke-dasharray="5 3" />
+                <text x="815" y="356" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle">PATIO INGLÉS</text>
+                <text x="815" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Escalera Ext. / Vidrio Low-E</text>
+
+                <rect x="875" y="336" width="165" height="134" fill="#0f172a" stroke="#475569" stroke-width="2" />
+                <text x="957" y="395" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">ESTACIONAMIENTOS -1</text>
+                <text x="957" y="410" fill="#475569" font-size="9.5" text-anchor="middle">(Ejes A–N · Corte B-B')</text>
+
+                <!-- WILSON COAXIAL INFRASTRUCTURE OVERLAY -->
+                <g id="wilsonOverlayGroup" opacity="0.4">
+                  <!-- Coax Vertical Drop along Shaft GI 07/08 (Eje P-Q) -->
+                  <path d="M 485 65 L 485 385 L 320 385" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="6 4" />
+                  <path id="wilsonSecondBranch" d="M 320 385 L 155 385 M 485 385 L 640 385" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="4 4" />
+                  <!-- Donor Omni Plus 314422 Antenna Icon on Rooftop -->
+                  <rect x="479" y="28" width="12" height="38" rx="6" fill="#f97316" stroke="#fff" stroke-width="1.5" />
+                  <circle cx="485" cy="28" r="14" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3 2" />
+                  <text id="svgDonorLabel" x="512" y="48" fill="#fdba74" font-size="10.5" font-weight="700">Antena Omni Plus 314422 + Protector 859902</text>
+                  <text x="512" y="62" fill="#94a3b8" font-size="9.5">Cable Wilson400 18,28 m por Shaft GI 07/08</text>
+                  <!-- Amplifier Box -->
+                  <rect x="438" y="371" width="94" height="25" rx="4" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+                  <text id="svgAmpLabel" x="485" y="387" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">OFFICE 200 (74dB)</text>
+                  <!-- Indoor Dome Antenna 314407 at Eje R -->
+                  <path d="M 306 336 Q 320 352 334 336 Z" fill="#38bdf8" stroke="#fff" stroke-width="1.2" />
+                  <text x="320" y="398" fill="#fdba74" font-size="9" font-weight="700" text-anchor="middle">Domo 314407 (Eje R)</text>
+                </g>
+
+                <!-- Halos & Nodes Layers (Rendered by JS) -->
+                <g id="svgHalosLayer"></g>
+                <g id="svgNodesLayer"></g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- VIEW 3: REAL ARCHITECTURAL SECTION D-D' JPG WITH PINS -->
+          <div id="tabPlanSection" class="view-panel" style="display:none;">
+            <div class="plan-overlay-wrap">
+              <img src="./Elevation-Sections-001.jpg" alt="Corte D-D' GMM Arquitectos" />
+              <div id="pinsSectionLayer"></div>
+            </div>
+          </div>
+
+          <!-- VIEW 4: REAL FIRST FLOOR PLAN JPG WITH PINS -->
+          <div id="tabPlanFloor1" class="view-panel" style="display:none;">
+            <div class="plan-overlay-wrap">
+              <img src="./First_Floor_Plan-001.jpg" alt="Planta Nivel 1 GMM Arquitectos" />
+              <div id="pinsFloor1Layer"></div>
+            </div>
+          </div>
+
+          <!-- VIEW 5: PHOTO GALLERY -->
+          <div id="tabFotos" class="view-panel" style="display:none;">
+            <div class="gallery-filter-bar">
+              <button class="btn btn-tecnovoa" onclick="filterGallery('ALL', this)">Todas (20 fotos)</button>
+              <button class="btn" onclick="filterGallery('patio', this)">Patio Central & Fachadas</button>
+              <button class="btn" onclick="filterGallery('subterraneo', this)">Patio Hundido & Subterráneo -1</button>
+              <button class="btn" onclick="filterGallery('concejo', this)">Volumen Concejo (Corten)</button>
+              <button class="btn" onclick="filterGallery('acceso', this)">Acceso Principal & Galerías</button>
+            </div>
+            <div class="gallery-grid" id="galleryGridContainer"></div>
+          </div>
+
+          <!-- VIEW 6: SUBTEL RADAR -->
+          <div id="tabRadar" class="view-panel" style="display:none;">
+            <div style="background:#070d19; border-radius:8px; overflow:hidden; border:1px solid #1e293b;">
+              <svg id="subtelRadarSvg" viewBox="0 0 1000 520" style="width:100%; height:auto; display:block;"></svg>
+            </div>
+          </div>
+
+          <!-- Common Legend Bar below stages -->
+          <div class="legend-bar">
             <div class="legend-indicators">
-              <span><strong>RSRP (dBm):</strong></span>
-              <span class="legend-tag"><i class="tag-dot" style="background:var(--good)"></i> ≥ -85 Óptima</span>
+              <span><strong>Escala 3GPP RSRP (dBm):</strong></span>
+              <span class="legend-tag"><i class="tag-dot" style="background:var(--good)"></i> ≥ -85 Óptima / HD</span>
               <span class="legend-tag"><i class="tag-dot" style="background:var(--fair)"></i> -86 a -95 Buena</span>
-              <span class="legend-tag"><i class="tag-dot" style="background:var(--weak)"></i> -96 a -105 Débil</span>
-              <span class="legend-tag"><i class="tag-dot" style="background:var(--dead)"></i> &lt; -105 Sin Servicio</span>
+              <span class="legend-tag"><i class="tag-dot" style="background:var(--weak)"></i> -96 a -105 Débil / Riesgo</span>
+              <span class="legend-tag"><i class="tag-dot" style="background:var(--dead)"></i> &lt; -105 Sin Cobertura</span>
             </div>
             <div>
-              💡 <em>Arrastrar: Rotar 3D | Clic derecho: Mover | Rueda: Zoom | Clic en esferas P0–P8</em>
+              💡 <em>Haz clic en cualquier punto <strong>P0–P8</strong> en el plano 3D o 2D para editar sus 4 compañías.</em>
             </div>
           </div>
         </div>
 
-        <!-- Inspector Sidebar -->
+        <!-- Right Side: Point Inspector & Live Editor -->
         <div class="inspector-panel">
           <div class="inspector-header">
             <div>
               <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Inspector de Terreno</span>
-              <div style="font-size:16px; font-weight:700; color:var(--tecnovoa-primary);" id="inspPointTitle">P6 — Oficina Álvaro Carreño</div>
+              <div style="font-size:15px; font-weight:700; color:var(--tecnovoa-primary);" id="inspPointTitle">P6 — Oficina Álvaro Carreño</div>
             </div>
             <div class="inspector-badge" id="inspPointBadge">P6</div>
           </div>
-          <div style="font-size:12px; color:var(--text-muted); margin-bottom:12px;" id="inspPointDesc">
+          <div style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;" id="inspPointDesc">
             Subterráneo Nivel -1 (cota -3,20 m) · Ejes R-S · Zona Crítica Jefatura Informática y Emergencia
           </div>
 
           <div id="inspectorOperatorsList"></div>
         </div>
+
       </div>
     </div>
+  </div>
 
-    <!-- TAB 2: Galería Fotográfica -->
-    <div id="tabFotos" class="tab-content-area" style="display:none;">
-      <div class="gallery-filter-bar">
-        <span style="font-size:13px; font-weight:700; align-self:center; margin-right:8px;">Filtrar Recinto:</span>
-        <button class="btn btn-tecnovoa" onclick="filterGallery('ALL', this)">Todas (20 fotos)</button>
-        <button class="btn" onclick="filterGallery('patio', this)">Patio Central & Fachadas</button>
-        <button class="btn" onclick="filterGallery('subterraneo', this)">Patio Hundido & Subterráneo -1</button>
-        <button class="btn" onclick="filterGallery('concejo', this)">Volumen Concejo (Corten)</button>
-        <button class="btn" onclick="filterGallery('acceso', this)">Acceso Principal & Galerías</button>
-      </div>
-
-      <div class="gallery-grid" id="galleryGridContainer"></div>
+  <!-- RSRP Attenuation Profile Chart across P0 -> P8 -->
+  <div class="card-block">
+    <div class="card-title-bar">
+      <h3>📉 Perfil de Atenuación RSRP (dBm) por Punto Estructural — Comparativa 4 Compañías</h3>
+      <span style="font-size:12px; color:var(--text-muted);">Verde (-90 dBm) = Meta VoLTE · Roja (-105 dBm) = Umbral de corte de llamada</span>
     </div>
+    <div style="overflow-x:auto;">
+      <svg id="profileChartSvg" viewBox="0 0 1100 240" style="width:100%; height:auto; min-width:680px;"></svg>
+    </div>
+  </div>
 
-    <!-- TAB 3: Radar de Antenas SUBTEL -->
-    <div id="tabRadar" class="tab-content-area" style="display:none;">
-      <div class="radar-container">
-        <div class="card-block">
-          <div class="card-title-bar">
-            <h3>📡 Radar Polar Azimutal de Estaciones Base SUBTEL (&lt; 750 m de Av. Salvador Allende 2029)</h3>
-            <span style="font-size:11.5px; color:var(--text-muted);">Fuente: Subsecretaría de Telecomunicaciones (ArcGIS)</span>
-          </div>
-          <div style="background:#070d19; border-radius:8px; overflow:hidden; border:1px solid #1e293b;">
-            <svg id="subtelRadarSvg" viewBox="0 0 850 520" style="width:100%; height:auto; display:block;"></svg>
-          </div>
-        </div>
-
-        <div class="card-block">
-          <div class="card-title-bar">
-            <h3>📍 Detalle de Estación Base Vecina</h3>
-            <span id="radarSelectedBadge" class="inspector-badge">T4</span>
-          </div>
-          <div id="radarTowerDetailCard" style="font-size:12.5px; line-height:1.6;"></div>
-        </div>
-      </div>
-
-      <div class="card-block" style="margin-top:18px;">
-        <div class="card-title-bar">
-          <h3>📋 Catastro Oficial de Torres Móviles SUBTEL en Pedro Aguirre Cerda</h3>
-        </div>
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>Torre</th>
-                <th>Distancia</th>
-                <th>Azimut</th>
-                <th>Operadores</th>
-                <th>Código SUBTEL</th>
-                <th>Dirección</th>
-                <th>Altura / Soporte</th>
-                <th>Bandas Registradas</th>
-                <th>Calce Kit Office 200</th>
-              </tr>
-            </thead>
-            <tbody id="subtelTowersTableBody"></tbody>
-          </table>
-        </div>
+  <!-- Full Measurement Matrix Table -->
+  <div class="card-block">
+    <div class="card-title-bar">
+      <h3>📋 Matriz de Puntos a Medir en Terreno (P0 a P8 × 4 Compañías = 36 Registros)</h3>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-gnettrack" onclick="exportGNetTrack()">📶 Log G-NetTrack Lite (.txt)</button>
+        <button class="btn btn-tecnovoa" onclick="exportCSV()">⬇️ Exportar CSV</button>
       </div>
     </div>
+    <div style="overflow-x:auto; max-height:460px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Punto</th>
+            <th>Nivel</th>
+            <th>Ejes Plano</th>
+            <th>Recinto / Ubicación</th>
+            <th>Compañía</th>
+            <th>Tec.</th>
+            <th>Banda</th>
+            <th>RSRP (dBm)</th>
+            <th>RSRQ (dB)</th>
+            <th>SINR (dB)</th>
+            <th>¿Llamada?</th>
+            <th>Calidad Voz</th>
+            <th>Estado Cobertura</th>
+          </tr>
+        </thead>
+        <tbody id="fullTableBody"></tbody>
+      </table>
+    </div>
+  </div>
 
-    <!-- TAB 4: Planos Arquitectónicos 2D -->
-    <div id="tabPlano2d" class="tab-content-area" style="display:none;">
-      <div class="gallery-filter-bar">
-        <button class="btn btn-tecnovoa" onclick="showPlano2d('corte', this)">Cortes D-D' y E-E' (Subterráneo -1)</button>
-        <button class="btn" onclick="showPlano2d('piso1', this)">Planta Nivel 1 (Acceso y Racks)</button>
-        <button class="btn" onclick="showPlano2d('piso2', this)">Planta Nivel 2 (Alcaldía y SECPLAN)</button>
+  <!-- Link Budget & Hardware Kit Specifications -->
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px;">
+    <div class="card-block">
+      <div class="card-title-bar">
+        <h3>🧮 Presupuesto de Enlace (Link Budget 50 Ω Wilson400)</h3>
+        <span style="font-size:11.5px; color:var(--wilson-orange); font-weight:700;">VF = 0,85</span>
       </div>
-      <div class="card-block" style="text-align:center; overflow-x:auto;">
-        <img id="plano2dImg" src="./Elevation-Sections-001.jpg" alt="Planos GMM Arquitectos" style="max-width:100%; height:auto; border-radius:6px; box-shadow:0 4px 12px rgba(0,0,0,0.08);" />
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:12px;">
+        <div>
+          <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Banda Operación</label>
+          <select id="calcBand" onchange="renderLinkBudget()" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px; font-weight:600;">
+            <option value="850">B5 (850 MHz - Movistar/Claro)</option>
+            <option value="1900" selected>B2/B25 (1900 MHz - Entel/Mov/Claro)</option>
+            <option value="2100">B4 AWS (1700/2100 MHz - WOM/Entel)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Cable Donante (m)</label>
+          <input type="number" id="calcCableIn" value="18.28" step="0.5" onchange="renderLinkBudget()" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px; font-weight:600;" />
+        </div>
+        <div>
+          <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Cable Indoor (m)</label>
+          <input type="number" id="calcCableOut" value="22.86" step="0.5" onchange="renderLinkBudget()" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px; font-weight:600;" />
+        </div>
       </div>
+      <div id="linkBudgetOutput"></div>
     </div>
 
-    <!-- TAB 5: Presupuesto de Enlace & Hardware -->
-    <div id="tabCalculadora" class="tab-content-area" style="display:none;">
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:18px;">
-        <div class="card-block">
-          <div class="card-title-bar">
-            <h3>🧮 Calculadora de Presupuesto de Enlace (Link Budget 50 Ω Wilson400)</h3>
-          </div>
-          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:14px;">
-            <div>
-              <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Banda Operación</label>
-              <select id="calcBand" onchange="renderLinkBudget()" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px; font-weight:600;">
-                <option value="850">B5 (850 MHz - Movistar/Claro)</option>
-                <option value="1900" selected>B2/B25 (1900 MHz - Entel/Mov/Claro)</option>
-                <option value="2100">B4 AWS (1700/2100 MHz - WOM/Entel)</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Cable Donante (m)</label>
-              <input type="number" id="calcCableIn" value="18.28" step="0.5" onchange="renderLinkBudget()" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px; font-weight:600;" />
-            </div>
-            <div>
-              <label style="font-size:11px; color:var(--text-muted); font-weight:600;">Cable Indoor (m)</label>
-              <input type="number" id="calcCableOut" value="22.86" step="0.5" onchange="renderLinkBudget()" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px; font-weight:600;" />
-            </div>
-          </div>
-          <div id="linkBudgetOutput"></div>
+    <div class="card-block">
+      <div class="card-title-bar">
+        <h3>📦 Kit weBoost Office 200 LATAM (SKU 531047 · 50 Ω)</h3>
+        <a href="./531047-530047_office200_ss_LATAM_102721b%20(1).pdf" target="_blank" style="font-size:12px; font-weight:700;">Ver PDF Oficial ↗</a>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:12px;">
+        <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+          <strong style="color:var(--wilson-orange)">Amplificador Office 200</strong>
+          <p style="color:var(--text-muted); font-size:11px; margin-top:3px;"><strong>74 dB ganancia</strong>, tecnología XDR anti-apagado, pantalla táctil LCD a color, DL hasta +22 dBm.</p>
         </div>
-
-        <div class="card-block">
-          <div class="card-title-bar">
-            <h3>📦 Componentes del Kit weBoost Office 200 LATAM (SKU 531047)</h3>
-          </div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:12px;">
-            <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
-              <strong style="color:var(--wilson-orange)">Amplificador Office 200 (74 dB)</strong>
-              <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Control XDR anti-apagado, pantalla LCD a color, DL hasta +22 dBm.</p>
-            </div>
-            <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
-              <strong style="color:var(--tecnovoa-primary)">Antena Donante Omni Plus 314422</strong>
-              <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Captación 360° exterior en azotea, enlaza todas las operadoras.</p>
-            </div>
-            <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
-              <strong style="color:var(--tecnovoa-primary)">Antena Domo 314407 (Indoor)</strong>
-              <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Bajo perfil para cielo falso piso -1, 50 Ohm conectores N.</p>
-            </div>
-            <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
-              <strong style="color:var(--tecnovoa-primary)">Coaxial Wilson400 (41,7 m) + Pararrayos</strong>
-              <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Rollo 18,28 m + rollo 22,86 m + Protector Relámpago 859902.</p>
-            </div>
-          </div>
+        <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+          <strong style="color:var(--tecnovoa-primary)">Antena Donante Omni Plus (314422)</strong>
+          <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Captación 360° en Azotea Eje P-Q: enlaza simultáneamente torres Entel, Movistar, Claro y WOM.</p>
+        </div>
+        <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+          <strong style="color:var(--tecnovoa-primary)">Antena Domo 314407 (Indoor)</strong>
+          <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Bajo perfil para cielo falso piso -1, radiación uniforme para Informática y RR.PP.</p>
+        </div>
+        <div style="background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0;">
+          <strong style="color:var(--tecnovoa-primary)">Cables Wilson400 (41,7 m) + Pararrayos</strong>
+          <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">Rollo 18,28 m (952360) + rollo 22,86 m (952375) + Protector relámpago 859902.</p>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SUBTEL Tower Table -->
+  <div class="card-block">
+    <div class="card-title-bar">
+      <h3>📡 Catastro Oficial SUBTEL: 10 Torres Celulares en Radio &lt; 750 m de Salvador Allende 2029</h3>
+      <span style="font-size:11.5px; color:var(--good); font-weight:700;">✅ 100% Cobertura Exterior en 3G/4G/5G Verificada</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Torre</th>
+            <th>Distancia</th>
+            <th>Azimut</th>
+            <th>Operadores</th>
+            <th>Código SUBTEL</th>
+            <th>Dirección Exacta</th>
+            <th>Altura / Soporte</th>
+            <th>Bandas Registradas</th>
+            <th>Calce Kit Office 200</th>
+          </tr>
+        </thead>
+        <tbody id="subtelTowersTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Field Checklist -->
+  <div class="card-block">
+    <div class="card-title-bar">
+      <h3>✅ Checklist de Terreno (Comercial + Prevencionista de Riesgos + SUBTEL)</h3>
+      <span style="font-size:12px; color:var(--text-muted);">Los checks se guardan automáticamente en el navegador</span>
+    </div>
+    <div class="checklist-grid" id="checklistContainer"></div>
   </div>
 
 </div>
@@ -916,20 +1219,128 @@
 </footer>
 
 <script>
-  // Global State
+  // Global Data and Configuration
   const OPERATORS = ['Entel', 'Movistar', 'Claro', 'WOM'];
   const OP_COLORS = { Entel: '#0284c7', Movistar: '#16a34a', Claro: '#dc2626', WOM: '#9333ea' };
 
   const POINTS_META = [
-    { id: 'P0', nivel: 'Nivel 1 (+0.45m)', eje: 'Ejes A-D', recinto: 'Acceso Principal (Av. Salvador Allende)', rol: 'Referencia Exterior Calle', x: 28, y: 0.45, z: 12, isUnderground: false },
-    { id: 'P1', nivel: 'Azotea (+8.25m)', eje: 'Ejes P-Q', recinto: 'Cubierta Núcleo / Shaft GI 07-08', rol: 'Antena Donante Omni Plus 314422', x: -4, y: 8.25, z: 0, isUnderground: false },
-    { id: 'P2', nivel: 'Nivel 1 (+0.45m)', eje: 'Ejes P-Q', recinto: 'Sala Racks y Servidores (GI 07-08)', rol: 'Paso Vertical Coaxial Wilson400', x: -4, y: 0.45, z: 0, isUnderground: false },
-    { id: 'P3', nivel: 'Nivel -1 (-3.20m)', eje: 'Ejes L-N', recinto: 'Patio Inglés Hundido (Graderías)', rol: 'Difracción Exterior Zócalo', x: 8, y: -3.2, z: -8, isUnderground: true },
-    { id: 'P4', nivel: 'Nivel -1 (-3.20m)', eje: 'Ejes P-Q', recinto: 'Hall Subterráneo / Escalera', rol: 'Acceso Vertical Piso -1', x: -4, y: -3.2, z: 0, isUnderground: true },
-    { id: 'P5', nivel: 'Nivel -1 (-3.20m)', eje: 'Ejes Q-R', recinto: 'Oficina 2 Técnicos TI + Bodega', rol: 'Zona Crítica 1 (Antena Domo)', x: -12, y: -3.2, z: 0, isUnderground: true },
-    { id: 'P6', nivel: 'Nivel -1 (-3.20m)', eje: 'Ejes R-S', recinto: 'Oficina Álvaro Carreño + Emergencia', rol: 'Zona Crítica 2 (Jefe TI)', x: -20, y: -3.2, z: 0, isUnderground: true },
-    { id: 'P7', nivel: 'Nivel -1 (-3.20m)', eje: 'Ejes S-T', recinto: 'Relaciones Públicas', rol: 'Zona Crítica 3 (RR.PP.)', x: -28, y: -3.2, z: 0, isUnderground: true },
-    { id: 'P8', nivel: 'Nivel -1 (-3.20m)', eje: 'Ejes K-P', recinto: 'Archivo e Inventario', rol: 'Fondo Bajo Losa', x: 4, y: -3.2, z: 4, isUnderground: true }
+    {
+      id: 'P0',
+      nivel: 'Nivel 1 (+0.45m)',
+      eje: 'Ejes A-D / 6-8',
+      recinto: 'Acceso Principal (Av. Salvador Allende)',
+      rol: 'Referencia Exterior Calle',
+      x: 28, y: 0.45, z: 12,
+      svgX: 955, svgY: 295,
+      secX: 81.0, secY: 86.5,
+      fl1X: 21.0, fl1Y: 51.0,
+      lat: -33.48860, lon: -70.66506,
+      isUnderground: false
+    },
+    {
+      id: 'P1',
+      nivel: 'Azotea (+8.25m)',
+      eje: 'Ejes P-Q / 12-14',
+      recinto: 'Cubierta Núcleo / Shaft GI 07-08',
+      rol: 'Antena Donante Omni Plus 314422 (360°)',
+      x: -4, y: 8.25, z: 0,
+      svgX: 485, svgY: 118,
+      secX: 31.5, secY: 77.5,
+      fl1X: 64.5, fl1Y: 72.5,
+      lat: -33.48846, lon: -70.66552,
+      isUnderground: false
+    },
+    {
+      id: 'P2',
+      nivel: 'Nivel 1 (+0.45m)',
+      eje: 'Ejes P-Q / 14-15',
+      recinto: 'Sala Racks y Central Servidores (GI 07-08)',
+      rol: 'Paso Vertical Coaxial Wilson400',
+      x: -4, y: 0.45, z: 0,
+      svgX: 485, svgY: 295,
+      secX: 31.5, secY: 86.5,
+      fl1X: 70.0, fl1Y: 79.0,
+      lat: -33.48854, lon: -70.66549,
+      isUnderground: false
+    },
+    {
+      id: 'P3',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes L-N / Patio',
+      recinto: 'Patio Inglés Hundido (Graderías)',
+      rol: 'Difracción Exterior Zócalo',
+      x: 8, y: -3.2, z: -8,
+      svgX: 815, svgY: 425,
+      secX: 46.5, secY: 91.5,
+      fl1X: 56.0, fl1Y: 46.0,
+      lat: -33.48867, lon: -70.66524,
+      isUnderground: true
+    },
+    {
+      id: 'P4',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes P-Q (Corte D-D\')',
+      recinto: 'Hall Subterráneo / Escalera',
+      rol: 'Acceso Vertical Piso -1',
+      x: -4, y: -3.2, z: 0,
+      svgX: 485, svgY: 425,
+      secX: 31.5, secY: 91.5,
+      fl1X: 64.5, fl1Y: 73.5,
+      lat: -33.48863, lon: -70.66553,
+      isUnderground: true
+    },
+    {
+      id: 'P5',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes Q-R (Corte D-D\')',
+      recinto: 'Oficina 2 Técnicos TI + Bodega',
+      rol: 'Zona Crítica 1 (Antena Domo 314407)',
+      x: -12, y: -3.2, z: 0,
+      svgX: 377, svgY: 425,
+      secX: 27.5, secY: 91.5,
+      fl1X: 71.0, fl1Y: 73.5,
+      lat: -33.48857, lon: -70.66566,
+      isUnderground: true
+    },
+    {
+      id: 'P6',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes R-S (Corte D-D\')',
+      recinto: 'Oficina Jefe Informática (Álvaro Carreño) + Emergencia',
+      rol: 'Zona Crítica 2 (Jefatura TI)',
+      x: -20, y: -3.2, z: 0,
+      svgX: 262, svgY: 425,
+      secX: 23.5, secY: 91.5,
+      fl1X: 75.0, fl1Y: 73.5,
+      lat: -33.48857, lon: -70.66580,
+      isUnderground: true
+    },
+    {
+      id: 'P7',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes S-T (Corte D-D\')',
+      recinto: 'Relaciones Públicas (Jefatura + 2 Prof.)',
+      rol: 'Zona Crítica 3 (RR.PP.)',
+      x: -28, y: -3.2, z: 0,
+      svgX: 147, svgY: 425,
+      secX: 19.5, secY: 91.5,
+      fl1X: 79.5, fl1Y: 73.5,
+      lat: -33.48857, lon: -70.66594,
+      isUnderground: true
+    },
+    {
+      id: 'P8',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes K-P (Corte D-D\')',
+      recinto: 'Archivo Municipal e Inventario',
+      rol: 'Fondo Bajo Losa',
+      x: 4, y: -3.2, z: 4,
+      svgX: 645, svgY: 425,
+      secX: 38.5, secY: 91.5,
+      fl1X: 57.5, fl1Y: 73.5,
+      lat: -33.48852, lon: -70.66535,
+      isUnderground: true
+    }
   ];
 
   const SUBTEL_TOWERS = [
@@ -943,6 +1354,18 @@
     { id: 'T8', dist: 573, az: 212, card: 'SSO', lat: -33.492969, lon: -70.668775, heightM: 12, ops: ['WOM'], primaryOp: 'WOM', code: 'RM3502', addr: 'Av. Club Hípico N° 4811', tech: '3G / 4G / 5G', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS' },
     { id: 'T9', dist: 684, az: 241, card: 'OSO', lat: -33.491544, lon: -70.671981, heightM: 28, ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'MSA614 / 43_687', addr: 'Av. La Marina N° 2725', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS' },
     { id: 'T10', dist: 726, az: 160, card: 'SSE', lat: -33.494722, lon: -70.662778, heightM: 30, ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'USA803 / INA2U', addr: 'Av. J.J. Prieto N° 4850', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 + Banda 2' }
+  ];
+
+  const CHECKLIST_ITEMS = [
+    { id: 'c1', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Anunciarse en recepción (Av. Salvador Allende 2029) y firmar AST con Prevencionista.' },
+    { id: 'c2', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Verificar EPP completo: casco con barbiquejo, calzado dieléctrico, chaleco reflectante y linterna.' },
+    { id: 'c3', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Inspeccionar barandas en Azotea (Eje N–P) y punto de tierra física para Protector Relámpago 859902.' },
+    { id: 'c4', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Identificar rutas de evacuación del Nivel -1 (Escalera Eje P–Q y Escalera Patio Inglés Ejes L–N).' },
+    { id: 'c5', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Medir en P1 (Azotea Eje P–Q) potencia de Bandas B5 (850), B4 (AWS) y B2 (1900) para Antena Omni Plus 314422.' },
+    { id: 'c6', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Confirmar que tramo Azotea → Amplificador sea ≤ 18,28 m (rollo Wilson400 952360 incluido en kit).' },
+    { id: 'c7', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Confirmar que tramo Amplificador → Antena Domo 314407 sea ≤ 22,86 m (rollo Wilson400 952375 incluido en kit).' },
+    { id: 'c8', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Verificar material de tabiques entre Informática (Q–S), RR.PP. (S–T) y Archivo (K–P) para evaluar 1 Domo o Splitter.' },
+    { id: 'c9', cat: 'Normativa SUBTEL y Cierre Comercial', text: 'Validar aislamiento vertical (>89 dB requerido para los 74 dB del Office 200) y confirmar >10 usuarios con Álvaro Carreño.' }
   ];
 
   const PHOTOS_DATA = [
@@ -968,54 +1391,182 @@
     { file: '20-patio-hundido-fachada-nivel-1.png', cat: 'subterraneo', pt: 'P4 / P5', title: 'Fachada Zócalo Nivel -1 desde Patio Hundido', desc: 'Acceso de luz hacia las oficinas subterráneas de Informática y RR.PP.' }
   ];
 
+  // State
   let measurements = {};
+  let selectedOperator = 'ALL';
   let selectedPoint = 'P6';
   let selectedTowerId = 'T4';
+  let currentMainTab = 'tab3d';
+  let current3dMode = 'xray';
   let wilsonSimActive = false;
   let wilsonSimMode = 'office200_2ant';
-  let current3dMode = 'xray'; // xray | full | explode
 
-  // Default Simulation Baseline (from mediciones_pac_terreno1.csv)
+  const MODEL_PROFILES = {
+    office200_1ant: {
+      name: 'OFFICE 200 (74dB · 1 Domo)',
+      donorLabel: 'Antena Omni Plus 314422 + Protector 859902',
+      twoBranches: false,
+      boost: { P3: 11, P4: 25, P5: 33, P6: 32, P7: 20, P8: 15 }
+    },
+    office200_2ant: {
+      name: 'OFFICE 200 (74dB · 2 Domos)',
+      donorLabel: 'Antena Omni Plus 314422 + Protector 859902',
+      twoBranches: true,
+      boost: { P3: 15, P4: 28, P5: 34, P6: 34, P7: 31, P8: 26 }
+    },
+    wilsonpro_1300r: {
+      name: 'PRO 1300R (70dB · Cloud)',
+      donorLabel: 'Antena LPDA Directiva 314411 + Cloud LTE',
+      twoBranches: true,
+      boost: { P3: 14, P4: 27, P5: 33, P6: 33, P7: 29, P8: 25 }
+    },
+    wilsonpro_4300r: {
+      name: 'ENTERPRISE 4300R (4 Puertos)',
+      donorLabel: '3× Antenas LPDA (Multi-Tower MTT)',
+      twoBranches: true,
+      boost: { P3: 20, P4: 32, P5: 36, P6: 36, P7: 35, P8: 33 }
+    }
+  };
+
   function getDefaultData() {
     return {
-      P0: { Entel: { rsrp: -79, voz: 5 }, Movistar: { rsrp: -81, voz: 5 }, Claro: { rsrp: -83, voz: 4 }, WOM: { rsrp: -80, voz: 5 } },
-      P1: { Entel: { rsrp: -74, voz: 5 }, Movistar: { rsrp: -76, voz: 5 }, Claro: { rsrp: -78, voz: 5 }, WOM: { rsrp: -75, voz: 5 } },
-      P2: { Entel: { rsrp: -91, voz: 4 }, Movistar: { rsrp: -93, voz: 4 }, Claro: { rsrp: -95, voz: 3 }, WOM: { rsrp: -96, voz: 3 } },
-      P3: { Entel: { rsrp: -99, voz: 3 }, Movistar: { rsrp: -101, voz: 2 }, Claro: { rsrp: -103, voz: 2 }, WOM: { rsrp: -104, voz: 2 } },
-      P4: { Entel: { rsrp: -106, voz: 2 }, Movistar: { rsrp: -108, voz: 1 }, Claro: { rsrp: -111, voz: 1 }, WOM: { rsrp: -112, voz: 1 } },
-      P5: { Entel: { rsrp: -108, voz: 1 }, Movistar: { rsrp: -110, voz: 1 }, Claro: { rsrp: -113, voz: 1 }, WOM: { rsrp: -114, voz: 1 } },
-      P6: { Entel: { rsrp: -109, voz: 1 }, Movistar: { rsrp: -111, voz: 1 }, Claro: { rsrp: -114, voz: 1 }, WOM: { rsrp: -115, voz: 1 } },
-      P7: { Entel: { rsrp: -110, voz: 1 }, Movistar: { rsrp: -112, voz: 1 }, Claro: { rsrp: -114, voz: 1 }, WOM: { rsrp: -116, voz: 1 } },
-      P8: { Entel: { rsrp: -113, voz: 1 }, Movistar: { rsrp: -115, voz: 1 }, Claro: { rsrp: -117, voz: 1 }, WOM: { rsrp: -118, voz: 1 } }
+      P0: {
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -79, rsrq: -9,  sinr: 16, conecta: 'S', voz: 5 },
+        Movistar: { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -81, rsrq: -10, sinr: 14, conecta: 'S', voz: 5 },
+        Claro:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -83, rsrq: -11, sinr: 13, conecta: 'S', voz: 4 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -80, rsrq: -10, sinr: 15, conecta: 'S', voz: 5 }
+      },
+      P1: {
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -74, rsrq: -8,  sinr: 19, conecta: 'S', voz: 5 },
+        Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -76, rsrq: -9,  sinr: 18, conecta: 'S', voz: 5 },
+        Claro:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -78, rsrq: -9,  sinr: 16, conecta: 'S', voz: 5 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -75, rsrq: -8,  sinr: 18, conecta: 'S', voz: 5 }
+      },
+      P2: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -91, rsrq: -12, sinr: 8,  conecta: 'S', voz: 4 },
+        Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -93, rsrq: -13, sinr: 7,  conecta: 'S', voz: 4 },
+        Claro:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -95, rsrq: -14, sinr: 5,  conecta: 'S', voz: 3 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -96, rsrq: -14, sinr: 6,  conecta: 'S', voz: 3 }
+      },
+      P3: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -99,  rsrq: -15, sinr: 3,  conecta: 'S', voz: 3 },
+        Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -101, rsrq: -16, sinr: 1,  conecta: 'S', voz: 2 },
+        Claro:    { tec: '3G',     banda: 'B5 (850)',  rsrp: -103, rsrq: -17, sinr: 0,  conecta: 'S', voz: 2 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -104, rsrq: -18, sinr: -1, conecta: 'N', voz: 2 }
+      },
+      P4: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -106, rsrq: -18, sinr: -2, conecta: 'N', voz: 2 },
+        Movistar: { tec: '3G',     banda: 'B5 (850)',  rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -112, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 }
+      },
+      P5: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 }
+      },
+      P6: {
+        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -109, rsrq: -19, sinr: -4, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -115, rsrq: -20, sinr: -8, conecta: 'N', voz: 1 }
+      },
+      P7: {
+        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -112, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -116, rsrq: -20, sinr: -8, conecta: 'N', voz: 1 }
+      },
+      P8: {
+        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -115, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -117, rsrq: -20, sinr: -9, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -118, rsrq: -20, sinr: -9, conecta: 'N', voz: 1 }
+      }
     };
   }
 
-  function getEffectiveRSRP(ptId, op) {
-    const raw = (measurements[ptId] && measurements[ptId][op] && measurements[ptId][op].rsrp) || -110;
-    if (!wilsonSimActive) return raw;
-    const boostMap = { P3: 15, P4: 28, P5: 34, P6: 34, P7: 31, P8: 26 };
-    const boost = boostMap[ptId] || 0;
-    return Math.min(-71, raw + boost);
+  function loadState() {
+    const s = localStorage.getItem('pac_rf_measurements_v2');
+    if (s) {
+      try { measurements = JSON.parse(s); }
+      catch(e) { measurements = getDefaultData(); }
+    } else {
+      measurements = getDefaultData();
+    }
   }
 
-  function getPointAvgRSRP(ptId) {
-    let sum = 0;
-    OPERATORS.forEach(op => { sum += getEffectiveRSRP(ptId, op); });
-    return Math.round(sum / OPERATORS.length);
+  function saveState() {
+    localStorage.setItem('pac_rf_measurements_v2', JSON.stringify(measurements));
+  }
+
+  function getEffectiveRecord(ptId, op) {
+    const raw = (measurements[ptId] && measurements[ptId][op]) || { rsrp: -110, rsrq: -18, sinr: -5, conecta: 'N', voz: 1 };
+    if (!wilsonSimActive) return { ...raw };
+
+    const profile = MODEL_PROFILES[wilsonSimMode] || MODEL_PROFILES.office200_2ant;
+    const boost = profile.boost[ptId] || 0;
+    if (!boost || raw.rsrp === '' || isNaN(Number(raw.rsrp))) return { ...raw };
+
+    const newRsrp = Math.min(-71, Number(raw.rsrp) + boost);
+    const newRsrq = Math.min(-7, Number(raw.rsrq || -18) + Math.round(boost * 0.3));
+    const newSinr = Math.min(21, Number(raw.sinr || -5) + Math.round(boost * 0.6));
+    const newVoz = newRsrp >= -85 ? 5 : (newRsrp >= -95 ? 4 : (newRsrp >= -102 ? 3 : 2));
+    return {
+      tec: '4G VoLTE',
+      banda: op === 'WOM' ? 'B4 (AWS)' : (op === 'Movistar' ? 'B5 (850)' : 'B2 (1900)'),
+      rsrp: newRsrp,
+      rsrq: newRsrq,
+      sinr: newSinr,
+      conecta: newRsrp >= -102 ? 'S' : 'N',
+      voz: newVoz
+    };
+  }
+
+  function getPointAggregatedMetric(ptId) {
+    const ops = selectedOperator === 'ALL' ? OPERATORS : [selectedOperator];
+    let sumRsrp = 0, count = 0, sumVoz = 0;
+    ops.forEach(op => {
+      const rec = getEffectiveRecord(ptId, op);
+      if (rec.rsrp !== '' && !isNaN(Number(rec.rsrp))) {
+        sumRsrp += Number(rec.rsrp);
+        sumVoz += Number(rec.voz || 1);
+        count++;
+      }
+    });
+    if (count === 0) return { rsrp: null, voz: null };
+    return {
+      rsrp: Math.round(sumRsrp / count),
+      voz: (sumVoz / count).toFixed(1)
+    };
+  }
+
+  function rsrpToColor(rsrp) {
+    if (rsrp === null || rsrp === '' || isNaN(rsrp)) return '#64748b';
+    const v = Number(rsrp);
+    if (v >= -85) return '#16a34a';
+    if (v >= -95) return '#ca8a04';
+    if (v >= -105) return '#ea580c';
+    return '#dc2626';
   }
 
   function rsrpToHexColor(rsrp) {
-    if (rsrp >= -85) return 0x16a34a; // Green
-    if (rsrp >= -95) return 0xca8a04; // Yellow
-    if (rsrp >= -105) return 0xea580c; // Orange
-    return 0xdc2626; // Red
+    if (rsrp === null || rsrp === '' || isNaN(rsrp)) return 0x64748b;
+    const v = Number(rsrp);
+    if (v >= -85) return 0x16a34a;
+    if (v >= -95) return 0xca8a04;
+    if (v >= -105) return 0xea580c;
+    return 0xdc2626;
   }
 
-  function rsrpToCssColor(rsrp) {
-    if (rsrp >= -85) return '#16a34a';
-    if (rsrp >= -95) return '#ca8a04';
-    if (rsrp >= -105) return '#ea580c';
-    return '#dc2626';
+  function rsrpToLabel(rsrp) {
+    if (rsrp === null || rsrp === '' || isNaN(rsrp)) return 'Pendiente';
+    const v = Number(rsrp);
+    if (v >= -85) return 'Excelente HD';
+    if (v >= -95) return 'Buena';
+    if (v >= -105) return 'Regular / Débil';
+    return 'Sin Cobertura';
   }
 
   // --- THREE.JS 3D ARCHITECTURAL MODEL ---
@@ -1065,7 +1616,6 @@
     grid.position.y = -3.22;
     scene.add(grid);
 
-    // Architectural Groups
     groupBasement = new THREE.Group();
     groupLevel1 = new THREE.Group();
     groupLevel2 = new THREE.Group();
@@ -1090,13 +1640,8 @@
     animate();
   }
 
-  function makeBox(w, h, d, color, opacity = 1, wireframe = false) {
-    const mat = new THREE.MeshLambertMaterial({
-      color,
-      transparent: opacity < 1,
-      opacity,
-      wireframe
-    });
+  function makeBox(w, h, d, color, opacity = 1) {
+    const mat = new THREE.MeshLambertMaterial({ color, transparent: opacity < 1, opacity });
     const geom = new THREE.BoxGeometry(w, h, d);
     const mesh = new THREE.Mesh(geom, mat);
     mesh.castShadow = true;
@@ -1105,70 +1650,66 @@
   }
 
   function buildArchitecturalGeometry() {
-    // 1. NIVEL -1 (SUBTERRÁNEO cota -3.20m a 0.00m, h = 3.2m)
-    // Floor Slab
+    // 1. NIVEL -1
     const bFloor = makeBox(70, 0.3, 24, 0x1e293b);
     bFloor.position.set(0, -3.2, 0);
     groupBasement.add(bFloor);
 
-    // Room 1: Relaciones Públicas (Ejes S-T, P7)
+    // Relaciones Públicas (P7)
     const bRRPP = makeBox(10, 3.0, 14, 0x334155, 0.7);
     bRRPP.position.set(-27, -1.6, 0);
     groupBasement.add(bRRPP);
 
-    // Room 2: Jefe Informática Álvaro Carreño (Ejes R-S, P6)
+    // Jefe Informática Álvaro Carreño (P6)
     const bJefeTI = makeBox(9, 3.0, 14, 0x1e40af, 0.75);
     bJefeTI.position.set(-18, -1.6, 0);
     groupBasement.add(bJefeTI);
 
-    // Room 3: 2 Técnicos TI + Bodega (Ejes Q-R, P5)
-    const bTecnicosTI = makeBox(9, 3.0, 14, 0x0284c7, 0.75);
-    bTecnicosTI.position.set(-9.5, -1.6, 0);
-    groupBasement.add(bTecnicosTI);
+    // 2 Técnicos TI + Bodega (P5)
+    const bTecTI = makeBox(9, 3.0, 14, 0x0284c7, 0.75);
+    bTecTI.position.set(-9.5, -1.6, 0);
+    groupBasement.add(bTecTI);
 
-    // Room 4: Hall Subterráneo / Escalera / Shaft GI 07/08 (Ejes P-Q, P4)
+    // Hall Subterráneo / Shaft GI 07/08 (P4)
     const bHall = makeBox(7, 3.0, 14, 0x475569, 0.65);
     bHall.position.set(-1.5, -1.6, 0);
     groupBasement.add(bHall);
 
-    // Room 5: Archivo e Inventario (Ejes K-P, P8)
+    // Archivo e Inventario (P8)
     const bArchivo = makeBox(16, 3.0, 14, 0x334155, 0.7);
     bArchivo.position.set(10, -1.6, 0);
     groupBasement.add(bArchivo);
 
-    // Room 6: Patio Inglés Hundido (Ejes L-N, P3)
-    const bPatioHundido = makeBox(14, 1.2, 8, 0x0284c7, 0.35);
-    bPatioHundido.position.set(8, -2.5, -9);
-    groupBasement.add(bPatioHundido);
+    // Patio Inglés Hundido (P3)
+    const bPatio = makeBox(14, 1.2, 8, 0x0284c7, 0.35);
+    bPatio.position.set(8, -2.5, -9);
+    groupBasement.add(bPatio);
 
-    // 2. NIVEL 1 (+0.45m a +4.35m, h = 3.9m)
+    // 2. NIVEL 1
     const l1Slab = makeBox(70, 0.35, 24, 0x64748b, 0.85);
     l1Slab.position.set(0, 0.3, 0);
     groupLevel1.add(l1Slab);
 
-    // Acceso Principal Salvador Allende 2029 (Ejes A-D, P0)
     const l1Acceso = makeBox(14, 3.6, 20, 0x38bdf8, 0.35);
     l1Acceso.position.set(26, 2.2, 0);
     groupLevel1.add(l1Acceso);
 
-    // Sala Racks y Central de Servidores (Ejes P-Q, P2)
     const l1Racks = makeBox(7, 3.6, 10, 0x0284c7, 0.7);
     l1Racks.position.set(-1.5, 2.2, 0);
     groupLevel1.add(l1Racks);
 
-    // Volumen Ovalado Sala de Concejo Municipal (Acero Corten Óxido real!)
+    // Volumen Ovalado Sala de Concejo Municipal (Acero Corten Óxido real)
     const ovalGeom = new THREE.CylinderGeometry(7, 8, 4.2, 32);
     const ovalMat = new THREE.MeshLambertMaterial({ color: 0x9a3412, transparent: true, opacity: 0.88 });
     const ovalConcejo = new THREE.Mesh(ovalGeom, ovalMat);
     ovalConcejo.position.set(14, 2.5, -10);
     groupLevel1.add(ovalConcejo);
 
-    // Galerías Nivel 1 Vidriadas Inclinadas
     const l1Galeria = makeBox(34, 3.6, 12, 0x94a3b8, 0.3);
     l1Galeria.position.set(-17, 2.2, 0);
     groupLevel1.add(l1Galeria);
 
-    // 3. NIVEL 2 (+4.35m a +8.25m, h = 3.9m)
+    // 3. NIVEL 2
     const l2Slab = makeBox(68, 0.35, 22, 0x64748b, 0.85);
     l2Slab.position.set(0, 4.35, 0);
     groupLevel2.add(l2Slab);
@@ -1181,12 +1722,11 @@
     l2Secplan.position.set(16, 6.2, 0);
     groupLevel2.add(l2Secplan);
 
-    // 4. CUBIERTA / CASETA AZOTEA (+8.25m a +11.20m, P1)
+    // 4. CUBIERTA / AZOTEA
     const roofSlab = makeBox(68, 0.3, 22, 0x475569, 0.9);
     roofSlab.position.set(0, 8.25, 0);
     groupRoof.add(roofSlab);
 
-    // Caseta Núcleo Ascensores en Ejes P-Q
     const caseta = makeBox(8, 3.2, 12, 0x334155);
     caseta.position.set(-1.5, 9.85, 0);
     groupRoof.add(caseta);
@@ -1195,7 +1735,7 @@
   function buildWilsonHardware3D() {
     groupHardware.clear();
 
-    // Mástil y Antena Donante Omni Plus 314422 en Azotea (+8.25m)
+    // Mástil & Antena Donante 314422 (P1)
     const mastGeom = new THREE.CylinderGeometry(0.12, 0.12, 3.5, 12);
     const mastMat = new THREE.MeshLambertMaterial({ color: 0x94a3b8 });
     const mast = new THREE.Mesh(mastGeom, mastMat);
@@ -1208,7 +1748,7 @@
     antDonor.position.set(-1.5, 14.2, 0);
     groupHardware.add(antDonor);
 
-    // Bajada Coaxial Wilson400 por Shaft GI 07/08 (Naranja)
+    // Coaxial Wilson400 bajada por Shaft GI 07/08
     const cableCurve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(-1.5, 13.8, 0),
       new THREE.Vector3(-1.5, 8.25, 0),
@@ -1221,12 +1761,12 @@
     const cableMesh = new THREE.Mesh(tubeGeom, tubeMat);
     groupHardware.add(cableMesh);
 
-    // Amplificador Office 200 en cielo piso -1
+    // Amplificador Office 200
     const ampBox = makeBox(1.6, 0.5, 1.2, 0xea580c);
     ampBox.position.set(-10, -2.7, 0);
     groupHardware.add(ampBox);
 
-    // Antena Domo Interior 314407 (frente a Informática Ejes Q-R)
+    // Antena Domo 314407
     const domeGeom = new THREE.SphereGeometry(0.65, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2);
     const domeMat = new THREE.MeshLambertMaterial({ color: 0x38bdf8 });
     const dome = new THREE.Mesh(domeGeom, domeMat);
@@ -1234,15 +1774,9 @@
     dome.position.set(-12, -2.6, 0);
     groupHardware.add(dome);
 
-    // Cúpula RF Irradiada (visible cuando simulador está ON)
     if (wilsonSimActive) {
       const rfSphereGeom = new THREE.SphereGeometry(14, 24, 18);
-      const rfSphereMat = new THREE.MeshLambertMaterial({
-        color: 0x22c55e,
-        transparent: true,
-        opacity: 0.22,
-        wireframe: false
-      });
+      const rfSphereMat = new THREE.MeshLambertMaterial({ color: 0x22c55e, transparent: true, opacity: 0.22 });
       const rfSphere = new THREE.Mesh(rfSphereGeom, rfSphereMat);
       rfSphere.position.set(-14, -2.6, 0);
       groupHardware.add(rfSphere);
@@ -1254,8 +1788,8 @@
     sphereMeshes = {};
 
     POINTS_META.forEach(pt => {
-      const avgRsrp = getPointAvgRSRP(pt.id);
-      const col = rsrpToHexColor(avgRsrp);
+      const agg = getPointAggregatedMetric(pt.id);
+      const col = rsrpToHexColor(agg.rsrp);
       const isSel = pt.id === selectedPoint;
 
       const geom = new THREE.SphereGeometry(isSel ? 1.4 : 1.05, 16, 16);
@@ -1270,7 +1804,6 @@
       groupNodes.add(mesh);
       sphereMeshes[pt.id] = mesh;
 
-      // Anillo de selección
       if (isSel) {
         const ringGeom = new THREE.RingGeometry(1.6, 1.9, 24);
         const ringMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide });
@@ -1289,29 +1822,18 @@
     document.getElementById('btnModeExplode').classList.toggle('active', mode === 'explode');
 
     if (mode === 'xray') {
-      groupBasement.visible = true;
-      groupBasement.position.y = 0;
-      groupLevel1.visible = false;
-      groupLevel2.visible = false;
-      groupRoof.visible = false;
+      groupBasement.visible = true; groupBasement.position.y = 0;
+      groupLevel1.visible = false; groupLevel2.visible = false; groupRoof.visible = false;
     } else if (mode === 'full') {
-      groupBasement.visible = true;
-      groupBasement.position.y = 0;
-      groupLevel1.visible = true;
-      groupLevel1.position.y = 0;
-      groupLevel2.visible = true;
-      groupLevel2.position.y = 0;
-      groupRoof.visible = true;
-      groupRoof.position.y = 0;
+      groupBasement.visible = true; groupBasement.position.y = 0;
+      groupLevel1.visible = true; groupLevel1.position.y = 0;
+      groupLevel2.visible = true; groupLevel2.position.y = 0;
+      groupRoof.visible = true; groupRoof.position.y = 0;
     } else if (mode === 'explode') {
-      groupBasement.visible = true;
-      groupBasement.position.y = -6;
-      groupLevel1.visible = true;
-      groupLevel1.position.y = 0;
-      groupLevel2.visible = true;
-      groupLevel2.position.y = 6;
-      groupRoof.visible = true;
-      groupRoof.position.y = 12;
+      groupBasement.visible = true; groupBasement.position.y = -6;
+      groupLevel1.visible = true; groupLevel1.position.y = 0;
+      groupLevel2.visible = true; groupLevel2.position.y = 6;
+      groupRoof.visible = true; groupRoof.position.y = 12;
     }
   }
 
@@ -1357,10 +1879,124 @@
     if (renderer && scene && camera) renderer.render(scene, camera);
   }
 
-  // --- INSPECTOR LOGIC ---
+  // --- 2D SCHEMATIC SVG & PLAN PINS ---
+  function renderSchematicNodes() {
+    const halosLayer = document.getElementById('svgHalosLayer');
+    const nodesLayer = document.getElementById('svgNodesLayer');
+    if (!halosLayer || !nodesLayer) return;
+
+    halosLayer.innerHTML = '';
+    nodesLayer.innerHTML = '';
+
+    const profile = MODEL_PROFILES[wilsonSimMode] || MODEL_PROFILES.office200_2ant;
+    const wilsonGroup = document.getElementById('wilsonOverlayGroup');
+    if (wilsonGroup) wilsonGroup.setAttribute('opacity', wilsonSimActive ? '1' : '0.35');
+    const branch2 = document.getElementById('wilsonSecondBranch');
+    if (branch2) branch2.style.display = profile.twoBranches ? 'block' : 'none';
+
+    POINTS_META.forEach(pt => {
+      const agg = getPointAggregatedMetric(pt.id);
+      const col = rsrpToColor(agg.rsrp);
+      const isSelected = pt.id === selectedPoint;
+
+      // Halo
+      const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      halo.setAttribute('cx', pt.svgX);
+      halo.setAttribute('cy', pt.svgY);
+      halo.setAttribute('r', pt.isUnderground ? 56 : 42);
+      halo.setAttribute('fill', col);
+      halo.setAttribute('opacity', '0.22');
+      halosLayer.appendChild(halo);
+
+      // Node Group
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.style.cursor = 'pointer';
+      g.onclick = () => selectPoint(pt.id);
+
+      if (isSelected) {
+        const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        ring.setAttribute('cx', pt.svgX);
+        ring.setAttribute('cy', pt.svgY);
+        ring.setAttribute('r', 27);
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', '#38bdf8');
+        ring.setAttribute('stroke-width', '3');
+        ring.setAttribute('stroke-dasharray', '4 2');
+        g.appendChild(ring);
+      }
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', pt.svgX);
+      circle.setAttribute('cy', pt.svgY);
+      circle.setAttribute('r', 20);
+      circle.setAttribute('fill', col);
+      circle.setAttribute('stroke', '#ffffff');
+      circle.setAttribute('stroke-width', isSelected ? '3.5' : '2');
+      g.appendChild(circle);
+
+      const idTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      idTxt.setAttribute('x', pt.svgX);
+      idTxt.setAttribute('y', pt.svgY - 3);
+      idTxt.setAttribute('text-anchor', 'middle');
+      idTxt.setAttribute('fill', '#0f172a');
+      idTxt.setAttribute('font-size', '12');
+      idTxt.setAttribute('font-weight', '900');
+      idTxt.textContent = pt.id;
+      g.appendChild(idTxt);
+
+      const valTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      valTxt.setAttribute('x', pt.svgX);
+      valTxt.setAttribute('y', pt.svgY + 10);
+      valTxt.setAttribute('text-anchor', 'middle');
+      valTxt.setAttribute('fill', '#0f172a');
+      valTxt.setAttribute('font-size', '9.5');
+      valTxt.setAttribute('font-weight', '800');
+      valTxt.textContent = agg.rsrp !== null ? `${agg.rsrp}` : '--';
+      g.appendChild(valTxt);
+
+      nodesLayer.appendChild(g);
+    });
+  }
+
+  function renderPlanPins() {
+    const secLayer = document.getElementById('pinsSectionLayer');
+    const fl1Layer = document.getElementById('pinsFloor1Layer');
+    if (!secLayer || !fl1Layer) return;
+
+    secLayer.innerHTML = '';
+    fl1Layer.innerHTML = '';
+
+    POINTS_META.forEach(pt => {
+      const agg = getPointAggregatedMetric(pt.id);
+      const col = rsrpToColor(agg.rsrp);
+      const labelText = agg.rsrp !== null ? `${pt.id}: ${agg.rsrp} dBm` : pt.id;
+
+      const pinSec = document.createElement('div');
+      pinSec.className = 'plan-pin-node' + (pt.id === selectedPoint ? ' selected' : '');
+      pinSec.style.left = pt.secX + '%';
+      pinSec.style.top = pt.secY + '%';
+      pinSec.style.background = col;
+      pinSec.innerHTML = `${pt.id}<span class="plan-pin-label">${labelText}</span>`;
+      pinSec.onclick = () => selectPoint(pt.id);
+      secLayer.appendChild(pinSec);
+
+      const pinFl1 = document.createElement('div');
+      pinFl1.className = 'plan-pin-node' + (pt.id === selectedPoint ? ' selected' : '');
+      pinFl1.style.left = pt.fl1X + '%';
+      pinFl1.style.top = pt.fl1Y + '%';
+      pinFl1.style.background = col;
+      pinFl1.innerHTML = `${pt.id}<span class="plan-pin-label">${labelText}</span>`;
+      pinFl1.onclick = () => selectPoint(pt.id);
+      fl1Layer.appendChild(pinFl1);
+    });
+  }
+
+  // --- POINT INSPECTOR ---
   function selectPoint(pid) {
     selectedPoint = pid;
     renderInspector();
+    renderSchematicNodes();
+    renderPlanPins();
     buildMeasurementSpheres();
   }
 
@@ -1374,36 +2010,48 @@
     container.innerHTML = '';
 
     OPERATORS.forEach(op => {
-      const effRsrp = getEffectiveRSRP(pt.id, op);
-      const col = rsrpToCssColor(effRsrp);
-      const rawRec = (measurements[pt.id] && measurements[pt.id][op]) || { voz: 1 };
+      const eff = getEffectiveRecord(pt.id, op);
+      const col = rsrpToColor(eff.rsrp);
 
       const card = document.createElement('div');
       card.className = 'op-row';
       card.innerHTML = `
         <div class="op-row-header">
           <span style="color:${OP_COLORS[op]}">${op}</span>
-          <span style="color:${col}; font-weight:800;">${effRsrp} dBm</span>
+          <span style="color:${col}; font-weight:800;">${eff.rsrp} dBm · ${rsrpToLabel(eff.rsrp)}</span>
         </div>
         <div class="op-fields-grid">
           <div class="op-field">
             <label>RSRP (dBm)</label>
-            <input type="number" value="${effRsrp}" ${wilsonSimActive ? 'disabled' : ''} onchange="updateRawRSRP('${pt.id}','${op}',this.value)" />
+            <input type="number" value="${eff.rsrp}" ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${pt.id}','${op}','rsrp',this.value)" />
+          </div>
+          <div class="op-field">
+            <label>RSRQ (dB)</label>
+            <input type="number" value="${eff.rsrq || -12}" ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${pt.id}','${op}','rsrq',this.value)" />
+          </div>
+          <div class="op-field">
+            <label>SINR (dB)</label>
+            <input type="number" value="${eff.sinr || 10}" ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${pt.id}','${op}','sinr',this.value)" />
+          </div>
+          <div class="op-field">
+            <label>Banda</label>
+            <input type="text" value="${eff.banda || 'B2'}" ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${pt.id}','${op}','banda',this.value)" />
           </div>
           <div class="op-field">
             <label>Llamada</label>
-            <select ${wilsonSimActive ? 'disabled' : ''}>
-              <option value="S" ${effRsrp >= -102 ? 'selected' : ''}>Sí (Conecta)</option>
-              <option value="N" ${effRsrp < -102 ? 'selected' : ''}>No (Falla)</option>
+            <select ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${pt.id}','${op}','conecta',this.value)">
+              <option value="S" ${eff.conecta === 'S' ? 'selected' : ''}>Sí (Conecta)</option>
+              <option value="N" ${eff.conecta === 'N' ? 'selected' : ''}>No (Falla)</option>
             </select>
           </div>
           <div class="op-field">
             <label>Voz (1-5)</label>
-            <select ${wilsonSimActive ? 'disabled' : ''}>
-              <option value="5" ${rawRec.voz === 5 ? 'selected' : ''}>5 - HD</option>
-              <option value="4" ${rawRec.voz === 4 ? 'selected' : ''}>4 - Buena</option>
-              <option value="2" ${rawRec.voz === 2 ? 'selected' : ''}>2 - Mala</option>
-              <option value="1" ${rawRec.voz === 1 ? 'selected' : ''}>1 - Corte</option>
+            <select ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${pt.id}','${op}','voz',this.value)">
+              <option value="5" ${Number(eff.voz) === 5 ? 'selected' : ''}>5 - HD</option>
+              <option value="4" ${Number(eff.voz) === 4 ? 'selected' : ''}>4 - Buena</option>
+              <option value="3" ${Number(eff.voz) === 3 ? 'selected' : ''}>3 - Regular</option>
+              <option value="2" ${Number(eff.voz) === 2 ? 'selected' : ''}>2 - Mala</option>
+              <option value="1" ${Number(eff.voz) === 1 ? 'selected' : ''}>1 - Corte</option>
             </select>
           </div>
         </div>
@@ -1412,68 +2060,184 @@
     });
   }
 
-  function updateRawRSRP(pid, op, val) {
-    if (!measurements[pid]) measurements[pid] = {};
-    if (!measurements[pid][op]) measurements[pid][op] = {};
-    measurements[pid][op].rsrp = Number(val);
+  function updateField(ptId, op, field, val) {
+    if (!measurements[ptId]) measurements[ptId] = {};
+    if (!measurements[ptId][op]) measurements[ptId][op] = {};
+    measurements[ptId][op][field] = (field === 'rsrp' || field === 'rsrq' || field === 'sinr' || field === 'voz')
+      ? (val === '' ? '' : Number(val))
+      : val;
+    saveState();
     renderAll();
   }
 
-  // --- PHOTO GALLERY ---
-  function renderPhotoGallery(filter = 'ALL') {
-    const container = document.getElementById('galleryGridContainer');
-    container.innerHTML = '';
+  // --- RSRP PROFILE CHART ---
+  function renderProfileChart() {
+    const svg = document.getElementById('profileChartSvg');
+    if (!svg) return;
+    svg.innerHTML = '';
 
-    const list = (filter === 'ALL') ? PHOTOS_DATA : PHOTOS_DATA.filter(p => p.cat === filter);
-    list.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'photo-card';
-      card.onclick = () => openPhotoModal(item);
-      card.innerHTML = `
-        <div class="photo-thumb-wrap">
-          <span class="photo-badge">${item.pt}</span>
-          <img src="./assets/fotos/${item.file}" alt="${item.title}" loading="lazy" />
-        </div>
-        <div class="photo-body">
-          <div class="photo-title">${item.title}</div>
-          <div class="photo-rf-desc">${item.desc}</div>
-        </div>
-      `;
-      container.appendChild(card);
+    const padL = 65, padR = 30, padT = 25, padB = 45;
+    const W = 1100 - padL - padR;
+    const H = 240 - padT - padB;
+    const minDbm = -125, maxDbm = -65;
+
+    const yForDbm = dbm => padT + ((maxDbm - dbm) / (maxDbm - minDbm)) * H;
+    const xForIdx = i => padL + (i / (POINTS_META.length - 1)) * W;
+
+    [-70, -80, -90, -100, -110, -120].forEach(dbm => {
+      const y = yForDbm(dbm);
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', padL);
+      line.setAttribute('x2', padL + W);
+      line.setAttribute('y1', y);
+      line.setAttribute('y2', y);
+      line.setAttribute('stroke', dbm === -90 ? '#16a34a' : (dbm === -105 ? '#dc2626' : '#e2e8f0'));
+      line.setAttribute('stroke-dasharray', dbm === -90 || dbm === -105 ? '5 3' : 'none');
+      line.setAttribute('stroke-width', dbm === -90 || dbm === -105 ? '1.5' : '1');
+      svg.appendChild(line);
+
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', padL - 8);
+      txt.setAttribute('y', y + 4);
+      txt.setAttribute('text-anchor', 'end');
+      txt.setAttribute('fill', '#64748b');
+      txt.setAttribute('font-size', '10.5');
+      txt.textContent = `${dbm} dBm`;
+      svg.appendChild(txt);
+    });
+
+    POINTS_META.forEach((pt, idx) => {
+      const x = xForIdx(idx);
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', x);
+      txt.setAttribute('y', padT + H + 20);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('fill', pt.id === selectedPoint ? '#145FA0' : '#1e293b');
+      txt.setAttribute('font-size', '11.5');
+      txt.setAttribute('font-weight', '700');
+      txt.textContent = pt.id;
+      svg.appendChild(txt);
+
+      const sub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      sub.setAttribute('x', x);
+      sub.setAttribute('y', padT + H + 34);
+      sub.setAttribute('text-anchor', 'middle');
+      sub.setAttribute('fill', '#94a3b8');
+      sub.setAttribute('font-size', '9.5');
+      sub.textContent = pt.eje.split(' ')[1] || pt.nivel.split(' ')[0];
+      svg.appendChild(sub);
+    });
+
+    OPERATORS.forEach(op => {
+      if (selectedOperator !== 'ALL' && selectedOperator !== op) return;
+      const pts = [];
+      POINTS_META.forEach((pt, idx) => {
+        const rec = getEffectiveRecord(pt.id, op);
+        if (rec.rsrp !== '' && !isNaN(Number(rec.rsrp))) {
+          pts.push({ x: xForIdx(idx), y: yForDbm(Number(rec.rsrp)) });
+        }
+      });
+      if (pts.length > 1) {
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', OP_COLORS[op]);
+        poly.setAttribute('stroke-width', '2.8');
+        poly.setAttribute('points', pts.map(p => `${p.x},${p.y}`).join(' '));
+        svg.appendChild(poly);
+      }
+      pts.forEach(p => {
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', p.x);
+        c.setAttribute('cy', p.y);
+        c.setAttribute('r', '4');
+        c.setAttribute('fill', OP_COLORS[op]);
+        c.setAttribute('stroke', '#ffffff');
+        c.setAttribute('stroke-width', '1.5');
+        svg.appendChild(c);
+      });
     });
   }
 
-  function filterGallery(cat, btn) {
-    document.querySelectorAll('.gallery-filter-bar .btn').forEach(b => b.classList.remove('btn-tecnovoa'));
-    if (btn) btn.classList.add('btn-tecnovoa');
-    renderPhotoGallery(cat);
+  // --- FULL MATRIX TABLE ---
+  function renderFullTable() {
+    const tbody = document.getElementById('fullTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    POINTS_META.forEach(pt => {
+      OPERATORS.forEach(op => {
+        if (selectedOperator !== 'ALL' && selectedOperator !== op) return;
+        const eff = getEffectiveRecord(pt.id, op);
+        const col = rsrpToColor(eff.rsrp);
+        const tr = document.createElement('tr');
+        tr.style.cursor = 'pointer';
+        tr.onclick = () => selectPoint(pt.id);
+        tr.innerHTML = `
+          <td><strong>${pt.id}</strong></td>
+          <td>${pt.nivel}</td>
+          <td>${pt.eje}</td>
+          <td>${pt.recinto}</td>
+          <td><span style="color:${OP_COLORS[op]};font-weight:700;">${op}</span></td>
+          <td>${eff.tec || '4G LTE'}</td>
+          <td>${eff.banda || 'B2'}</td>
+          <td><strong style="color:${col}">${eff.rsrp !== '' ? eff.rsrp + ' dBm' : '-'}</strong></td>
+          <td>${eff.rsrq || '-'}</td>
+          <td>${eff.sinr || '-'}</td>
+          <td>${eff.conecta === 'S' ? '✅ Sí' : '❌ No'}</td>
+          <td>${eff.voz || 1}/5</td>
+          <td><span style="display:inline-block; padding:2px 8px; border-radius:999px; background:${col}; color:#fff; font-size:10.5px; font-weight:700;">${rsrpToLabel(eff.rsrp)}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
   }
 
-  function openPhotoModal(item) {
-    document.getElementById('modalPhotoTitle').textContent = item.title;
-    document.getElementById('modalPhotoBadge').textContent = `Recinto / Punto: ${item.pt} · Categoría: ${item.cat}`;
-    document.getElementById('modalPhotoImg').src = `./assets/fotos/${item.file}`;
-    document.getElementById('modalPhotoDesc').textContent = item.desc;
-    document.getElementById('photoModal').style.display = 'flex';
+  // --- CHECKLIST ---
+  function renderChecklist() {
+    const savedChecks = JSON.parse(localStorage.getItem('pac_rf_checks_v2') || '{}');
+    const container = document.getElementById('checklistContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const categories = [...new Set(CHECKLIST_ITEMS.map(i => i.cat))];
+    categories.forEach(cat => {
+      const box = document.createElement('div');
+      box.className = 'check-card';
+      box.innerHTML = `<h4>${cat}</h4>`;
+
+      CHECKLIST_ITEMS.filter(i => i.cat === cat).forEach(item => {
+        const checked = !!savedChecks[item.id];
+        const lbl = document.createElement('label');
+        lbl.className = 'check-item' + (checked ? ' done' : '');
+        lbl.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleCheck('${item.id}', this.checked)" />
+          <span>${item.text}</span>
+        `;
+        box.appendChild(lbl);
+      });
+      container.appendChild(box);
+    });
   }
 
-  function closePhotoModal(e) {
-    document.getElementById('photoModal').style.display = 'none';
+  function toggleCheck(id, val) {
+    const savedChecks = JSON.parse(localStorage.getItem('pac_rf_checks_v2') || '{}');
+    savedChecks[id] = val;
+    localStorage.setItem('pac_rf_checks_v2', JSON.stringify(savedChecks));
+    renderChecklist();
   }
 
   // --- SUBTEL RADAR & ANTENNAS ---
   function renderSubtelRadar() {
     const svg = document.getElementById('subtelRadarSvg');
     if (!svg) return;
-    const cx = 270, cy = 260, maxRadius = 220, maxDist = 780;
+    const cx = 350, cy = 260, maxRadius = 220, maxDist = 780;
     const selTower = SUBTEL_TOWERS.find(t => t.id === selectedTowerId) || SUBTEL_TOWERS[3];
 
     let html = `
-      <rect x="0" y="0" width="850" height="520" fill="#070d19" />
+      <rect x="0" y="0" width="1000" height="520" fill="#070d19" />
       <circle cx="${cx}" cy="${cy}" r="${maxRadius}" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
     `;
 
-    // Distance Rings
     [200, 400, 600, 750].forEach(d => {
       const r = (d / maxDist) * maxRadius;
       html += `
@@ -1482,7 +2246,6 @@
       `;
     });
 
-    // Compass
     html += `
       <line x1="${cx}" y1="${cy - maxRadius}" x2="${cx}" y2="${cy + maxRadius}" stroke="#1e293b"/>
       <line x1="${cx - maxRadius}" y1="${cy}" x2="${cx + maxRadius}" y2="${cy}" stroke="#1e293b"/>
@@ -1492,13 +2255,11 @@
       <text x="${cx - maxRadius - 18}" y="${cy + 4}" fill="#64748b" font-size="11" font-weight="700" text-anchor="end">O (270°)</text>
     `;
 
-    // PAC Center
     html += `
-      <circle cx="${cx}" cy="${cy}" r="14" fill="#f97316" stroke="#ffffff" stroke-width="2.5"/>
+      <circle cx="${cx}" cy="${cy}" r="15" fill="#f97316" stroke="#ffffff" stroke-width="2.5"/>
       <text x="${cx}" y="${cy + 4}" fill="#ffffff" font-size="9" font-weight="900" text-anchor="middle">PAC</text>
     `;
 
-    // Towers
     SUBTEL_TOWERS.forEach(t => {
       const rad = (t.az - 90) * (Math.PI / 180);
       const r = (t.dist / maxDist) * maxRadius;
@@ -1508,7 +2269,7 @@
       const isSel = t.id === selTower.id;
 
       html += `
-        <line x1="${cx}" y1="${cy}" x2="${tx}" y2="${ty}" stroke="${col}" stroke-width="${isSel ? '2.5' : '1.2'}" stroke-dasharray="3 3" opacity="${isSel ? '1' : '0.45'}"/>
+        <line x1="${cx}" y1="${cy}" x2="${tx}" y2="${ty}" stroke="${col}" stroke-width="${isSel ? '2.8' : '1.3'}" stroke-dasharray="3 3" opacity="${isSel ? '1' : '0.45'}"/>
         <g style="cursor:pointer;" onclick="selectRadarTower('${t.id}')">
           ${isSel ? `<circle cx="${tx}" cy="${ty}" r="18" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="3 2"/>` : ''}
           <circle cx="${tx}" cy="${ty}" r="12" fill="${col}" stroke="#ffffff" stroke-width="1.8"/>
@@ -1518,25 +2279,24 @@
       `;
     });
 
-    // Side Info Inside SVG
     html += `
-      <rect x="540" y="20" width="290" height="480" rx="8" fill="#0f172a" stroke="#1e293b"/>
-      <text x="555" y="48" fill="#38bdf8" font-size="13" font-weight="800">📡 TORRE SELECCIONADA: ${selTower.id}</text>
-      <text x="555" y="70" fill="#94a3b8" font-size="11">Operador(es): ${selTower.ops.join(', ')}</text>
-      <text x="555" y="92" fill="#cbd5e1" font-size="11">Distancia: <strong>${selTower.dist} m</strong> · Azimut: <strong>${selTower.az}° (${selTower.card})</strong></text>
-      <text x="555" y="114" fill="#cbd5e1" font-size="11">Código SUBTEL: <code>${selTower.code}</code></text>
-      <text x="555" y="136" fill="#cbd5e1" font-size="11">Dirección: ${selTower.addr}</text>
-      <text x="555" y="158" fill="#cbd5e1" font-size="11">Soporte: ${selTower.heightM} m (${selTower.tech})</text>
-      <text x="555" y="180" fill="#f97316" font-size="11" font-weight="700">Bandas: ${selTower.bands}</text>
-      <text x="555" y="202" fill="#16a34a" font-size="11" font-weight="700">Calce: ${selTower.match}</text>
+      <rect x="680" y="20" width="300" height="480" rx="8" fill="#0f172a" stroke="#1e293b"/>
+      <text x="698" y="48" fill="#38bdf8" font-size="13" font-weight="800">📡 TORRE SELECCIONADA: ${selTower.id}</text>
+      <text x="698" y="70" fill="#94a3b8" font-size="11">Operador(es): ${selTower.ops.join(', ')}</text>
+      <text x="698" y="92" fill="#cbd5e1" font-size="11">Distancia: <strong>${selTower.dist} m</strong> · Azimut: <strong>${selTower.az}° (${selTower.card})</strong></text>
+      <text x="698" y="114" fill="#cbd5e1" font-size="11">Código SUBTEL: <code>${selTower.code}</code></text>
+      <text x="698" y="136" fill="#cbd5e1" font-size="11">Dirección: ${selTower.addr}</text>
+      <text x="698" y="158" fill="#cbd5e1" font-size="11">Soporte: ${selTower.heightM} m (${selTower.tech})</text>
+      <text x="698" y="180" fill="#f97316" font-size="11" font-weight="700">Bandas: ${selTower.bands}</text>
+      <text x="698" y="202" fill="#16a34a" font-size="11" font-weight="700">Calce: ${selTower.match}</text>
 
-      <text x="555" y="246" fill="#ffffff" font-size="12" font-weight="700">¿Por qué Antena Omni Plus 360°?</text>
-      <text x="555" y="268" fill="#94a3b8" font-size="10.5">• Oeste (235°–259°): Claro (163m), WOM (253m),</text>
-      <text x="555" y="284" fill="#94a3b8" font-size="10.5">  Entel+Movistar Parque Jarlán (346m).</text>
-      <text x="555" y="304" fill="#94a3b8" font-size="10.5">• Norte (5°–14°): WOM (332m), Entel+Claro (495m).</text>
-      <text x="555" y="324" fill="#94a3b8" font-size="10.5">• Este (110°–160°): Claro+Entel Ruta 5 (460m).</text>
-      <text x="555" y="352" fill="#16a34a" font-size="11" font-weight="700">✅ La antena donante Omni capta los 3 sectores</text>
-      <text x="555" y="368" fill="#16a34a" font-size="11" font-weight="700">   simultáneamente sin rotar antenas.</text>
+      <text x="698" y="246" fill="#ffffff" font-size="12" font-weight="700">¿Por qué Antena Omni Plus 360°?</text>
+      <text x="698" y="268" fill="#94a3b8" font-size="10.5">• Oeste (235°–259°): Claro (163m), WOM (253m),</text>
+      <text x="698" y="284" fill="#94a3b8" font-size="10.5">  Entel+Movistar Parque Jarlán (346m).</text>
+      <text x="698" y="304" fill="#94a3b8" font-size="10.5">• Norte (5°–14°): WOM (332m), Entel+Claro (495m).</text>
+      <text x="698" y="324" fill="#94a3b8" font-size="10.5">• Este (110°–160°): Claro+Entel Ruta 5 (460m).</text>
+      <text x="698" y="352" fill="#16a34a" font-size="11" font-weight="700">✅ La antena donante Omni capta los 3 sectores</text>
+      <text x="698" y="368" fill="#16a34a" font-size="11" font-weight="700">   simultáneamente sin rotar antenas.</text>
     `;
 
     svg.innerHTML = html;
@@ -1615,30 +2375,197 @@
     `;
   }
 
-  function showPlano2d(tipo, btn) {
-    document.querySelectorAll('#tabPlano2d .btn').forEach(b => b.classList.remove('btn-tecnovoa'));
-    if (btn) btn.classList.add('btn-tecnovoa');
-    const img = document.getElementById('plano2dImg');
-    if (tipo === 'corte') img.src = './Elevation-Sections-001.jpg';
-    else if (tipo === 'piso1') img.src = './First_Floor_Plan-001.jpg';
-    else if (tipo === 'piso2') img.src = './Second_Floor_Plan-001.jpg';
+  // --- PHOTO GALLERY ---
+  function renderPhotoGallery(filter = 'ALL') {
+    const container = document.getElementById('galleryGridContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const list = (filter === 'ALL') ? PHOTOS_DATA : PHOTOS_DATA.filter(p => p.cat === filter);
+    list.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'photo-card';
+      card.onclick = () => openPhotoModal(item);
+      card.innerHTML = `
+        <div class="photo-thumb-wrap">
+          <span class="photo-badge">${item.pt}</span>
+          <img src="./assets/fotos/${item.file}" alt="${item.title}" loading="lazy" />
+        </div>
+        <div class="photo-body">
+          <div class="photo-title">${item.title}</div>
+          <div class="photo-rf-desc">${item.desc}</div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
   }
 
-  // --- GENERAL CONTROLS ---
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.gallery-filter-bar .btn').forEach(b => b.classList.remove('btn-tecnovoa'));
+    if (btn) btn.classList.add('btn-tecnovoa');
+    renderPhotoGallery(cat);
+  }
+
+  function openPhotoModal(item) {
+    document.getElementById('modalPhotoTitle').textContent = item.title;
+    document.getElementById('modalPhotoBadge').textContent = `Recinto / Punto: ${item.pt} · Categoría: ${item.cat}`;
+    document.getElementById('modalPhotoImg').src = `./assets/fotos/${item.file}`;
+    document.getElementById('modalPhotoDesc').textContent = item.desc;
+    document.getElementById('photoModal').style.display = 'flex';
+  }
+
+  function closePhotoModal() {
+    document.getElementById('photoModal').style.display = 'none';
+  }
+
+  // --- G-NETTRACK LITE EXPORT ---
+  function exportGNetTrack() {
+    const now = new Date();
+    const dateStr = now.toISOString().replace('T', ' ').substring(0, 19);
+    // Official G-NetTrack Lite Tab-Delimited Log Structure
+    const headers = [
+      'Timestamp', 'Longitude', 'Latitude', 'Speed', 'Altitude',
+      'Operator', 'NetworkMode', 'CellID', 'LAC', 'PCI',
+      'RSRP', 'RSRQ', 'SNR', 'Level_dBm', 'Qual_1a5', 'Node_ID', 'Recinto', 'Nivel'
+    ];
+    const rows = [headers.join('\t')];
+
+    POINTS_META.forEach((pt, idx) => {
+      OPERATORS.forEach(op => {
+        const rec = getEffectiveRecord(pt.id, op);
+        const cellId = 100000 + idx * 10 + (op === 'Entel' ? 1 : op === 'Movistar' ? 2 : op === 'Claro' ? 3 : 4);
+        const lac = 2000 + (op === 'Entel' ? 10 : op === 'Movistar' ? 20 : op === 'Claro' ? 30 : 40);
+        const pci = 100 + idx * 4;
+        rows.push([
+          dateStr,
+          pt.lon,
+          pt.lat,
+          0,
+          pt.isUnderground ? 545 : 552,
+          op,
+          rec.tec || '4G LTE',
+          cellId,
+          lac,
+          pci,
+          rec.rsrp,
+          rec.rsrq || -12,
+          rec.sinr || 10,
+          rec.rsrp,
+          rec.voz || 1,
+          pt.id,
+          `"${pt.recinto}"`,
+          `"${pt.nivel}"`
+        ].join('\t'));
+      });
+    });
+
+    const blob = new Blob([rows.join('\n')], { type: 'text/tab-separated-values;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = wilsonSimActive ? 'pac_gnettrack_lite_wilson_on.txt' : 'pac_gnettrack_lite_terreno.txt';
+    a.click();
+  }
+
+  function exportCSV() {
+    const rows = [
+      'punto,nivel,eje_plano,recinto,compania,tecnologia,banda_mhz,rsrp_dbm,rsrq_db,sinr_db,llamada_conecta,calidad_voz_1a5'
+    ];
+    POINTS_META.forEach(pt => {
+      OPERATORS.forEach(op => {
+        const r = getEffectiveRecord(pt.id, op);
+        rows.push([
+          pt.id,
+          `"${pt.nivel}"`,
+          `"${pt.eje}"`,
+          `"${pt.recinto}"`,
+          op,
+          `"${r.tec || ''}"`,
+          `"${r.banda || ''}"`,
+          r.rsrp,
+          r.rsrq,
+          r.sinr,
+          r.conecta,
+          r.voz
+        ].join(','));
+      });
+    });
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = wilsonSimActive ? 'mediciones_pac_wilson_on.csv' : 'mediciones_pac_terreno.csv';
+    a.click();
+  }
+
+  function importCSV(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const lines = e.target.result.split(/\r?\n/).filter(Boolean);
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+        if (!cols || cols.length < 5) continue;
+        const clean = cols.map(c => c.replace(/^"|"$/g, ''));
+        const pid = clean[0];
+        const op = clean[4];
+        if (measurements[pid] && measurements[pid][op]) {
+          measurements[pid][op].tec = clean[5] || '4G LTE';
+          measurements[pid][op].banda = clean[6] || '';
+          measurements[pid][op].rsrp = clean[7] !== undefined && clean[7] !== '' ? Number(clean[7]) : '';
+          measurements[pid][op].rsrq = clean[8] !== undefined && clean[8] !== '' ? Number(clean[8]) : '';
+          measurements[pid][op].sinr = clean[9] !== undefined && clean[9] !== '' ? Number(clean[9]) : '';
+          measurements[pid][op].conecta = clean[10] || 'N';
+          measurements[pid][op].voz = clean[11] ? Number(clean[11]) : 1;
+        }
+      }
+      saveState();
+      renderAll();
+    };
+    reader.readAsText(file);
+  }
+
+  function exportBuildingOBJ() {
+    let obj = '# Centro Consistorial Municipalidad de Pedro Aguirre Cerda\n# Tecnovoa Integrador TI\n';
+    POINTS_META.forEach(p => {
+      obj += `v ${p.x} ${p.y} ${p.z}\n`;
+    });
+    const blob = new Blob([obj], { type: 'text/plain;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'edificio_pac_puntos_3d.obj';
+    a.click();
+  }
+
+  // --- GENERAL SWITCHES ---
   function switchMainTab(tabId, btn) {
+    currentMainTab = tabId;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    ['tab3d', 'tabFotos', 'tabRadar', 'tabPlano2d', 'tabCalculadora'].forEach(id => {
-      document.getElementById(id).style.display = (id === tabId) ? 'block' : 'none';
+
+    ['tab3d', 'tabSchematic', 'tabPlanSection', 'tabPlanFloor1', 'tabFotos', 'tabRadar'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = (id === tabId) ? 'block' : 'none';
     });
+
     if (tabId === 'tab3d') {
-      setTimeout(onWindowResize, 50);
+      setTimeout(onWindowResize, 60);
+    } else if (tabId === 'tabSchematic') {
+      renderSchematicNodes();
+    } else if (tabId === 'tabPlanSection' || tabId === 'tabPlanFloor1') {
+      renderPlanPins();
+    } else if (tabId === 'tabFotos') {
+      renderPhotoGallery('ALL');
     } else if (tabId === 'tabRadar') {
       renderSubtelRadar();
       renderSubtelTable();
-    } else if (tabId === 'tabFotos') {
-      renderPhotoGallery('ALL');
     }
+  }
+
+  function setOperator(op, btn) {
+    selectedOperator = op;
+    document.querySelectorAll('.op-filter-group .op-pill').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderAll();
   }
 
   function toggleWilsonSim() {
@@ -1665,70 +2592,56 @@
   }
 
   function renderKPIs() {
-    const p1 = getPointAvgRSRP('P1');
-    const p6 = getPointAvgRSRP('P6');
+    const p1 = getPointAggregatedMetric('P1');
+    const p6 = getPointAggregatedMetric('P6');
 
-    document.getElementById('kpiDonorVal').textContent = `${p1} dBm`;
+    document.getElementById('kpiDonorVal').textContent = p1.rsrp !== null ? `${p1.rsrp} dBm` : '--';
     const bVal = document.getElementById('kpiBasementVal');
-    bVal.textContent = `${p6} dBm`;
-    bVal.style.color = rsrpToCssColor(p6);
+    bVal.textContent = p6.rsrp !== null ? `${p6.rsrp} dBm` : '--';
+    bVal.style.color = rsrpToColor(p6.rsrp);
 
     const bDesc = document.getElementById('kpiBasementDesc');
     bDesc.textContent = wilsonSimActive
       ? '✅ Cobertura óptima amplificada con weBoost Office 200'
-      : 'Sombra severa por 2 losas de hormigón armado';
+      : 'Sombra severa por 2 losas de hormigón armado (-35 dB)';
 
+    const subPoints = ['P4', 'P5', 'P6', 'P7', 'P8'];
+    let okCount = 0, totalCount = 0;
+    subPoints.forEach(pid => {
+      OPERATORS.forEach(op => {
+        const r = getEffectiveRecord(pid, op);
+        if (r.rsrp !== '' && !isNaN(Number(r.rsrp))) {
+          totalCount++;
+          if (r.conecta === 'S' && Number(r.rsrp) >= -102) okCount++;
+        }
+      });
+    });
+    const pct = totalCount > 0 ? Math.round((okCount / totalCount) * 100) : 0;
     const voice = document.getElementById('kpiVoiceVal');
-    const pct = wilsonSimActive ? '100% (20 / 20)' : '0% (0 / 20)';
-    voice.textContent = pct;
-    voice.style.color = wilsonSimActive ? 'var(--good)' : 'var(--dead)';
+    voice.textContent = `${pct}% (${okCount} / ${totalCount})`;
+    voice.style.color = pct >= 80 ? 'var(--good)' : (pct >= 40 ? 'var(--fair)' : 'var(--dead)');
   }
 
   function renderAll() {
     renderKPIs();
     renderInspector();
+    renderSchematicNodes();
+    renderPlanPins();
+    renderProfileChart();
+    renderFullTable();
     renderLinkBudget();
     buildWilsonHardware3D();
     buildMeasurementSpheres();
   }
 
-  function exportCSV() {
-    const rows = ['punto,nivel,recinto,compania,rsrp_dbm,llamada_ok'];
-    POINTS_META.forEach(pt => {
-      OPERATORS.forEach(op => {
-        const rsrp = getEffectiveRSRP(pt.id, op);
-        rows.push([pt.id, `"${pt.nivel}"`, `"${pt.recinto}"`, op, rsrp, rsrp >= -102 ? 'S' : 'N'].join(','));
-      });
-    });
-    const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = wilsonSimActive ? 'mediciones_pac_wilson_on.csv' : 'mediciones_pac_terreno.csv';
-    a.click();
-  }
-
-  function exportBuildingOBJ() {
-    let obj = '# Centro Consistorial Municipalidad de Pedro Aguirre Cerda\n# Tecnovoa Integrador TI\n';
-    POINTS_META.forEach(p => {
-      obj += `v ${p.x} ${p.y} ${p.z}\n`;
-    });
-    const blob = new Blob([obj], { type: 'text/plain;charset=utf-8;' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'edificio_pac_puntos_3d.obj';
-    a.click();
-  }
-
-  // Init on Load
   window.addEventListener('DOMContentLoaded', () => {
-    measurements = getDefaultData();
+    loadState();
     initThreeJs();
     set3dMode('xray');
     renderAll();
-    renderPhotoGallery('ALL');
-    renderSubtelRadar();
+    renderChecklist();
     renderSubtelTable();
-    renderLinkBudget();
+    renderSubtelRadar();
   });
 </script>
 

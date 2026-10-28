@@ -100,3 +100,15 @@ La plataforma web interactiva cuenta con las siguientes secciones:
 - **Email:** [cristian@tecnovoa.cl](mailto:cristian@tecnovoa.cl)  
 - **Dirección:** Pedro de Valdivia #273, Providencia, Santiago  
 - **Web:** [www.tecnovoa.cl](https://www.tecnovoa.cl/)
+
+---
+
+## 5. Contacto Comercial e Ingeniería
+
+**Tecnovoa Tecnología & Servicios**  
+- **KAM TI:** Cristián Díaz  
+- **Teléfono / WhatsApp:** +569 4943 8288  
+- **Email:** [cristian@tecnovoa.cl](mailto:cristian@tecnovoa.cl)  
+- **Dirección:** Pedro de Valdivia #273, Providencia, Santiago  
+- **Web:** [www.tecnovoa.cl](https://www.tecnovoa.cl/)
+
