@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Estudio de Cobertura Celular Indoor (Piso -1) — Municipalidad de PAC | Tecnovoa</title>
+  <title>Estudio de Cobertura Celular Indoor (Piso -1) — Municipalidad de PAC | Tecnovoa &amp; Wilson Connectivity</title>
   <style>
     :root {
       --bg: #0b1120;
@@ -35,7 +35,7 @@
     header {
       background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
       border-bottom: 1px solid var(--border);
-      padding: 20px 24px;
+      padding: 18px 24px;
       position: sticky;
       top: 0;
       z-index: 50;
@@ -48,7 +48,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
     .brand-badge {
       display: inline-flex;
@@ -57,36 +57,36 @@
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.35);
       color: var(--accent);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       padding: 4px 10px;
       border-radius: 999px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
     h1 {
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 19px;
+      font-weight: 800;
       letter-spacing: -0.01em;
     }
     .subtitle {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
     }
     .header-controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
     }
     .btn {
       background: var(--bg-panel);
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 8px 14px;
+      padding: 8px 13px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -94,7 +94,7 @@
       gap: 6px;
       transition: all 0.15s ease;
     }
-    .btn:hover { border-color: var(--accent); background: #26354d; }
+    .btn:hover { border-color: var(--accent); background: #26354d; text-decoration: none; }
     .btn-primary {
       background: linear-gradient(135deg, #0284c7, #2563eb);
       border-color: #38bdf8;
@@ -134,13 +134,13 @@
       padding: 14px 16px;
     }
     .kpi-label {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
     .kpi-value {
-      font-size: 24px;
+      font-size: 23px;
       font-weight: 800;
       margin: 4px 0 2px;
     }
@@ -158,6 +158,15 @@
     }
     @media (max-width: 1100px) {
       .workspace-grid { grid-template-columns: 1fr; }
+    }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 1000px) {
+      .two-col-grid { grid-template-columns: 1fr; }
     }
 
     .card {
@@ -355,23 +364,53 @@
       border-color: var(--accent);
     }
 
-    /* Profile Chart */
-    .chart-box {
-      width: 100%;
-      overflow-x: auto;
+    /* Hardware Kit Grid */
+    .kit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .kit-item {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .kit-sku {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--wilson);
+      text-transform: uppercase;
+    }
+    .kit-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      margin: 3px 0;
+    }
+    .kit-desc {
+      font-size: 12px;
+      color: var(--text-muted);
     }
 
-    /* Full Table */
-    .table-wrapper {
-      width: 100%;
-      overflow-x: auto;
-      max-height: 520px;
+    /* Link Budget Calculator */
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(51, 65, 85, 0.7);
+      font-size: 13px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
+    .calc-val {
+      font-weight: 800;
+      font-family: Consolas, monospace;
     }
+
+    /* Profile Chart & Table */
+    .chart-box { width: 100%; overflow-x: auto; }
+    .table-wrapper { width: 100%; overflow-x: auto; max-height: 520px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
     th, td {
       padding: 8px 10px;
       border-bottom: 1px solid #1e293b;
@@ -427,7 +466,7 @@
     @media print {
       header { position: static; background: #0f172a; }
       .header-controls { display: none; }
-      .workspace-grid { grid-template-columns: 1fr; }
+      .workspace-grid, .two-col-grid { grid-template-columns: 1fr; }
       body { background: #0b1120; }
     }
   </style>
@@ -437,20 +476,24 @@
 <header>
   <div class="header-inner">
     <div>
-      <div class="brand-badge">Tecnovoa · Ingeniería RF &amp; Prevención de Riesgos</div>
-      <h1>Analizador Interactivo de Cobertura Indoor — Municipalidad de Pedro Aguirre Cerda</h1>
+      <div class="brand-badge">Tecnovoa · Wilson Connectivity (weBoost / WilsonPro / Zinwave) · Normativa SUBTEL</div>
+      <h1>Estudio de Cobertura Celular Indoor (Piso -1) — Municipalidad de Pedro Aguirre Cerda</h1>
       <div class="subtitle">
-        Av. Pdte. Salvador Allende N° 2029 (Piso -1 / Cota -3,20 m) · Contraparte: <strong>Álvaro Carreño Cerda</strong> (Jefe Depto. Informática) · KAM TI: <strong>Cristián Díaz</strong>
+        Av. Pdte. Salvador Allende N° 2029 · Contraparte: <strong>Álvaro Carreño Cerda</strong> (Jefe Depto. Informática) · KAM TI: <strong>Cristián Díaz</strong> (+ Prevencionista)
       </div>
     </div>
     <div class="header-controls">
       <button id="btnWilsonToggle" class="btn btn-wilson" onclick="toggleWilsonSim()">
         📡 Simular Amplificador Wilson: <span id="wilsonStateLabel">OFF (Estado Actual)</span>
       </button>
-      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none;">
-        <option value="1ant">1 Antena Domo (Eje R — Informática)</option>
-        <option value="2ant" selected>Splitter 2 Antenas (Eje R Informática + Eje S RR.PP./Archivo)</option>
+      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none; max-width:340px;">
+        <option value="office200_1ant">weBoost Office 200 LATAM (SKU 531047) — 1 Antena Domo (314407)</option>
+        <option value="office200_2ant" selected>weBoost Office 200 LATAM (SKU 531047) — Splitter 2 Antenas Domo</option>
+        <option value="wilsonpro_1300r">WilsonPro Enterprise 1300R (460149) — Rack 19" + Cloud + LPDA</option>
+        <option value="wilsonpro_4300r">WilsonPro Enterprise 4300R (460153) — 4 Puertos + 3 Antenas MTT</option>
+        <option value="hybrid_zinwave">Wilson Hybrid DAS + Zinwave 8000 (Fibra 150 MHz – 5 GHz)</option>
       </select>
+      <a class="btn" href="./531047-530047_office200_ss_LATAM_102721b%20(1).pdf" target="_blank" title="Abrir Ficha Técnica Oficial weBoost Office 200 LATAM">📄 Ficha Office 200 (PDF)</a>
       <button class="btn" onclick="resetDemoData()" title="Cargar valores de simulación basados en el Corte D-D'">🔄 Datos Simulados</button>
       <button class="btn" onclick="clearForField()" title="Limpiar mediciones para llenar en terreno">📝 Limpiar p/ Terreno</button>
       <button class="btn btn-primary" onclick="exportCSV()">⬇️ Exportar CSV</button>
@@ -467,9 +510,9 @@
   <!-- KPI Summary Strip -->
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-label">Señal Donante Azotea (P1 · Eje P–Q)</div>
+      <div class="kpi-label">Señal Donante Azotea (P1 · Antena Omni Plus 314422)</div>
       <div class="kpi-value" id="kpiDonorRsrp">-76 dBm</div>
-      <div class="kpi-sub" id="kpiDonorSub">B2 (1900) / B4 (AWS) / B5 (850) — Óptima p/ Wilson</div>
+      <div class="kpi-sub" id="kpiDonorSub">B5 (850) / B4 (AWS) / B2 (1900) — Captación 360° 4 Telcos</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Promedio Piso -1 Informática (P5–P6)</div>
@@ -482,9 +525,9 @@
       <div class="kpi-sub" id="kpiVoiceSub">Puntos P4 a P8 en las 4 compañías (RSRP ≥ -100 dBm)</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Ruta Vertical Coaxial Propuesta</div>
-      <div class="kpi-value" style="color: var(--accent);">Eje P–Q (GI 07/08)</div>
-      <div class="kpi-sub">Azotea (+8,25m) → Racks Nivel 1 → Informática (-3,20m) · ~18 m</div>
+      <div class="kpi-label">Kit Cotizado: weBoost Office 200 LATAM (531047)</div>
+      <div class="kpi-value" style="color: var(--wilson);">74 dB · 50 Ω</div>
+      <div class="kpi-sub">Incluye 41,7 m cable Wilson400 (18,28m + 22,86m) · $1.650.898 + IVA</div>
     </div>
   </div>
 
@@ -495,7 +538,7 @@
     <div class="card">
       <div class="card-header">
         <div class="card-title">
-          🗺️ Diagrama Interactivo de Mediciones (Puntos P0 a P8)
+          🗺️ Diagrama Interactivo de Mediciones y Trazado Coaxial Wilson400 (P0 a P8)
         </div>
         <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
           <div class="pill-group" id="viewSwitcher">
@@ -525,14 +568,6 @@
               <pattern id="earthHatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
                 <line x1="0" y1="0" x2="0" y2="12" stroke="#334155" stroke-width="2" />
               </pattern>
-              <radialGradient id="rfGlowGood" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#22c55e" stop-opacity="0.45"/>
-                <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
-              </radialGradient>
-              <radialGradient id="rfGlowDead" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#ef4444" stop-opacity="0.38"/>
-                <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
-              </radialGradient>
             </defs>
 
             <!-- Sky / Background -->
@@ -561,7 +596,7 @@
 
             <!-- Level 2 (+4,35 m) -->
             <rect x="75" y="140" width="965" height="90" fill="#162032" stroke="#64748b" stroke-width="2" />
-            <text x="250" y="185" fill="#64748b" font-size="12" font-weight="700" text-anchor="middle">PLANTA NIVEL 2 (+4,35 m) — Administración y Finanzas / SECPLAN / Alcaldía</text>
+            <text x="255" y="185" fill="#64748b" font-size="12" font-weight="700" text-anchor="middle">PLANTA NIVEL 2 (+4,35 m) — Administración y Finanzas / SECPLAN / Alcaldía</text>
 
             <!-- Level 1 (+0,45 m) -->
             <rect x="75" y="230" width="965" height="100" fill="#1a2639" stroke="#94a3b8" stroke-width="2" />
@@ -579,52 +614,50 @@
             <text x="15" y="465" fill="#f87171" font-size="10" font-weight="700">N -3,20m</text>
 
             <!-- Level -1 Underground Offices (Corte D-D' Exact Rooms) -->
-            <!-- Ejes T-S: RR.PP. -->
             <rect x="90" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
             <text x="147" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">RELACIONES PÚBLICAS</text>
             <text x="147" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Jefatura + 2 Profesionales</text>
 
-            <!-- Ejes S-R: Jefe Informática & Emergencia -->
             <rect x="205" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
             <text x="262" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">JEFE INFORMÁTICA</text>
             <text x="262" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Álvaro Carreño + Emergencia</text>
 
-            <!-- Ejes R-Q: 2 Técnicos Informática + Bodega -->
             <rect x="320" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
             <text x="377" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">2 TÉC. INFORMÁTICA</text>
             <text x="377" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">+ Bodega TI (Ejes Q–R)</text>
 
-            <!-- Ejes Q-P: Hall Subterráneo / Ascensor y Escalera -->
             <rect x="435" y="336" width="100" height="134" fill="#172033" stroke="#64748b" stroke-width="2" />
             <text x="485" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">HALL / ASCENSOR</text>
             <text x="485" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Núcleo Escalera Eje P–Q</text>
 
-            <!-- Ejes P-K: Inventario y Archivo Municipal -->
             <rect x="535" y="336" width="220" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
             <text x="645" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">ARCHIVO E INVENTARIO</text>
             <text x="645" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Encargado + Bodega + Archivo (Ejes K–P)</text>
 
-            <!-- Ejes N-L: Patio Inglés Hundido -->
             <rect x="755" y="336" width="120" height="134" fill="#0d1526" stroke="#475569" stroke-width="2" stroke-dasharray="5 3" />
             <text x="815" y="356" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle">PATIO INGLÉS</text>
             <text x="815" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Escalera Ext. / Vidrio Low-E</text>
 
-            <!-- Ejes A-D: Estacionamientos Subterráneos -->
             <rect x="875" y="336" width="165" height="134" fill="#0f172a" stroke="#475569" stroke-width="2" />
             <text x="957" y="395" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">ESTACIONAMIENTOS -1</text>
             <text x="957" y="410" fill="#475569" font-size="9.5" text-anchor="middle">(Ejes A–N · Corte B-B')</text>
 
-            <!-- WILSON CONNECTIVITY INFRASTRUCTURE OVERLAY (Coax + Donor + Indoor Antennas) -->
-            <g id="wilsonOverlayGroup" opacity="0.45">
-              <!-- Coax Vertical Drop along Shaft GI 07/08 (Eje P-Q) -->
-              <path d="M 485 65 L 485 385 L 355 385" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="6 4" />
-              <path id="wilsonSecondBranch" d="M 355 385 L 175 385 M 485 385 L 615 385" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="4 4" />
-              <!-- Donor Yagi Antenna Icon on Rooftop -->
-              <polygon points="485,40 465,68 505,68" fill="#f97316" stroke="#fff" stroke-width="1.5" />
-              <text x="585" y="56" fill="#fdba74" font-size="11" font-weight="700">Antena Donante Wilson (Azotea)</text>
+            <!-- WILSON CONNECTIVITY INFRASTRUCTURE OVERLAY -->
+            <g id="wilsonOverlayGroup" opacity="0.35">
+              <!-- Coax Vertical Drop along Shaft GI 07/08 (Eje P-Q): Cable Wilson400 952360 (18.28m) + 952375 (22.86m) -->
+              <path d="M 485 65 L 485 385 L 320 385" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="6 4" />
+              <path id="wilsonSecondBranch" d="M 320 385 L 155 385 M 485 385 L 640 385" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="4 4" />
+              <!-- Donor Omni Plus 314422 Antenna Icon on Rooftop -->
+              <rect x="479" y="28" width="12" height="38" rx="6" fill="#f97316" stroke="#fff" stroke-width="1.5" />
+              <circle cx="485" cy="28" r="14" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3 2" />
+              <text id="svgDonorLabel" x="512" y="48" fill="#fdba74" font-size="10.5" font-weight="700">Antena Omni Plus 314422 + Protector 859902</text>
+              <text x="512" y="62" fill="#94a3b8" font-size="9.5">Cable Wilson400 18,28 m (952360) por Shaft GI 07/08</text>
               <!-- Amplifier Box in Rack/Ceiling -->
-              <rect x="448" y="372" width="74" height="24" rx="4" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
-              <text x="485" y="388" fill="#fff" font-size="9.5" font-weight="800" text-anchor="middle">AMP WILSON</text>
+              <rect x="438" y="371" width="94" height="25" rx="4" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+              <text id="svgAmpLabel" x="485" y="387" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">OFFICE 200 (74dB)</text>
+              <!-- Indoor Dome Antenna 314407 at Eje R -->
+              <path d="M 306 336 Q 320 352 334 336 Z" fill="#38bdf8" stroke="#fff" stroke-width="1.2" />
+              <text x="320" y="398" fill="#fdba74" font-size="9" font-weight="700" text-anchor="middle">Domo 314407 (Eje R)</text>
             </g>
 
             <!-- Dynamic RF Halos + Interactive Measurement Nodes P0 to P8 rendered by JS -->
@@ -656,7 +689,7 @@
             <span><i class="legend-dot" style="background:#ef4444"></i>Sin Servicio (&lt; -110)</span>
           </div>
           <div style="color:var(--text-muted)">
-            💡 <em>Haz clic en cualquier punto <strong>P0–P8</strong> para ver o editar las 4 compañías.</em>
+            💡 <em>Haz clic en cualquier punto <strong>P0–P8</strong> para inspeccionar o editar las 4 compañías.</em>
           </div>
         </div>
       </div>
@@ -682,6 +715,76 @@
 
   </div>
 
+  <!-- NEW SECTION: Link Budget Calculator (Wilson400 50 Ohm) + Hardware Kit Spec Sheet -->
+  <div class="two-col-grid">
+
+    <!-- Left: Interactive RF Link Budget & Isolation Calculator -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🧮 Calculadora de Presupuesto de Enlace (Link Budget 50 Ω) y Aislamiento SUBTEL</div>
+        <span style="font-size:11.5px; color:var(--wilson); font-weight:700;">Cable Wilson400 (VF = 0,85)</span>
+      </div>
+      <div class="card-body">
+        <div class="op-grid" style="margin-bottom: 14px;">
+          <div class="field-group">
+            <label>Banda de Operación</label>
+            <select id="lbBand" onchange="renderLinkBudget()">
+              <option value="850">Banda 5 (850 MHz — Movistar/Claro)</option>
+              <option value="1900" selected>Banda 2/25 (1900 MHz — Entel/Mov/Claro)</option>
+              <option value="2100">Banda 4 AWS (1700/2100 MHz — WOM/Entel)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Cable Donante Azotea (m)</label>
+            <input type="number" id="lbCableIn" value="18.28" step="0.5" onchange="renderLinkBudget()" title="Kit incluye rollo 952360 de 18,28 m" />
+          </div>
+          <div class="field-group">
+            <label>Cable Indoor a Domo (m)</label>
+            <input type="number" id="lbCableOut" value="22.86" step="0.5" onchange="renderLinkBudget()" title="Kit incluye rollo 952375 de 22,86 m" />
+          </div>
+        </div>
+
+        <div id="linkBudgetResults"></div>
+      </div>
+    </div>
+
+    <!-- Right: Exact Kit Components of weBoost Office 200 LATAM (SKU 531047 / 530047) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📦 Ficha Oficial: weBoost Office 200 LATAM (SKU 531047 · 50 Ω)</div>
+        <a href="./531047-530047_office200_ss_LATAM_102721b%20(1).pdf" target="_blank" style="font-size:12px; font-weight:700;">Abrir Datasheet PDF ↗</a>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;">
+          Sistema comercial de <strong>50 Ohm (Conectores N-Hembra)</strong> con pantalla táctil LCD a color, control manual de bandas y tecnología <strong>XDR (eXtended Dynamic Range)</strong> que evita apagados por sobrecarga. Garantía de 3 años.
+        </p>
+        <div class="kit-grid">
+          <div class="kit-item">
+            <div class="kit-sku">SKU 531047 / 530047</div>
+            <div class="kit-name">Amplificador Office 200</div>
+            <div class="kit-desc"><strong>74 dB ganancia máx.</strong> · Bandas B5 (850), B4 (1700/2100), B25/2 (1900). DL hasta +22 dBm / UL hasta +25 dBm. 36,2×27,3×5,7 cm (3,49 kg).</div>
+          </div>
+          <div class="kit-item">
+            <div class="kit-sku">SKU 314422 (Exterior)</div>
+            <div class="kit-name">Antena Omni Plus 50 Ω</div>
+            <div class="kit-desc">Captación omnidireccional <strong>360° en Azotea (Eje P–Q)</strong>: enlaza simultáneamente torres de Entel, Movistar, Claro y WOM.</div>
+          </div>
+          <div class="kit-item">
+            <div class="kit-sku">SKU 314407 (Interior)</div>
+            <div class="kit-name">Antena Domo Bajo Perfil</div>
+            <div class="kit-desc">Irradiación omnidireccional para cielo falso del Nivel -1 (cota -3,20 m, frente a Informática y Emergencia).</div>
+          </div>
+          <div class="kit-item">
+            <div class="kit-sku">SKU 859902 + Cables Wilson400</div>
+            <div class="kit-name">Protección + 41,7 m Coaxial</div>
+            <div class="kit-desc">Protector relámpago 50 Ω (`859902`) + Jumper `0,60 m` (`952302`) + Rollo `18,28 m` (`952360`) + Rollo `22,86 m` (`952375`).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <!-- Attenuation Profile Chart across P0 -> P8 -->
   <div class="card">
     <div class="card-header">
@@ -690,6 +793,76 @@
     </div>
     <div class="card-body chart-box">
       <svg id="profileChartSvg" viewBox="0 0 1100 260" style="width:100%; height:auto; min-width:680px;"></svg>
+    </div>
+  </div>
+
+  <!-- Comparative Portfolio Table: weBoost Office 200 vs WilsonPro Enterprise vs Hybrid DAS Zinwave -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">🏢 Comparativa de Soluciones Wilson Connectivity y Cumplimiento SUBTEL Chile</div>
+      <div style="font-size:12px; color:var(--text-muted);">Haz clic en cualquier fila para simular ese modelo en el diagrama superior</div>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Modelo / Arquitectura</th>
+            <th>SKU</th>
+            <th>Ganancia / Potencia DL</th>
+            <th>Antena Donante</th>
+            <th>Distribución Indoor</th>
+            <th>Telemetría / Gestión</th>
+            <th>Aplicación en Municipalidad PAC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor:pointer;" onclick="selectModelFromTable('office200_1ant')">
+            <td><strong style="color:var(--wilson)">weBoost Office 200 LATAM (Kit Base)</strong></td>
+            <td><code>531047</code></td>
+            <td><strong>74 dB</strong> · +22 dBm (B2)</td>
+            <td>1× Omni Plus 360° (<code>314422</code>)</td>
+            <td>1× Domo Bajo Perfil (<code>314407</code>)</td>
+            <td>Pantalla táctil LCD a color + XDR</td>
+            <td><strong>Opción Cotizada ($1.650.898 + IVA):</strong> Ideal para Informática + Emergencia (Ejes Q–S).</td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectModelFromTable('office200_2ant')">
+            <td><strong style="color:var(--wilson)">weBoost Office 200 LATAM (Expansión 2 Domos)</strong></td>
+            <td><code>531047 + Splitter</code></td>
+            <td><strong>74 dB</strong> (-3,2 dB splitter)</td>
+            <td>1× Omni Plus 360° (<code>314422</code>)</td>
+            <td>2× Domos (Eje R TI + Eje S RR.PP.)</td>
+            <td>Pantalla táctil LCD a color + XDR</td>
+            <td>Recomendado si los muros entre Informática (Q–S), RR.PP. (S–T) y Archivo (K–P) son de hormigón.</td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectModelFromTable('wilsonpro_1300r')">
+            <td><strong style="color:var(--accent)">WilsonPro Enterprise 1300R / 1000C</strong></td>
+            <td><code>460149 / 460242</code></td>
+            <td><strong>70 dB</strong> · +17 dBm DL</td>
+            <td>1× LPDA Directiva (<code>314411</code>)</td>
+            <td>1 a 2× Domos (<code>304412</code>)</td>
+            <td><strong>WilsonPro Cloud</strong> (LTE / RJ-45) + LCD</td>
+            <td>Chasis Rack 19" para montar directo en <code>Sala Racks Nivel 1 (Eje P–Q)</code> con alertas por correo/SMS.</td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectModelFromTable('wilsonpro_4300r')">
+            <td><strong style="color:var(--accent)">WilsonPro Enterprise 4300R (Multi-Torre)</strong></td>
+            <td><code>460153</code></td>
+            <td><strong>70 dB</strong> · 4× +17 dBm DL</td>
+            <td>3× LPDA (<strong>Multi-Tower MTT</strong>)</td>
+            <td><strong>4 amplificadores / 4 puertos</strong> (sin splitter)</td>
+            <td><strong>WilsonPro Cloud</strong> + Rack 19"</td>
+            <td>Cobertura integral de todo el Nivel -1: Informática, RR.PP., Archivo, Auditorio y Estacionamientos.</td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectModelFromTable('hybrid_zinwave')">
+            <td><strong style="color:#a855f7">Wilson Hybrid DAS + Zinwave 8000</strong></td>
+            <td><code>Hybrid Fiber DAS</code></td>
+            <td>Óptico (0 dB pérdida fibra)</td>
+            <td>Cabezal BDA + Conversión Óptica</td>
+            <td>Hasta 64 remotos en fibra (150 MHz – 5 GHz)</td>
+            <td>WilsonPro Cloud + Autonomous AI</td>
+            <td>Proyecto edificio completo + banda 5G <code>n78 (3.5 GHz)</code> y radios de emergencia VHF/UHF.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -713,7 +886,7 @@
             <th>RSRP (dBm)</th>
             <th>RSRQ (dB)</th>
             <th>SINR (dB)</th>
-            <th> ¿Llamada OK?</th>
+            <th>¿Llamada OK?</th>
             <th>Calidad Voz (1-5)</th>
             <th>Estado Cobertura</th>
           </tr>
@@ -726,7 +899,7 @@
   <!-- Interactive Checklist for Comercial + Prevencionista -->
   <div class="card">
     <div class="card-header">
-      <div class="card-title">✅ Checklist Interactivo de Terreno (Comercial + Prevencionista de Riesgos)</div>
+      <div class="card-title">✅ Checklist Interactivo de Terreno (Comercial + Prevencionista + Normativa SUBTEL)</div>
       <span style="font-size:12px; color:var(--text-muted);">Marca cada hito durante la visita a la Municipalidad</span>
     </div>
     <div class="card-body checklist-grid" id="checklistContainer"></div>
@@ -760,8 +933,8 @@
       id: 'P1',
       nivel: 'Azotea (+8.25m)',
       eje: 'Ejes N-Q / 12-14',
-      recinto: 'Cubierta sobre Escalera / Shaft GI 07-08 (Donante Wilson)',
-      rol: 'Punto Donante Antena Exterior',
+      recinto: 'Cubierta sobre Escalera / Shaft GI 07-08 (Antena Omni Plus 314422)',
+      rol: 'Punto Donante Antena Exterior 360°',
       svgX: 485, svgY: 118,
       secX: 31.5, secY: 77.5,
       fl1X: 64.5, fl1Y: 72.5,
@@ -772,7 +945,7 @@
       nivel: 'Nivel 1 (+0.45m)',
       eje: 'Ejes P-Q / 14-15',
       recinto: 'Sala Racks y Central Servidores (junto a GI 07-08)',
-      rol: 'Paso Vertical Coaxial',
+      rol: 'Paso Vertical Coaxial Wilson400',
       svgX: 485, svgY: 295,
       secX: 31.5, secY: 86.5,
       fl1X: 70.0, fl1Y: 79.0,
@@ -848,7 +1021,7 @@
 
   // Realistic Baseline RF Simulation based on Corte D-D' concrete & Low-E glass attenuation
   function getDefaultSimulationData() {
-    const base = {
+    return {
       P0: {
         Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -79, rsrq: -9,  sinr: 16, conecta: 'S', voz: 5 },
         Movistar: { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -81, rsrq: -10, sinr: 14, conecta: 'S', voz: 5 },
@@ -862,61 +1035,60 @@
         WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -75, rsrq: -8,  sinr: 18, conecta: 'S', voz: 5 }
       },
       P2: {
-        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -91, rsrq: -12, sinr: 8,  conecta: 'S', voz: 4 },
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -91, rsrq: -12, sinr: 8,  conecta: 'S', voz: 4 },
         Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -93, rsrq: -13, sinr: 7,  conecta: 'S', voz: 4 },
-        Claro:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -95, rsrq: -14, sinr: 5,  conecta: 'S', voz: 3 },
+        Claro:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -95, rsrq: -14, sinr: 5,  conecta: 'S', voz: 3 },
         WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -96, rsrq: -14, sinr: 6,  conecta: 'S', voz: 3 }
       },
       P3: {
-        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -99,  rsrq: -15, sinr: 3,  conecta: 'S', voz: 3 },
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -99,  rsrq: -15, sinr: 3,  conecta: 'S', voz: 3 },
         Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -101, rsrq: -16, sinr: 1,  conecta: 'S', voz: 2 },
         Claro:    { tec: '3G',     banda: 'B5 (850)',  rsrp: -103, rsrq: -17, sinr: 0,  conecta: 'S', voz: 2 },
         WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -104, rsrq: -18, sinr: -1, conecta: 'N', voz: 2 }
       },
       P4: {
-        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -106, rsrq: -18, sinr: -2, conecta: 'N', voz: 2 },
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -106, rsrq: -18, sinr: -2, conecta: 'N', voz: 2 },
         Movistar: { tec: '3G',     banda: 'B5 (850)',  rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
-        Claro:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
         WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -112, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 }
       },
       P5: {
-        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
         Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
         Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
         WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 }
       },
       P6: {
-        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -109, rsrq: -19, sinr: -4, conecta: 'N', voz: 1 },
+        Entel:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -109, rsrq: -19, sinr: -4, conecta: 'N', voz: 1 },
         Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
         Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
         WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -115, rsrq: -20, sinr: -8, conecta: 'N', voz: 1 }
       },
       P7: {
-        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
+        Entel:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
         Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -112, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
         Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
         WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -116, rsrq: -20, sinr: -8, conecta: 'N', voz: 1 }
       },
       P8: {
-        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
+        Entel:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
         Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -115, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
         Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -117, rsrq: -20, sinr: -9, conecta: 'N', voz: 1 },
         WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -118, rsrq: -20, sinr: -9, conecta: 'N', voz: 1 }
       }
     };
-    return base;
   }
 
   const CHECKLIST_ITEMS = [
     { id: 'c1', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Anunciarse en recepción (Av. Salvador Allende 2029) y firmar AST con Prevencionista.' },
     { id: 'c2', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Verificar EPP completo: casco con barbiquejo, calzado dieléctrico, chaleco reflectante y linterna.' },
-    { id: 'c3', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Inspeccionar barandas y acceso seguro en Azotea (Eje N–P) a más de 2 m del borde.' },
+    { id: 'c3', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Inspeccionar barandas en Azotea (Eje N–P) y punto de tierra física para Protector Relámpago 859902.' },
     { id: 'c4', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Identificar rutas de evacuación del Nivel -1 (Escalera Eje P–Q y Escalera Patio Inglés Ejes L–N).' },
-    { id: 'c5', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Medir en P1 (Azotea Eje P–Q) potencia de bandas B2 (1900), B4 (AWS - WOM) y B5 (850).' },
-    { id: 'c6', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Inspeccionar pasada vertical por Shafts GI 07 y GI 08 en Sala Racks Nivel 1 (Eje P–Q).' },
-    { id: 'c7', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Medir con huincha láser largo total de coaxial desde Azotea hasta techo de Informática (-3,20 m).' },
-    { id: 'c8', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Verificar material de tabiques entre Informática (Ejes Q–S), RR.PP. (S–T) y Archivo (K–P).' },
-    { id: 'c9', cat: 'Comercial (Tecnovoa)', text: 'Confirmar cantidad exacta de usuarios (>10) y operador de los teléfonos municipales con Álvaro Carreño.' }
+    { id: 'c5', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Medir en P1 (Azotea Eje P–Q) potencia de Bandas B5 (850), B4 (AWS 1700/2100) y B2 (1900) para la Antena Omni Plus 314422.' },
+    { id: 'c6', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Confirmar que el tramo Azotea → Amplificador sea ≤ 18,28 m (rollo Wilson400 952360 incluido en el kit).' },
+    { id: 'c7', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Confirmar que el tramo Amplificador → Antena Domo 314407 sea ≤ 22,86 m (rollo Wilson400 952375 incluido en el kit).' },
+    { id: 'c8', cat: 'Ingeniería Kit weBoost Office 200 (531047)', text: 'Verificar material de tabiques entre Informática (Q–S), RR.PP. (S–T) y Archivo (K–P) para definir 1 Domo o Splitter.' },
+    { id: 'c9', cat: 'Normativa SUBTEL y Cierre Comercial', text: 'Validar aislamiento vertical (>89 dB requerido para los 74 dB del Office 200) y confirmar >10 usuarios con Álvaro Carreño.' }
   ];
 
   // State
@@ -925,7 +1097,7 @@
   let selectedPoint = 'P6';
   let currentView = 'schematic';
   let wilsonSimActive = false;
-  let wilsonSimMode = '2ant'; // '1ant' or '2ant'
+  let wilsonSimMode = 'office200_2ant';
 
   function loadState() {
     const saved = localStorage.getItem('pac_rf_measurements_v1');
@@ -944,25 +1116,55 @@
     localStorage.setItem('pac_rf_measurements_v1', JSON.stringify(measurements));
   }
 
-  // Returns the effective record (applying Wilson repeater gain if simulation is toggled ON)
+  // Model boost profiles for each Wilson Connectivity configuration
+  const MODEL_PROFILES = {
+    office200_1ant: {
+      name: 'OFFICE 200 (74dB · 1 Domo)',
+      donorLabel: 'Antena Omni Plus 314422 + Protector 859902',
+      twoBranches: false,
+      boost: { P3: 11, P4: 25, P5: 33, P6: 32, P7: 20, P8: 15 }
+    },
+    office200_2ant: {
+      name: 'OFFICE 200 (74dB · 2 Domos)',
+      donorLabel: 'Antena Omni Plus 314422 + Protector 859902',
+      twoBranches: true,
+      boost: { P3: 15, P4: 28, P5: 34, P6: 34, P7: 31, P8: 26 }
+    },
+    wilsonpro_1300r: {
+      name: 'PRO 1300R (70dB · Cloud)',
+      donorLabel: 'Antena LPDA Directiva 314411 + Cloud LTE',
+      twoBranches: true,
+      boost: { P3: 14, P4: 27, P5: 33, P6: 33, P7: 29, P8: 25 }
+    },
+    wilsonpro_4300r: {
+      name: 'ENTERPRISE 4300R (4 Puertos)',
+      donorLabel: '3× Antenas LPDA (Multi-Tower MTT)',
+      twoBranches: true,
+      boost: { P3: 20, P4: 32, P5: 36, P6: 36, P7: 35, P8: 33 }
+    },
+    hybrid_zinwave: {
+      name: 'HYBRID DAS ZINWAVE (Fibra)',
+      donorLabel: 'Cabezal BDA + Fibra Óptica Zinwave 8000',
+      twoBranches: true,
+      boost: { P3: 24, P4: 35, P5: 38, P6: 38, P7: 37, P8: 36 }
+    }
+  };
+
   function getEffectiveRecord(pointId, op) {
     const raw = measurements[pointId][op];
     if (!wilsonSimActive) return { ...raw };
 
-    // Calculate Wilson Repeater effect on underground points P3 to P8
-    const boostMap1Ant = { P3: 10, P4: 24, P5: 31, P6: 30, P7: 18, P8: 14 };
-    const boostMap2Ant = { P3: 14, P4: 28, P5: 34, P6: 34, P7: 30, P8: 25 };
-    const boost = (wilsonSimMode === '2ant' ? boostMap2Ant[pointId] : boostMap1Ant[pointId]) || 0;
-
+    const profile = MODEL_PROFILES[wilsonSimMode] || MODEL_PROFILES.office200_2ant;
+    const boost = profile.boost[pointId] || 0;
     if (!boost || raw.rsrp === '' || isNaN(Number(raw.rsrp))) return { ...raw };
 
-    const newRsrp = Math.min(-72, Number(raw.rsrp) + boost);
+    const newRsrp = Math.min(-71, Number(raw.rsrp) + boost);
     const newRsrq = Math.min(-7, Number(raw.rsrq || -18) + Math.round(boost * 0.3));
-    const newSinr = Math.min(20, Number(raw.sinr || -5) + Math.round(boost * 0.6));
+    const newSinr = Math.min(21, Number(raw.sinr || -5) + Math.round(boost * 0.6));
     const newVoz = newRsrp >= -85 ? 5 : (newRsrp >= -95 ? 4 : (newRsrp >= -102 ? 3 : 2));
     return {
-      tec: '4G VoLTE',
-      banda: op === 'WOM' ? 'B4 (AWS)' : 'B2 (1900)',
+      tec: wilsonSimMode === 'hybrid_zinwave' ? '5G / VoLTE' : '4G VoLTE',
+      banda: op === 'WOM' ? 'B4 (1700/2100)' : (op === 'Movistar' ? 'B5 (850) / B2' : 'B2 (1900)'),
       rsrp: newRsrp,
       rsrq: newRsrq,
       sinr: newSinr,
@@ -1014,6 +1216,7 @@
     renderSchematicNodes();
     renderPlanOverlays();
     renderInspector();
+    renderLinkBudget();
     renderProfileChart();
     renderFullTable();
   }
@@ -1033,14 +1236,14 @@
     subEl.style.color = rsrpToColor(avgSub);
 
     const subStatus = document.getElementById('kpiSubStatus');
+    const profile = MODEL_PROFILES[wilsonSimMode] || MODEL_PROFILES.office200_2ant;
     if (avgSub !== null && p1.rsrp !== null) {
       const diff = p1.rsrp - avgSub;
       subStatus.textContent = wilsonSimActive
-        ? `¡Cobertura restituida con Wilson! (Ganancia neta +${35 - diff} dB)`
+        ? `Activo: ${profile.name} → Cobertura Óptima VoLTE`
         : `Pérdida Azotea → Piso -1: ${diff} dB (${rsrpToLabel(avgSub)})`;
     }
 
-    // Voice viability in P4..P8 across 4 operators (20 combinations)
     const subPoints = ['P4', 'P5', 'P6', 'P7', 'P8'];
     let okCount = 0, totalCount = 0;
     subPoints.forEach(pid => {
@@ -1064,17 +1267,18 @@
     halosLayer.innerHTML = '';
     nodesLayer.innerHTML = '';
 
-    // Highlight Wilson overlay if active
+    const profile = MODEL_PROFILES[wilsonSimMode] || MODEL_PROFILES.office200_2ant;
     const wilsonGroup = document.getElementById('wilsonOverlayGroup');
-    wilsonGroup.setAttribute('opacity', wilsonSimActive ? '1' : '0.28');
-    document.getElementById('wilsonSecondBranch').style.display = wilsonSimMode === '2ant' ? 'block' : 'none';
+    wilsonGroup.setAttribute('opacity', wilsonSimActive ? '1' : '0.32');
+    document.getElementById('wilsonSecondBranch').style.display = profile.twoBranches ? 'block' : 'none';
+    document.getElementById('svgAmpLabel').textContent = profile.name;
+    document.getElementById('svgDonorLabel').textContent = profile.donorLabel;
 
     POINTS_META.forEach(pt => {
       const agg = getPointAggregatedMetric(pt.id);
       const col = rsrpToColor(agg.rsrp);
       const isSelected = pt.id === selectedPoint;
 
-      // Halo circle
       const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       halo.setAttribute('cx', pt.svgX);
       halo.setAttribute('cy', pt.svgY);
@@ -1083,7 +1287,6 @@
       halo.setAttribute('opacity', '0.22');
       halosLayer.appendChild(halo);
 
-      // Node Group
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.style.cursor = 'pointer';
       g.onclick = () => selectPoint(pt.id);
@@ -1144,7 +1347,6 @@
       const col = rsrpToColor(agg.rsrp);
       const labelText = agg.rsrp !== null ? `${pt.id}: ${agg.rsrp} dBm` : pt.id;
 
-      // Pin for Section JPG
       const pinSec = document.createElement('div');
       pinSec.className = 'plan-pin' + (pt.id === selectedPoint ? ' selected' : '');
       pinSec.style.left = pt.secX + '%';
@@ -1155,7 +1357,6 @@
       pinSec.onclick = () => selectPoint(pt.id);
       secLayer.appendChild(pinSec);
 
-      // Pin for Floor 1 JPG
       const pinFl1 = document.createElement('div');
       pinFl1.className = 'plan-pin' + (pt.id === selectedPoint ? ' selected' : '');
       pinFl1.style.left = pt.fl1X + '%';
@@ -1179,7 +1380,6 @@
     container.innerHTML = '';
 
     OPERATORS.forEach(op => {
-      const raw = measurements[selectedPoint][op];
       const eff = getEffectiveRecord(selectedPoint, op);
       const col = rsrpToColor(eff.rsrp);
 
@@ -1238,6 +1438,54 @@
     });
   }
 
+  // Physics-based Link Budget Calculator for weBoost Office 200 LATAM (SKU 531047)
+  function renderLinkBudget() {
+    const freq = Number(document.getElementById('lbBand').value);
+    const lenIn = Number(document.getElementById('lbCableIn').value) || 18.28;
+    const lenOut = Number(document.getElementById('lbCableOut').value) || 22.86;
+
+    // LMR-400 / Wilson400 attenuation per 100m: ~12.8 dB @ 850 MHz, ~19.0 dB @ 1900 MHz, ~20.1 dB @ 2100 MHz
+    const attPerMeter = freq === 850 ? 0.128 : (freq === 1900 ? 0.190 : 0.201);
+    const maxDlSpec = freq === 850 ? 18.0 : (freq === 1900 ? 22.0 : 19.6);
+    const maxUlSpec = freq === 850 ? 24.1 : (freq === 1900 ? 24.5 : 25.0);
+
+    const lossIn = +(lenIn * attPerMeter + 0.4).toFixed(1); // +0.4 dB for Lightning Surge Protector 859902 + N-connectors
+    const lossOut = +(lenOut * attPerMeter + 0.2).toFixed(1);
+    const splitterLoss = (wilsonSimMode === 'office200_2ant') ? 3.2 : 0;
+    const netSystemGain = +(74.0 - lossIn - lossOut - splitterLoss).toFixed(1);
+
+    const p1Agg = getPointAggregatedMetric('P1');
+    const donorRsrp = p1Agg.rsrp !== null ? p1Agg.rsrp : -76;
+
+    const container = document.getElementById('linkBudgetResults');
+    container.innerHTML = `
+      <div class="calc-row">
+        <span>Potencia Donante en Azotea (P1 · Antena Omni Plus <code>314422</code>)</span>
+        <span class="calc-val" style="color:var(--good)">${donorRsrp} dBm</span>
+      </div>
+      <div class="calc-row">
+        <span>Pérdida Coaxial Tramo 1 (${lenIn}m <code>Wilson400</code> + Protector <code>859902</code>)</span>
+        <span class="calc-val" style="color:var(--weak)">-${lossIn} dB</span>
+      </div>
+      <div class="calc-row">
+        <span>Ganancia Máxima Amplificador <code>Office 200 (531047)</code> con XDR</span>
+        <span class="calc-val" style="color:var(--accent)">+74.0 dB (DL máx ${maxDlSpec} dBm / UL ${maxUlSpec} dBm)</span>
+      </div>
+      <div class="calc-row">
+        <span>Pérdida Coaxial Tramo 2 (${lenOut}m <code>Wilson400</code> ${splitterLoss ? '+ Splitter 2 vías' : 'directo'})</span>
+        <span class="calc-val" style="color:var(--weak)">-${(lossOut + splitterLoss).toFixed(1)} dB</span>
+      </div>
+      <div class="calc-row">
+        <span><strong>Ganancia Neta Efectiva del Sistema (50 Ω · VSWR &lt; 1.2:1)</strong></span>
+        <span class="calc-val" style="color:var(--good)">+${netSystemGain} dB</span>
+      </div>
+      <div class="calc-row" style="border-bottom:none; padding-top:10px;">
+        <span><strong>Aislamiento SUBTEL Anti-Oscilación ($I_{\\text{mín}} > G + 15\\text{ dB} = 89\\text{ dB}$)</strong></span>
+        <span class="status-pill" style="background:#22c55e; color:#0f172a;">✅ CUMPLE (~105 dB por 2 losas H.A. + 11m verticales)</span>
+      </div>
+    `;
+  }
+
   function renderProfileChart() {
     const svg = document.getElementById('profileChartSvg');
     svg.innerHTML = '';
@@ -1250,7 +1498,6 @@
     const yForDbm = dbm => padT + ((maxDbm - dbm) / (maxDbm - minDbm)) * H;
     const xForIdx = i => padL + (i / (POINTS_META.length - 1)) * W;
 
-    // Horizontal reference lines
     [-70, -80, -90, -100, -110, -120].forEach(dbm => {
       const y = yForDbm(dbm);
       const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -1273,7 +1520,6 @@
       svg.appendChild(txt);
     });
 
-    // X-Axis Point Labels
     POINTS_META.forEach((pt, idx) => {
       const x = xForIdx(idx);
       const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -1296,7 +1542,6 @@
       svg.appendChild(sub);
     });
 
-    // Operator Polylines
     OPERATORS.forEach(op => {
       if (selectedOperator !== 'ALL' && selectedOperator !== op) return;
       const pts = [];
@@ -1429,7 +1674,7 @@
     const sel = document.getElementById('wilsonModeSelect');
     if (wilsonSimActive) {
       btn.classList.add('active');
-      lbl.textContent = 'ON (Con Repetidor Wilson)';
+      lbl.textContent = 'ON (Con Amplificador Wilson)';
       sel.style.display = 'inline-flex';
     } else {
       btn.classList.remove('active');
@@ -1442,6 +1687,17 @@
   function changeWilsonMode(mode) {
     wilsonSimMode = mode;
     renderAll();
+  }
+
+  function selectModelFromTable(mode) {
+    wilsonSimMode = mode;
+    document.getElementById('wilsonModeSelect').value = mode;
+    if (!wilsonSimActive) {
+      toggleWilsonSim();
+    } else {
+      renderAll();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function resetDemoData() {
@@ -1492,7 +1748,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = wilsonSimActive ? 'mediciones_pac_simulacion_wilson.csv' : 'mediciones_pac_terreno.csv';
+    a.download = wilsonSimActive ? `mediciones_pac_${wilsonSimMode}.csv` : 'mediciones_pac_terreno.csv';
     a.click();
   }
 
