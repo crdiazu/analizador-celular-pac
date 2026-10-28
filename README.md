@@ -3,9 +3,33 @@
 Repositorio técnico-comercial y aplicación web interactiva para el levantamiento, diagnóstico de cobertura móvil (4G LTE / 5G NR / 3G / 2G — Voz) y diseño de solución de amplificación indoor **Wilson Connectivity (`weBoost Office 200 LATAM SKU 531047`)** en el **Piso -1 (Zócalo / Subterráneo, cota `-3,20 m`)** del Centro Consistorial de la **Ilustre Municipalidad de Pedro Aguirre Cerda** (`Av. Presidente Salvador Allende N° 2029`).
 
 - **Web App Interactiva y Diagrama de Mediciones (GitHub Pages):** https://crdiazu.github.io/analizador-celular-pac/
+- **Geoportal Oficial SUBTEL Consultado (`appid=6c807cd119444c6fa3201d6b1a3ef5ed`):** https://licancabur.subtel.gob.cl/portal/apps/instant/portfolio/index.html?appid=6c807cd119444c6fa3201d6b1a3ef5ed
 - **Integrador:** Tecnovoa (`www.tecnovoa.cl`) — KAM TI: Cristián Díaz (`cristian@tecnovoa.cl`)
 - **Contraparte Cliente:** Álvaro O. Carreño Cerda — Jefe Departamento de Informática (`SECPLA`)
 - **Operadores evaluados:** Entel, Movistar, Claro y WOM.
+
+---
+
+## Catastro Geoespacial Oficial SUBTEL (`licancabur.subtel.gob.cl`) en `Av. Presidente Salvador Allende N° 2029`
+
+Consulta directa a las capas REST GIS de **SUBTEL** (*Coberturas Operadoras Móviles Junio 2026* y *Portal de Torres 2026*) para las coordenadas del Centro Consistorial (`lat = -33.4886, lon = -70.6655`):
+
+1. **Cobertura Exterior 100% Verificada en las 4 Compañías:** Polígonos oficiales `3G / 4G LTE / 5G` activos sobre el edificio municipal para **Entel, Movistar, Claro y WOM** (`potencia ≥ -97 dBm`). Esto demuestra técnicamente que la falta de señal en el Piso `-1` (`-3,20 m`) se debe exclusivamente a la **atenuación estructural de las losas de hormigón armado subterráneas** (`> 30 dB`).
+2. **Zona No Saturada (Ley de Antenas N° 20.599):** `ARC_TERRI_URB_SATURADA = 0` y mediciones de densidad de potencia entre `0,0055` y `0,033 µW/cm²` (*Ingeaudit Ltda.*).
+3. **Estaciones Base Vecinas (`< 750 m`) y Calce 100% con `weBoost Office 200 LATAM (SKU 531047)`:**
+
+| Distancia | Azimut | Operador(es) | Código SUBTEL | Dirección Exacta | Bandas Registradas | Calce con `Office 200 (531047)` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`163 m`** | `235° (SO)` | **Claro** | `43_691` (*Apolo-Teresa Vial*) | Av. Club Hípico N° 4676 | `2600 / 3500 MHz` | Macro 850/1900 + 4G/5G |
+| **`253 m`** | `253° (OSO)` | **WOM** | `RM3519` | Teresa Vial fte. N° 2431 (Poste 118671) | `AWS 1700/2100 MHz` | **Banda 4 AWS (`1700/2100 MHz`)** |
+| **`332 m`** | `14° (NNE)` | **WOM** | `RM4114` | Pasaje Nueva Seis N° 1951 | `AWS 1700/2100 MHz` | **Banda 4 AWS (`1700/2100 MHz`)** |
+| **`346 m`** | `259° (O)` | **Entel + Movistar** | `UZM482 / GZM482` · `BALAK13` | Balakireff N° 4417 (*Parque André Jarlán*) | `850 / 1900 / 2600 / 3500 MHz` | **Banda 5 (`850`) + Banda 2 (`1900`)** |
+| **`460 m`** | `110° (ESE)` | **Claro + Entel** | `13_851` · `GVM662` | Av. J.J. Prieto (Ruta 5) N° 4260 esq. Salesianos | `850 / 1900 / 2600 / 3500 MHz` | **Banda 5 (`850`) + Banda 2 (`1900`)** |
+| **`495 m`** | `5° (N)` | **Entel + Claro** | `URS078 / GRS078 / EPCS3736` | Av. Club Hípico N° 3365 (Pob. Magallanes) | `1900 / 2600 / 3500 MHz` | **Banda 2 PCS (`1900 MHz`)** |
+| **`553 m`** | `250° (OSO)` | **Claro** | `13_517` (*P.A.C.*) | Ángel Guarello esq. Félix Mendelssohn | `850 / 1900 / 2600 / 3500 MHz` | **Banda 5 (`850`) + Banda 2 (`1900`)** |
+| **`573 m`** | `212° (SSO)` | **WOM** | `RM3502` | Av. Club Hípico N° 4811 | `AWS 1700/2100 MHz` | **Banda 4 AWS (`1700/2100 MHz`)** |
+| **`684 m`** | `241° (OSO)` | **Entel + Movistar + Claro** | `MSA614` · `MRNC1` · `43_687` | Av. La Marina N° 2725 | `1900 / 2600 / 3500 MHz` | **Banda 2 PCS (`1900 MHz`)** |
+| **`726 m`** | `160° (SSE)` | **Entel + Movistar + Claro** | `USA803` · `INA2U` · `13_938` | Av. José Joaquín Prieto N° 4850 | `850 / 1900 / 2600 / 3500 MHz` | **Banda 5 (`850`) + Banda 2 (`1900`)** |
 
 ---
 

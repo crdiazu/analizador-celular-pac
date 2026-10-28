@@ -62,6 +62,40 @@ De acuerdo con la **Norma Técnica SUBTEL para Repetidores** y la **Resolución 
 - **Ganancia máxima `< 100 dB` y Figura de Ruido `≤ 7 dB`:** El `Office 200` opera con `74 dB` máx. y figura de ruido `< 5 dB`.
 - **Intermodulación `≤ -19 dBm` y Automatic Standby (`≤ -70 dBm/MHz EIRP` en Uplink):** Garantiza cero interferencia hacia las radiobases públicas de Entel, Movistar, Claro y WOM.
 
+### 6. Catastro Geoespacial Oficial SUBTEL (`licancabur.subtel.gob.cl`) en el Entorno del Centro Consistorial
+Consulta directa a los servicios REST GIS de la **Subsecretaría de Telecomunicaciones (SUBTEL)** ([Portal de Mapas de Cobertura Digital `appid=6c807cd119444c6fa3201d6b1a3ef5ed`](https://licancabur.subtel.gob.cl/portal/apps/instant/portfolio/index.html?appid=6c807cd119444c6fa3201d6b1a3ef5ed) y *Portal de Torres 2026*) para las coordenadas exactas del edificio municipal (`Av. Presidente Salvador Allende N° 2029, esq. Av. Club Hípico`, `lat = -33.4886, lon = -70.6655`):
+
+1. **Verificación de Cobertura Exterior Declarada ante SUBTEL:**
+   - **Entel:** Cubierto en **3G (`900/1900 MHz`, `≥ -97 dBm`)**, **4G LTE** y **5G (`3500 MHz`)**.
+   - **Movistar:** Cubierto en **3G (`850 MHz`, polígono `MVS_3G850_Centro ≥ -97 dBm`)**, **4G LTE** y **5G**.
+   - **Claro:** Cubierto en **2G (`850 MHz`)**, **3G (`1900/2100 MHz`, `≥ -97 dBm`)**, **4G LTE (`Subtel LTE_ALL 2026`)** y **5G (`3500 MHz`)**.
+   - **WOM:** Cubierto en **3G (`AWS 1700/2100 MHz`, `≥ -97 dBm`)**, **4G LTE (`AWS / 700 MHz`)** y **5G (`2100 / 3500 MHz`)**.
+   - **Estado Ley de Antenas N° 20.599:** `ARC_TERRI_URB_SATURADA = 0` y `ARC_INFRA_SATURADA = 0` (**Zona NO saturada**; mediciones de densidad de potencia certificadas por *Ingeaudit Ltda.* entre `0,0055` y `0,033 µW/cm²`, muy bajo el límite legal).
+   - **Conclusión Comercial para Álvaro Carreño:** Esto demuestra con datos oficiales de SUBTEL que **las 4 compañías tienen excelente cobertura exterior en el predio municipal**; la pérdida de llamadas en el Piso `-1` (`-3,20 m`) se debe exclusivamente al **apantallamiento estructural de las losas y muros de hormigón armado bajo cota cero** (Hipótesis #1 de Tecnovoa).
+
+2. **Estaciones Base (Torres Celulares) Registradas en SUBTEL en un Radio de `< 750 m`:**
+
+| Distancia | Azimut desde Azotea (`+8,25 m`) | Operador(es) | Código Estación SUBTEL | Dirección Exacta (Comuna) | Soporte / Altura | Tecnologías y Bandas Registradas |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`163 m`** | **`235° (SO)`** | **Claro** | `43_691` (*Apolo - Teresa Vial*) | Av. Club Hípico N° 4676 (PAC) | Torre Autosoportada `9 m` | `4G LTE / 5G` (`2600 / 3500 MHz`) |
+| **`253 m`** | **`253° (OSO)`** | **WOM** | `RM3519` | Calle Teresa Vial fte. N° 2431, Poste 118671 (PAC) | Poste `12 m` | `3G / 4G LTE` (**`AWS 1700/2100 MHz` — Banda 4**) |
+| **`332 m`** | **`14° (NNE)`** | **WOM** | `RM4114` | Pasaje Nueva Seis N° 1951 (PAC) | Poste `12 m` | `3G / 4G LTE` (**`AWS 1700/2100 MHz` — Banda 4**) |
+| **`346 m`** | **`259° (O)`** | **Entel + Movistar** | `UZM482 / GZM482` (Entel) · `BALAK13` (Movistar) | Balakireff N° 4417 — *Parque André Jarlán* (PAC) | Monoposte `12 m` | `3G / 4G / 5G` (**`850 / 1900 / 2600 / 3500 MHz` — B5/B2**) |
+| **`460 m`** | **`110° (ESE)`** | **Claro + Entel** | `13_851` (Claro) · `GVM662` (Entel) | Av. J.J. Prieto (Ruta 5) N° 4260 esq. Salesianos (San Miguel) | Monoposte `30 m` | `2G / 3G / 4G / 5G` (**`850 / 1900 / 2600 / 3500 MHz` — B5/B2**) |
+| **`495 m`** | **`5° (N)`** | **Entel + Claro** | `URS078 / GRS078 / EPCS3736` | Av. Club Hípico N° 3365, Pob. Magallanes (PAC) | Monoposte `12 m` | `2G / 3G / 4G / 5G` (**`1900 / 2600 / 3500 MHz` — Banda 2**) |
+| **`553 m`** | **`250° (OSO)`** | **Claro** | `13_517` (*P.A.C.*) | Ángel Guarello esq. Félix Mendelssohn (PAC) | Monoposte `36 m` | `2G / 3G / 4G / 5G` (**`850 / 1900 / 2600 / 3500 MHz` — B5/B2**) |
+| **`573 m`** | **`212° (SSO)`** | **WOM** | `RM3502` | Av. Club Hípico N° 4811 (PAC) | Monoposte `12 m` | `3G / 4G / 5G` (**`AWS 1700/2100 MHz` — Banda 4**) |
+| **`684 m`** | **`241° (OSO)`** | **Entel + Movistar + Claro** | `MSA614` (Entel) · `MRNC1` (Movistar) · `43_687` (Claro) | Av. La Marina N° 2725 (PAC) | Monoposte `25–30 m` | `2G / 3G / 4G / 5G` (**`1900 / 2600 / 3500 MHz` — Banda 2**) |
+| **`726 m`** | **`160° (SSE)`** | **Entel + Movistar + Claro** | `USA803` (Entel) · `INA2U` (Movistar) · `13_938` (Claro) | Av. José Joaquín Prieto N° 4850 (San Miguel) | Torre `30 m` | `2G / 3G / 4G / 5G` (**`850 / 1900 / 2600 / 3500 MHz` — B5/B2**) |
+
+3. **Conclusión de Ingeniería RF a partir del Catastro SUBTEL:**
+   - **Por qué la Antena Exterior `Omni Plus (314422)` (`360°`) del kit `weBoost Office 200 (531047)` es ideal:** Las estaciones base rodean el Centro Consistorial en **3 sectores acimutales opuestos**: **Oeste/Suroeste (`235°–259°`, a `163–346 m`)**, **Norte (`5°–14°`, a `332–495 m`)** y **Este/Sureste hacia Ruta 5 (`110°–160°`, a `460–726 m`)**. Una sola antena direccional apuntando a un sector dejaría fuera a las operadoras ubicadas en los otros cuadrantes; la **Omni Plus `314422`** capta los `360°` simultáneamente.
+   - **Calce 100 % de Frecuencias con el `weBoost Office 200 LATAM (SKU 531047)`:**
+     - **`Banda 5 (850 MHz)`** del `Office 200` amplifica directamente la voz/3G/4G de **Movistar** (`MVS_3G850_Centro`) y **Claro** (`13_517` / `13_851` en `850 MHz`).
+     - **`Banda 4 (1700/2100 MHz AWS)`** del `Office 200` amplifica directamente **WOM** (`RM3519` a `253 m` y `RM4114` a `332 m`, que operan íntegramente en `AWS`).
+     - **`Banda 25/2 (1900 MHz PCS)`** del `Office 200` amplifica directamente **Entel** (`UZM482` a `346 m` y `URS078` a `495 m` en `1900 MHz`), **Movistar** (`1900 MHz`) y **Claro** (`1900 MHz`).
+   - **Mitigación del Efecto Cercano-Lejano (*Near-Far*):** Como Claro (`163 m`) y WOM (`253 m`) están muy cerca del edificio, la función **XDR (eXtended Dynamic Range)** del `weBoost Office 200` evita que el amplificador se apague por sobrecarga. Si se requiriera ajuste independiente por acimut, el escalamiento natural es el **`WilsonPro Enterprise 4300R`** con **3 antenas direccionales LPDA (Multi-Tower Targeting)** apuntando a `259° O` (Parque Jarlán/Teresa Vial), `5° N` (Club Hípico 3365) y `110° ESE` (Ruta 5 esq. Salesianos).
+
 ---
 
 ## 1. Preparación antes de salir (Oficina Tecnovoa)

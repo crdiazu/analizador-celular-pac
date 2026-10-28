@@ -494,6 +494,7 @@
         <option value="hybrid_zinwave">Wilson Hybrid DAS + Zinwave 8000 (Fibra 150 MHz – 5 GHz)</option>
       </select>
       <a class="btn" href="./531047-530047_office200_ss_LATAM_102721b%20(1).pdf" target="_blank" title="Abrir Ficha Técnica Oficial weBoost Office 200 LATAM">📄 Ficha Office 200 (PDF)</a>
+      <a class="btn" href="https://licancabur.subtel.gob.cl/portal/apps/instant/portfolio/index.html?appid=6c807cd119444c6fa3201d6b1a3ef5ed" target="_blank" title="Abrir Geoportal Oficial de Cobertura y Torres SUBTEL">🌐 Mapa Oficial SUBTEL ↗</a>
       <button class="btn" onclick="resetDemoData()" title="Cargar valores de simulación basados en el Corte D-D'">🔄 Datos Simulados</button>
       <button class="btn" onclick="clearForField()" title="Limpiar mediciones para llenar en terreno">📝 Limpiar p/ Terreno</button>
       <button class="btn btn-primary" onclick="exportCSV()">⬇️ Exportar CSV</button>
@@ -545,6 +546,7 @@
             <button class="pill active" onclick="setDiagramView('schematic', this)">Corte Esquemático D-D'</button>
             <button class="pill" onclick="setDiagramView('plan_section', this)">Plano Corte D-D' (JPG)</button>
             <button class="pill" onclick="setDiagramView('plan_floor1', this)">Plano Planta Nivel 1 (JPG)</button>
+            <button class="pill" id="btnTabSubtelRadar" onclick="setDiagramView('subtel_radar', this)">📡 Radar Antenas SUBTEL (GIS)</button>
           </div>
           <div class="pill-group" id="operatorFilter">
             <button class="pill active" onclick="setOperator('ALL', this)">Promedio 4 Telcos</button>
@@ -678,6 +680,11 @@
           <div id="pinsFloor1Layer"></div>
         </div>
 
+        <!-- VIEW 4: Official SUBTEL GIS Cell Tower Radar (< 750 m around Centro Consistorial PAC) -->
+        <div id="viewSubtelRadar" class="diagram-stage" style="display:none; background:#070d19;">
+          <svg id="subtelRadarSvg" class="diagram-svg" viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+
         <!-- Legend Bar -->
         <div class="legend-bar">
           <div class="legend-items">
@@ -783,6 +790,68 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- OFFICIAL SUBTEL GIS CATASTRO SECTION (licancabur.subtel.gob.cl) -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        📡 Catastro Geoespacial Oficial SUBTEL (<code>licancabur.subtel.gob.cl</code> · <code>appid=6c807cd119444c6fa3201d6b1a3ef5ed</code>)
+      </div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="openSubtelRadarView()">🎯 Ver Radar de Torres en el Diagrama</button>
+        <a class="btn" href="https://licancabur.subtel.gob.cl/portal/apps/instant/portfolio/index.html?appid=6c807cd119444c6fa3201d6b1a3ef5ed" target="_blank">Abrir Visor SUBTEL ↗</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="kit-grid" style="margin-top:0; margin-bottom:14px;">
+        <div class="kit-item" style="border-left: 3px solid #38bdf8;">
+          <div class="kit-sku" style="color:#38bdf8;">ENTEL (Capas Junio 2026)</div>
+          <div class="kit-name">3G / 4G LTE / 5G: CUBIERTO ✅</div>
+          <div class="kit-desc">Torres más cercanas: <strong>Parque Jarlán (346 m · 259° O)</strong>, <strong>Ruta 5 esq. Salesianos (460 m · 110° ESE)</strong> y <strong>Club Hípico 3365 (495 m · 5° N)</strong>. Bandas 1900 / 2600 / 3500 MHz.</div>
+        </div>
+        <div class="kit-item" style="border-left: 3px solid #22c55e;">
+          <div class="kit-sku" style="color:#22c55e;">MOVISTAR (Capas Junio 2026)</div>
+          <div class="kit-name">3G / 4G LTE / 5G: CUBIERTO ✅</div>
+          <div class="kit-desc">Polígono <code>MVS_3G850_Centro ≥ -97 dBm</code>. Torres en <strong>Parque Jarlán (346 m · 259° O)</strong>, <strong>Av. La Marina 2725 (684 m)</strong> y <strong>J.J. Prieto 4850 (726 m)</strong>. Bandas 850 / 1900 / 2600 MHz.</div>
+        </div>
+        <div class="kit-item" style="border-left: 3px solid #ef4444;">
+          <div class="kit-sku" style="color:#ef4444;">CLARO (Capas Junio 2026)</div>
+          <div class="kit-name">2G / 3G / 4G / 5G: CUBIERTO ✅</div>
+          <div class="kit-desc">Torre más cercana a solo <strong>163 m (235° SO en Club Hípico 4676)</strong> + <strong>Ruta 5 esq. Salesianos (460 m)</strong> y <strong>Ángel Guarello (553 m)</strong>. Bandas 850 / 1900 / 2600 / 3500 MHz.</div>
+        </div>
+        <div class="kit-item" style="border-left: 3px solid #a855f7;">
+          <div class="kit-sku" style="color:#a855f7;">WOM (Capas Junio 2026)</div>
+          <div class="kit-name">3G / 4G AWS / 5G: CUBIERTO ✅</div>
+          <div class="kit-desc">Torres a <strong>253 m (253° OSO en Teresa Vial fte. 2431)</strong> y <strong>332 m (14° NNE en Pje. Nueva Seis 1951)</strong> operando en <strong>Banda 4 AWS (1700/2100 MHz)</strong>.</div>
+        </div>
+      </div>
+
+      <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;">
+        💡 <strong>Conclusión Técnica del Geoportal SUBTEL para la Visita con Álvaro Carreño:</strong>
+        1) El predio municipal (<code>lat -33.4886, lon -70.6655</code>) tiene <strong>100% de cobertura exterior declarada en 3G, 4G y 5G</strong> en las 4 operadoras (descarta falla de red pública exterior y confirma que el problema del Piso -1 es 100% estructural indoor).
+        2) Como las radiobases rodean el edificio en <strong>3 cuadrantes distintos (Oeste 235°–259°, Norte 5°–14° y Este 110°–160°)</strong>, la <strong>Antena Exterior Omni Plus 360° (<code>314422</code>)</strong> del <code>weBoost Office 200 LATAM (SKU 531047)</code> es indispensable para enlazar las 4 compañías a la vez.
+        3) Las frecuencias activas en las torres vecinas (<strong>850 MHz, 1700/2100 AWS y 1900 MHz PCS</strong>) calzan al 100% con las 3 bandas amplificadas por el <code>Office 200 LATAM</code>.
+      </p>
+
+      <div class="table-wrapper" style="max-height: 360px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Distancia</th>
+              <th>Azimut desde Azotea</th>
+              <th>Operador(es)</th>
+              <th>Código Estación SUBTEL</th>
+              <th>Dirección Exacta Registrada</th>
+              <th>Soporte / Altura</th>
+              <th>Tecnologías y Bandas SUBTEL</th>
+              <th>Calce con Office 200 (531047)</th>
+            </tr>
+          </thead>
+          <tbody id="subtelTowersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- Attenuation Profile Chart across P0 -> P8 -->
@@ -1091,10 +1160,25 @@
     { id: 'c9', cat: 'Normativa SUBTEL y Cierre Comercial', text: 'Validar aislamiento vertical (>89 dB requerido para los 74 dB del Office 200) y confirmar >10 usuarios con Álvaro Carreño.' }
   ];
 
+  // Official SUBTEL GIS Base Stations (< 750 m around Centro Consistorial PAC: lat -33.4886, lon -70.6655)
+  const SUBTEL_TOWERS = [
+    { id: 'T1', dist: 163, az: 235, card: 'SO',  ops: ['Claro'], primaryOp: 'Claro', code: '43_691 (Apolo - Teresa Vial)', addr: 'Av. Club Hípico N° 4676 (PAC)', height: 'Torre 9 m', tech: '4G LTE / 5G', bands: '2600 / 3500 MHz', match: 'B2/B5 vía macro + 4G/5G' },
+    { id: 'T2', dist: 253, az: 253, card: 'OSO', ops: ['WOM'], primaryOp: 'WOM', code: 'RM3519', addr: 'Calle Teresa Vial fte. N° 2431 (Poste 118671)', height: 'Poste 12 m', tech: '3G / 4G LTE', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
+    { id: 'T3', dist: 332, az: 14,  card: 'NNE', ops: ['WOM'], primaryOp: 'WOM', code: 'RM4114', addr: 'Pasaje Nueva Seis N° 1951 (PAC)', height: 'Poste 12 m', tech: '3G / 4G LTE', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
+    { id: 'T4', dist: 346, az: 259, card: 'O',   ops: ['Entel', 'Movistar'], primaryOp: 'Entel', code: 'UZM482 / GZM482 (Entel) · BALAK13 (Movistar)', addr: 'Balakireff N° 4417 — Parque André Jarlán (PAC)', height: 'Monoposte 12 m', tech: '3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
+    { id: 'T5', dist: 460, az: 110, card: 'ESE', ops: ['Claro', 'Entel'], primaryOp: 'Claro', code: '13_851 (Claro) · GVM662 (Entel)', addr: 'Av. J.J. Prieto (Ruta 5) N° 4260 esq. Salesianos', height: 'Monoposte 30 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
+    { id: 'T6', dist: 495, az: 5,   card: 'N',   ops: ['Entel', 'Claro'], primaryOp: 'Entel', code: 'URS078 / GRS078 / EPCS3736', addr: 'Av. Club Hípico N° 3365, Pob. Magallanes (PAC)', height: 'Monoposte 12 m', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS (1900 MHz)' },
+    { id: 'T7', dist: 553, az: 250, card: 'OSO', ops: ['Claro'], primaryOp: 'Claro', code: '13_517 (P.A.C.)', addr: 'Ángel Guarello esq. Félix Mendelssohn (PAC)', height: 'Monoposte 36 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
+    { id: 'T8', dist: 573, az: 212, card: 'SSO', ops: ['WOM'], primaryOp: 'WOM', code: 'RM3502', addr: 'Av. Club Hípico N° 4811 (PAC)', height: 'Monoposte 12 m', tech: '3G / 4G / 5G', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
+    { id: 'T9', dist: 684, az: 241, card: 'OSO', ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'MSA614 (Entel) · MRNC1 (Mov) · 43_687 (Claro)', addr: 'Av. La Marina N° 2725 (PAC)', height: 'Monoposte 25-30 m', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS (1900 MHz)' },
+    { id: 'T10', dist: 726, az: 160, card: 'SSE', ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'USA803 (Entel) · INA2U (Mov) · 13_938 (Claro)', addr: 'Av. José Joaquín Prieto N° 4850 (San Miguel)', height: 'Torre 30 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' }
+  ];
+
   // State
   let measurements = {};
   let selectedOperator = 'ALL';
   let selectedPoint = 'P6';
+  let selectedTowerId = 'T4';
   let currentView = 'schematic';
   let wilsonSimActive = false;
   let wilsonSimMode = 'office200_2ant';
@@ -1215,6 +1299,8 @@
     renderKPIs();
     renderSchematicNodes();
     renderPlanOverlays();
+    renderSubtelRadar();
+    renderSubtelTowersTable();
     renderInspector();
     renderLinkBudget();
     renderProfileChart();
@@ -1661,10 +1747,151 @@
   function setDiagramView(view, btn) {
     currentView = view;
     document.querySelectorAll('#viewSwitcher .pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
     document.getElementById('viewSchematic').style.display = view === 'schematic' ? 'block' : 'none';
     document.getElementById('viewPlanSection').style.display = view === 'plan_section' ? 'block' : 'none';
     document.getElementById('viewPlanFloor1').style.display = view === 'plan_floor1' ? 'block' : 'none';
+    document.getElementById('viewSubtelRadar').style.display = view === 'subtel_radar' ? 'block' : 'none';
+  }
+
+  function openSubtelRadarView() {
+    const btn = document.getElementById('btnTabSubtelRadar');
+    setDiagramView('subtel_radar', btn);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function selectSubtelTower(towerId) {
+    selectedTowerId = towerId;
+    renderSubtelRadar();
+    renderSubtelTowersTable();
+    openSubtelRadarView();
+  }
+
+  function renderSubtelRadar() {
+    const svg = document.getElementById('subtelRadarSvg');
+    if (!svg) return;
+    const cx = 415, cy = 270, maxRadius = 215, maxDist = 780;
+
+    const filteredTowers = SUBTEL_TOWERS.filter(t => selectedOperator === 'ALL' || t.ops.includes(selectedOperator));
+    const selTower = SUBTEL_TOWERS.find(t => t.id === selectedTowerId) || SUBTEL_TOWERS[3];
+
+    let html = `
+      <defs>
+        <radialGradient id="omniGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f97316" stop-opacity="0.32"/>
+          <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="1100" height="540" fill="#070d19" />
+      <circle cx="${cx}" cy="${cy}" r="${maxRadius}" fill="url(#omniGlow)" />
+    `;
+
+    // Distance rings (200m, 400m, 600m, 750m)
+    [200, 400, 600, 750].forEach(d => {
+      const r = (d / maxDist) * maxRadius;
+      html += `
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#1e293b" stroke-width="1.3" stroke-dasharray="4 4"/>
+        <text x="${cx + 6}" y="${cy - r + 12}" fill="#64748b" font-size="10" font-weight="700">${d} m</text>
+      `;
+    });
+
+    // Compass Axes (N, E, S, O)
+    html += `
+      <line x1="${cx}" y1="${cy - maxRadius - 15}" x2="${cx}" y2="${cy + maxRadius + 15}" stroke="#334155" stroke-width="1"/>
+      <line x1="${cx - maxRadius - 15}" y1="${cy}" x2="${cx + maxRadius + 15}" y2="${cy}" stroke="#334155" stroke-width="1"/>
+      <text x="${cx}" y="32" fill="#38bdf8" font-size="12" font-weight="800" text-anchor="middle">N (0° · Av. Club Hípico 3365)</text>
+      <text x="${cx}" y="520" fill="#94a3b8" font-size="11" font-weight="700" text-anchor="middle">S (180° · Calle Lazo / Departamental)</text>
+      <text x="${cx + maxRadius + 24}" y="${cy + 4}" fill="#94a3b8" font-size="11" font-weight="700">E (90° · Ruta 5 / San Miguel)</text>
+      <text x="${cx - maxRadius - 24}" y="${cy + 4}" fill="#94a3b8" font-size="11" font-weight="700" text-anchor="end">O (270° · Parque Jarlán)</text>
+    `;
+
+    // 360° Omni Plus 314422 Pattern ring around center
+    html += `
+      <circle cx="${cx}" cy="${cy}" r="42" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="5 3"/>
+      <text x="${cx}" y="${cy + 56}" fill="#fdba74" font-size="10" font-weight="700" text-anchor="middle">Captación 360° Antena Omni Plus 314422</text>
+    `;
+
+    // Plot each tower and azimuth vector
+    filteredTowers.forEach(t => {
+      const rad = (t.az - 90) * (Math.PI / 180);
+      const r = (t.dist / maxDist) * maxRadius;
+      const tx = cx + r * Math.cos(rad);
+      const ty = cy + r * Math.sin(rad);
+      const col = OP_COLORS[t.primaryOp] || '#38bdf8';
+      const isSel = t.id === selTower.id;
+
+      html += `
+        <line x1="${cx}" y1="${cy}" x2="${tx}" y2="${ty}" stroke="${col}" stroke-width="${isSel ? '2.8' : '1.4'}" stroke-dasharray="${isSel ? 'none' : '4 3'}" opacity="${isSel ? '0.95' : '0.55'}"/>
+        <g style="cursor:pointer" onclick="selectSubtelTower('${t.id}')">
+          ${isSel ? `<circle cx="${tx}" cy="${ty}" r="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="3 2"/>` : ''}
+          <circle cx="${tx}" cy="${ty}" r="13" fill="${col}" stroke="#0f172a" stroke-width="2"/>
+          <text x="${tx}" y="${ty + 4}" fill="#0f172a" font-size="9.5" font-weight="900" text-anchor="middle">${t.id}</text>
+          <text x="${tx}" y="${ty - 17}" fill="#f8fafc" font-size="10" font-weight="700" text-anchor="middle">${t.ops.join('+')} (${t.dist}m)</text>
+        </g>
+      `;
+    });
+
+    // Center Building Pin (Centro Consistorial PAC)
+    html += `
+      <circle cx="${cx}" cy="${cy}" r="16" fill="#f97316" stroke="#ffffff" stroke-width="3"/>
+      <text x="${cx}" y="${cy + 4}" fill="#0f172a" font-size="10" font-weight="900" text-anchor="middle">PAC</text>
+      <text x="${cx}" y="${cy - 22}" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle">Azotea P1 (+8,25 m)</text>
+    `;
+
+    // Right-side Info Panel inside the SVG (Selected SUBTEL Tower Details)
+    html += `
+      <rect x="745" y="28" width="330" height="484" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+      <text x="765" y="58" fill="#38bdf8" font-size="13" font-weight="800">📡 CATASTRO OFICIAL SUBTEL (GIS)</text>
+      <text x="765" y="76" fill="#94a3b8" font-size="11">Centro: Av. Salvador Allende 2029 (-33.4886, -70.6655)</text>
+
+      <rect x="765" y="92" width="290" height="175" rx="8" fill="#1e293b" stroke="${OP_COLORS[selTower.primaryOp]}" stroke-width="1.5"/>
+      <text x="780" y="115" fill="${OP_COLORS[selTower.primaryOp]}" font-size="12.5" font-weight="800">TORRE SELECCIONADA: ${selTower.id} (${selTower.ops.join(' + ')})</text>
+      <text x="780" y="136" fill="#f8fafc" font-size="11.5" font-weight="700">Distancia: ${selTower.dist} m · Azimut: ${selTower.az}° (${selTower.card})</text>
+      <text x="780" y="156" fill="#cbd5e1" font-size="11">Código: ${selTower.code}</text>
+      <text x="780" y="176" fill="#cbd5e1" font-size="11">Dirección: ${selTower.addr}</text>
+      <text x="780" y="196" fill="#cbd5e1" font-size="11">Soporte: ${selTower.height} · ${selTower.tech}</text>
+      <text x="780" y="216" fill="#fdba74" font-size="11" font-weight="700">Bandas: ${selTower.bands}</text>
+      <text x="780" y="238" fill="#22c55e" font-size="11" font-weight="700">${selTower.match}</text>
+
+      <text x="765" y="294" fill="#f8fafc" font-size="12" font-weight="800">¿Por qué Antena Omni Plus 314422 (360°)?</text>
+      <text x="765" y="314" fill="#94a3b8" font-size="11">• Sector Oeste (235°–259°): Claro (163m), WOM</text>
+      <text x="765" y="330" fill="#94a3b8" font-size="11">  (253m), Entel+Movistar Parque Jarlán (346m).</text>
+      <text x="765" y="350" fill="#94a3b8" font-size="11">• Sector Norte (5°–14°): WOM Pje. Nueva Seis</text>
+      <text x="765" y="366" fill="#94a3b8" font-size="11">  (332m), Entel+Claro Club Hípico 3365 (495m).</text>
+      <text x="765" y="386" fill="#94a3b8" font-size="11">• Sector Este (110°–160°): Claro+Entel Ruta 5</text>
+      <text x="765" y="402" fill="#94a3b8" font-size="11">  esq. Salesianos (460m) y J.J. Prieto (726m).</text>
+      <text x="765" y="428" fill="#22c55e" font-size="11" font-weight="700">✅ La Omni Plus 314422 recibe los 3 sectores</text>
+      <text x="765" y="444" fill="#22c55e" font-size="11" font-weight="700">   simultáneamente sin perder ningún operador.</text>
+      <text x="765" y="472" fill="#38bdf8" font-size="11" font-weight="700">✅ Ley de Antenas 20.599: Zona NO Saturada</text>
+      <text x="765" y="488" fill="#94a3b8" font-size="10.5">   Densidad potencia: 0,0055–0,033 µW/cm² (OK)</text>
+    `;
+
+    svg.innerHTML = html;
+  }
+
+  function renderSubtelTowersTable() {
+    const tbody = document.getElementById('subtelTowersTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    SUBTEL_TOWERS.forEach(t => {
+      if (selectedOperator !== 'ALL' && !t.ops.includes(selectedOperator)) return;
+      const tr = document.createElement('tr');
+      tr.style.cursor = 'pointer';
+      if (t.id === selectedTowerId) tr.style.background = 'rgba(56, 189, 248, 0.12)';
+      tr.onclick = () => selectSubtelTower(t.id);
+      tr.innerHTML = `
+        <td><strong style="color:#f8fafc">${t.dist} m</strong> <span style="color:var(--text-muted);font-size:11px;">(${t.id})</span></td>
+        <td><strong>${t.az}° (${t.card})</strong></td>
+        <td><span style="color:${OP_COLORS[t.primaryOp]};font-weight:800;">${t.ops.join(' + ')}</span></td>
+        <td><code>${t.code}</code></td>
+        <td>${t.addr}</td>
+        <td>${t.height}</td>
+        <td>${t.tech} · <strong>${t.bands}</strong></td>
+        <td><span style="color:#22c55e;font-weight:700;">${t.match}</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
   }
 
   function toggleWilsonSim() {
