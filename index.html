@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estudio de Cobertura Celular Indoor (Piso -1) — Municipalidad de PAC | Tecnovoa</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-card: #111827;
+      --bg-panel: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #6366f1;
+      --wilson: #f97316;
+      --good: #22c55e;
+      --fair: #eab308;
+      --weak: #f97316;
+      --dead: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+    }
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      background: var(--bg-panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn:hover { border-color: var(--accent); background: #26354d; }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border-color: #38bdf8;
+    }
+    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-wilson {
+      background: rgba(249, 115, 22, 0.15);
+      border-color: var(--wilson);
+      color: #fdba74;
+    }
+    .btn-wilson.active {
+      background: var(--wilson);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(249, 115, 22, 0.5);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1440px;
+      margin: 20px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 4px 0 2px;
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Main Workspace Grid */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr 410px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .workspace-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 14px 18px;
+      background: rgba(30, 41, 59, 0.6);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-body { padding: 18px; }
+
+    /* Filter Pills */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pill:hover { color: var(--text); border-color: #64748b; }
+    .pill.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Interactive Diagram Stage */
+    .diagram-stage {
+      position: relative;
+      width: 100%;
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      min-height: 460px;
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .plan-overlay-container {
+      position: relative;
+      width: 100%;
+      display: none;
+    }
+    .plan-overlay-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: contrast(1.08);
+    }
+    .plan-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.65);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      z-index: 10;
+    }
+    .plan-pin:hover, .plan-pin.selected {
+      transform: translate(-50%, -50%) scale(1.25);
+      z-index: 20;
+      box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.5), 0 6px 18px rgba(0,0,0,0.8);
+    }
+    .plan-pin-label {
+      position: absolute;
+      top: 105%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.92);
+      color: #f8fafc;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      border: 1px solid #475569;
+      pointer-events: none;
+    }
+
+    /* Legend */
+    .legend-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+    }
+    .legend-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    /* Inspector Sidebar */
+    .point-badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 13px;
+      background: var(--accent);
+      color: #0f172a;
+    }
+    .operator-editor-card {
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .op-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .op-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .field-group label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .field-group input, .field-group select {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: var(--text);
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .field-group input:focus, .field-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Profile Chart */
+    .chart-box {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    /* Full Table */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      max-height: 520px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #1e293b;
+      text-align: left;
+      white-space: nowrap;
+    }
+    th {
+      background: #0f172a;
+      color: var(--text-muted);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    tr:hover td { background: rgba(56, 189, 248, 0.05); }
+    .status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* Checklist Grid */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(51, 65, 85, 0.6);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .check-item input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .check-item.done span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      header { position: static; background: #0f172a; }
+      .header-controls { display: none; }
+      .workspace-grid { grid-template-columns: 1fr; }
+      body { background: #0b1120; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="brand-badge">Tecnovoa · Ingeniería RF &amp; Prevención de Riesgos</div>
+      <h1>Analizador Interactivo de Cobertura Indoor — Municipalidad de Pedro Aguirre Cerda</h1>
+      <div class="subtitle">
+        Av. Pdte. Salvador Allende N° 2029 (Piso -1 / Cota -3,20 m) · Contraparte: <strong>Álvaro Carreño Cerda</strong> (Jefe Depto. Informática) · KAM TI: <strong>Cristián Díaz</strong>
+      </div>
+    </div>
+    <div class="header-controls">
+      <button id="btnWilsonToggle" class="btn btn-wilson" onclick="toggleWilsonSim()">
+        📡 Simular Amplificador Wilson: <span id="wilsonStateLabel">OFF (Estado Actual)</span>
+      </button>
+      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none;">
+        <option value="1ant">1 Antena Domo (Eje R — Informática)</option>
+        <option value="2ant" selected>Splitter 2 Antenas (Eje R Informática + Eje S RR.PP./Archivo)</option>
+      </select>
+      <button class="btn" onclick="resetDemoData()" title="Cargar valores de simulación basados en el Corte D-D'">🔄 Datos Simulados</button>
+      <button class="btn" onclick="clearForField()" title="Limpiar mediciones para llenar en terreno">📝 Limpiar p/ Terreno</button>
+      <button class="btn btn-primary" onclick="exportCSV()">⬇️ Exportar CSV</button>
+      <label class="btn" style="cursor:pointer;">
+        📂 Importar CSV
+        <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="importCSV(event)" />
+      </label>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- KPI Summary Strip -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Señal Donante Azotea (P1 · Eje P–Q)</div>
+      <div class="kpi-value" id="kpiDonorRsrp">-76 dBm</div>
+      <div class="kpi-sub" id="kpiDonorSub">B2 (1900) / B4 (AWS) / B5 (850) — Óptima p/ Wilson</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Promedio Piso -1 Informática (P5–P6)</div>
+      <div class="kpi-value" id="kpiSubRsrp">-111 dBm</div>
+      <div class="kpi-sub" id="kpiSubStatus">Sombra severa (-35 dB atenuación por losas)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Viabilidad de Llamadas Voz en Piso -1</div>
+      <div class="kpi-value" id="kpiVoiceOk">0% (0 / 20)</div>
+      <div class="kpi-sub" id="kpiVoiceSub">Puntos P4 a P8 en las 4 compañías (RSRP ≥ -100 dBm)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Ruta Vertical Coaxial Propuesta</div>
+      <div class="kpi-value" style="color: var(--accent);">Eje P–Q (GI 07/08)</div>
+      <div class="kpi-sub">Azotea (+8,25m) → Racks Nivel 1 → Informática (-3,20m) · ~18 m</div>
+    </div>
+  </div>
+
+  <!-- Main Workspace: Interactive Diagram + Point Inspector -->
+  <div class="workspace-grid">
+
+    <!-- Left Column: Interactive Diagram -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          🗺️ Diagrama Interactivo de Mediciones (Puntos P0 a P8)
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+          <div class="pill-group" id="viewSwitcher">
+            <button class="pill active" onclick="setDiagramView('schematic', this)">Corte Esquemático D-D'</button>
+            <button class="pill" onclick="setDiagramView('plan_section', this)">Plano Corte D-D' (JPG)</button>
+            <button class="pill" onclick="setDiagramView('plan_floor1', this)">Plano Planta Nivel 1 (JPG)</button>
+          </div>
+          <div class="pill-group" id="operatorFilter">
+            <button class="pill active" onclick="setOperator('ALL', this)">Promedio 4 Telcos</button>
+            <button class="pill" onclick="setOperator('Entel', this)">Entel</button>
+            <button class="pill" onclick="setOperator('Movistar', this)">Movistar</button>
+            <button class="pill" onclick="setOperator('Claro', this)">Claro</button>
+            <button class="pill" onclick="setOperator('WOM', this)">WOM</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- VIEW 1: Interactive SVG Architectural Section D-D' -->
+        <div id="viewSchematic" class="diagram-stage">
+          <svg id="schematicSvg" class="diagram-svg" viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0f172a"/>
+                <stop offset="100%" stop-color="#1e293b"/>
+              </linearGradient>
+              <pattern id="earthHatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="12" stroke="#334155" stroke-width="2" />
+              </pattern>
+              <radialGradient id="rfGlowGood" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#22c55e" stop-opacity="0.45"/>
+                <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rfGlowDead" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ef4444" stop-opacity="0.38"/>
+                <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Sky / Background -->
+            <rect x="0" y="0" width="1100" height="330" fill="url(#skyGrad)" />
+            <!-- Underground Earth -->
+            <rect x="0" y="330" width="1100" height="210" fill="#090d16" />
+            <rect x="0" y="470" width="1100" height="70" fill="url(#earthHatch)" opacity="0.5" />
+
+            <!-- Structural Grid Axes (T to A, matching Corte D-D') -->
+            <g stroke="#334155" stroke-dasharray="4 4" stroke-width="1" font-size="11" fill="#94a3b8" text-anchor="middle">
+              <line x1="90" y1="40" x2="90" y2="505"/><circle cx="90" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="90" y="522" stroke="none">T</text>
+              <line x1="205" y1="40" x2="205" y2="505"/><circle cx="205" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="205" y="522" stroke="none">S</text>
+              <line x1="320" y1="40" x2="320" y2="505"/><circle cx="320" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="320" y="522" stroke="none">R</text>
+              <line x1="435" y1="40" x2="435" y2="505"/><circle cx="435" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="435" y="522" stroke="none">Q</text>
+              <line x1="535" y1="40" x2="535" y2="505"/><circle cx="535" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="535" y="522" stroke="none">P</text>
+              <line x1="650" y1="40" x2="650" y2="505"/><circle cx="650" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="650" y="522" stroke="none">O</text>
+              <line x1="755" y1="40" x2="755" y2="505"/><circle cx="755" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="755" y="522" stroke="none">N/M</text>
+              <line x1="875" y1="40" x2="875" y2="505"/><circle cx="875" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="875" y="522" stroke="none">K</text>
+              <line x1="1010" y1="40" x2="1010" y2="505"/><circle cx="1010" cy="518" r="10" fill="#0f172a" stroke="#475569"/><text x="1010" y="522" stroke="none">A–D</text>
+            </g>
+
+            <!-- Building Structure: Rooftop Caseta (Eje P-Q) -->
+            <rect x="425" y="75" width="120" height="65" fill="#1e293b" stroke="#64748b" stroke-width="2" />
+            <text x="485" y="95" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">CASETA AZOTEA</text>
+            <text x="485" y="110" fill="#94a3b8" font-size="10" text-anchor="middle">Cota +8,25 m</text>
+
+            <!-- Level 2 (+4,35 m) -->
+            <rect x="75" y="140" width="965" height="90" fill="#162032" stroke="#64748b" stroke-width="2" />
+            <text x="250" y="185" fill="#64748b" font-size="12" font-weight="700" text-anchor="middle">PLANTA NIVEL 2 (+4,35 m) — Administración y Finanzas / SECPLAN / Alcaldía</text>
+
+            <!-- Level 1 (+0,45 m) -->
+            <rect x="75" y="230" width="965" height="100" fill="#1a2639" stroke="#94a3b8" stroke-width="2" />
+            <!-- Racks Room in Level 1 (Eje P-Q) -->
+            <rect x="435" y="232" width="100" height="96" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" stroke-width="1.5" />
+            <text x="485" y="254" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle">RACKS Y CENTRAL</text>
+            <text x="485" y="267" fill="#38bdf8" font-size="10" text-anchor="middle">SERVIDORES (GI 07/08)</text>
+            <text x="240" y="275" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle">PLANTA NIVEL 1 (+0,45 m) — DIDECO / Salud / Educación</text>
+            <text x="955" y="255" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">ACCESO PRINCIPAL</text>
+            <text x="955" y="270" fill="#94a3b8" font-size="10" text-anchor="middle">Av. Salvador Allende</text>
+
+            <!-- Heavy Reinforced Concrete Slab between Nivel 1 and Nivel -1 -->
+            <rect x="70" y="326" width="975" height="10" fill="#475569" />
+            <text x="15" y="323" fill="#94a3b8" font-size="10" font-weight="700">N ±0,00</text>
+            <text x="15" y="465" fill="#f87171" font-size="10" font-weight="700">N -3,20m</text>
+
+            <!-- Level -1 Underground Offices (Corte D-D' Exact Rooms) -->
+            <!-- Ejes T-S: RR.PP. -->
+            <rect x="90" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+            <text x="147" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">RELACIONES PÚBLICAS</text>
+            <text x="147" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Jefatura + 2 Profesionales</text>
+
+            <!-- Ejes S-R: Jefe Informática & Emergencia -->
+            <rect x="205" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+            <text x="262" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">JEFE INFORMÁTICA</text>
+            <text x="262" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Álvaro Carreño + Emergencia</text>
+
+            <!-- Ejes R-Q: 2 Técnicos Informática + Bodega -->
+            <rect x="320" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+            <text x="377" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">2 TÉC. INFORMÁTICA</text>
+            <text x="377" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">+ Bodega TI (Ejes Q–R)</text>
+
+            <!-- Ejes Q-P: Hall Subterráneo / Ascensor y Escalera -->
+            <rect x="435" y="336" width="100" height="134" fill="#172033" stroke="#64748b" stroke-width="2" />
+            <text x="485" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">HALL / ASCENSOR</text>
+            <text x="485" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Núcleo Escalera Eje P–Q</text>
+
+            <!-- Ejes P-K: Inventario y Archivo Municipal -->
+            <rect x="535" y="336" width="220" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
+            <text x="645" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">ARCHIVO E INVENTARIO</text>
+            <text x="645" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Encargado + Bodega + Archivo (Ejes K–P)</text>
+
+            <!-- Ejes N-L: Patio Inglés Hundido -->
+            <rect x="755" y="336" width="120" height="134" fill="#0d1526" stroke="#475569" stroke-width="2" stroke-dasharray="5 3" />
+            <text x="815" y="356" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle">PATIO INGLÉS</text>
+            <text x="815" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Escalera Ext. / Vidrio Low-E</text>
+
+            <!-- Ejes A-D: Estacionamientos Subterráneos -->
+            <rect x="875" y="336" width="165" height="134" fill="#0f172a" stroke="#475569" stroke-width="2" />
+            <text x="957" y="395" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">ESTACIONAMIENTOS -1</text>
+            <text x="957" y="410" fill="#475569" font-size="9.5" text-anchor="middle">(Ejes A–N · Corte B-B')</text>
+
+            <!-- WILSON CONNECTIVITY INFRASTRUCTURE OVERLAY (Coax + Donor + Indoor Antennas) -->
+            <g id="wilsonOverlayGroup" opacity="0.45">
+              <!-- Coax Vertical Drop along Shaft GI 07/08 (Eje P-Q) -->
+              <path d="M 485 65 L 485 385 L 355 385" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="6 4" />
+              <path id="wilsonSecondBranch" d="M 355 385 L 175 385 M 485 385 L 615 385" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="4 4" />
+              <!-- Donor Yagi Antenna Icon on Rooftop -->
+              <polygon points="485,40 465,68 505,68" fill="#f97316" stroke="#fff" stroke-width="1.5" />
+              <text x="585" y="56" fill="#fdba74" font-size="11" font-weight="700">Antena Donante Wilson (Azotea)</text>
+              <!-- Amplifier Box in Rack/Ceiling -->
+              <rect x="448" y="372" width="74" height="24" rx="4" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+              <text x="485" y="388" fill="#fff" font-size="9.5" font-weight="800" text-anchor="middle">AMP WILSON</text>
+            </g>
+
+            <!-- Dynamic RF Halos + Interactive Measurement Nodes P0 to P8 rendered by JS -->
+            <g id="svgHalosLayer"></g>
+            <g id="svgNodesLayer"></g>
+          </svg>
+        </div>
+
+        <!-- VIEW 2: Real Architectural Section Image Overlay -->
+        <div id="viewPlanSection" class="plan-overlay-container">
+          <img src="./Elevation-Sections-001.jpg" alt="Cortes Arquitectónicos Municipalidad PAC" />
+          <div id="pinsSectionLayer"></div>
+        </div>
+
+        <!-- VIEW 3: Real First Floor Plan Image Overlay -->
+        <div id="viewPlanFloor1" class="plan-overlay-container">
+          <img src="./First_Floor_Plan-001.jpg" alt="Planta Nivel 1 Municipalidad PAC" />
+          <div id="pinsFloor1Layer"></div>
+        </div>
+
+        <!-- Legend Bar -->
+        <div class="legend-bar">
+          <div class="legend-items">
+            <strong>Escala 3GPP RSRP (dBm):</strong>
+            <span><i class="legend-dot" style="background:#22c55e"></i>Excelente (≥ -80)</span>
+            <span><i class="legend-dot" style="background:#84cc16"></i>Buena (-80 a -90)</span>
+            <span><i class="legend-dot" style="background:#eab308"></i>Regular (-90 a -100)</span>
+            <span><i class="legend-dot" style="background:#f97316"></i>Débil / Riesgo corte (-100 a -110)</span>
+            <span><i class="legend-dot" style="background:#ef4444"></i>Sin Servicio (&lt; -110)</span>
+          </div>
+          <div style="color:var(--text-muted)">
+            💡 <em>Haz clic en cualquier punto <strong>P0–P8</strong> para ver o editar las 4 compañías.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Point Inspector & Live Editor -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          🔎 Inspector de Punto: <span id="inspPointId" class="point-badge">P6</span>
+        </div>
+        <span id="inspLevelBadge" style="font-size:12px; color:var(--text-muted);">Nivel -1 (-3,20 m)</span>
+      </div>
+      <div class="card-body">
+        <div style="margin-bottom: 10px;">
+          <div id="inspRoomTitle" style="font-size:15px; font-weight:700;">Oficina Jefe Informática (Álvaro Carreño) y Emergencia</div>
+          <div id="inspAxisSub" style="font-size:12px; color:var(--accent);">Ubicación en plano: Ejes R–S (Corte D-D') · Zona Crítica 2</div>
+        </div>
+
+        <div id="inspectorOperatorsContainer"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Attenuation Profile Chart across P0 -> P8 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📉 Perfil de Potencia RSRP (dBm) por Punto Estructural — Comparativa 4 Compañías</div>
+      <div style="font-size:12px; color:var(--text-muted);">Línea verde (-90 dBm) = Meta de voz estable · Línea roja (-105 dBm) = Umbral de corte de llamada</div>
+    </div>
+    <div class="card-body chart-box">
+      <svg id="profileChartSvg" viewBox="0 0 1100 260" style="width:100%; height:auto; min-width:680px;"></svg>
+    </div>
+  </div>
+
+  <!-- Complete Measurement Matrix Table -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📋 Matriz Completa de Mediciones (P0 a P8 × 4 Compañías = 36 Registros)</div>
+      <div style="font-size:12px; color:var(--text-muted);">Los cambios se guardan automáticamente en el navegador y se exportan en el CSV</div>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Punto</th>
+            <th>Nivel</th>
+            <th>Ejes Plano</th>
+            <th>Recinto / Ubicación</th>
+            <th>Compañía</th>
+            <th>Tec.</th>
+            <th>Banda</th>
+            <th>RSRP (dBm)</th>
+            <th>RSRQ (dB)</th>
+            <th>SINR (dB)</th>
+            <th> ¿Llamada OK?</th>
+            <th>Calidad Voz (1-5)</th>
+            <th>Estado Cobertura</th>
+          </tr>
+        </thead>
+        <tbody id="fullTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Interactive Checklist for Comercial + Prevencionista -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">✅ Checklist Interactivo de Terreno (Comercial + Prevencionista de Riesgos)</div>
+      <span style="font-size:12px; color:var(--text-muted);">Marca cada hito durante la visita a la Municipalidad</span>
+    </div>
+    <div class="card-body checklist-grid" id="checklistContainer"></div>
+  </div>
+
+</div>
+
+<script>
+  const OPERATORS = ['Entel', 'Movistar', 'Claro', 'WOM'];
+  const OP_COLORS = {
+    Entel: '#38bdf8',
+    Movistar: '#22c55e',
+    Claro: '#ef4444',
+    WOM: '#a855f7'
+  };
+
+  // Architectural coordinates on Schematic SVG, Section JPG (Corte D-D'), and Floor 1 JPG
+  const POINTS_META = [
+    {
+      id: 'P0',
+      nivel: 'Nivel 1 (+0.45m)',
+      eje: 'Ejes A-D / 6-8',
+      recinto: 'Acceso Principal (Av. Salvador Allende)',
+      rol: 'Referencia Exterior Calle',
+      svgX: 955, svgY: 295,
+      secX: 81.0, secY: 86.5,
+      fl1X: 21.0, fl1Y: 51.0,
+      isUnderground: false
+    },
+    {
+      id: 'P1',
+      nivel: 'Azotea (+8.25m)',
+      eje: 'Ejes N-Q / 12-14',
+      recinto: 'Cubierta sobre Escalera / Shaft GI 07-08 (Donante Wilson)',
+      rol: 'Punto Donante Antena Exterior',
+      svgX: 485, svgY: 118,
+      secX: 31.5, secY: 77.5,
+      fl1X: 64.5, fl1Y: 72.5,
+      isUnderground: false
+    },
+    {
+      id: 'P2',
+      nivel: 'Nivel 1 (+0.45m)',
+      eje: 'Ejes P-Q / 14-15',
+      recinto: 'Sala Racks y Central Servidores (junto a GI 07-08)',
+      rol: 'Paso Vertical Coaxial',
+      svgX: 485, svgY: 295,
+      secX: 31.5, secY: 86.5,
+      fl1X: 70.0, fl1Y: 79.0,
+      isUnderground: false
+    },
+    {
+      id: 'P3',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: 'Ejes L-N / Patio',
+      recinto: 'Patio Inglés Hundido (pie de escalera exterior)',
+      rol: 'Difracción Exterior Zócalo',
+      svgX: 815, svgY: 425,
+      secX: 46.5, secY: 91.5,
+      fl1X: 56.0, fl1Y: 46.0,
+      isUnderground: true
+    },
+    {
+      id: 'P4',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: "Ejes P-Q (Corte D-D')",
+      recinto: 'Hall Subterráneo / Salida Ascensor y Escalera',
+      rol: 'Acceso Vertical Piso -1',
+      svgX: 485, svgY: 425,
+      secX: 31.5, secY: 91.5,
+      fl1X: 64.5, fl1Y: 73.5,
+      isUnderground: true
+    },
+    {
+      id: 'P5',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: "Ejes Q-R (Corte D-D')",
+      recinto: 'Oficina 2 Técnicos Informática y Bodega (Zona Crítica 1)',
+      rol: 'Zona Crítica 1 (Usuarios TI)',
+      svgX: 377, svgY: 425,
+      secX: 27.5, secY: 91.5,
+      fl1X: 71.0, fl1Y: 73.5,
+      isUnderground: true
+    },
+    {
+      id: 'P6',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: "Ejes R-S (Corte D-D')",
+      recinto: 'Oficina Jefe Informática (Álvaro Carreño) y Emergencia',
+      rol: 'Zona Crítica 2 (Jefe TI + Emergencia)',
+      svgX: 262, svgY: 425,
+      secX: 23.5, secY: 91.5,
+      fl1X: 75.0, fl1Y: 73.5,
+      isUnderground: true
+    },
+    {
+      id: 'P7',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: "Ejes S-T (Corte D-D')",
+      recinto: 'Oficinas Relaciones Públicas (Jefatura + 2 Prof.)',
+      rol: 'Zona Crítica 3 (Usuarios RR.PP.)',
+      svgX: 147, svgY: 425,
+      secX: 19.5, secY: 91.5,
+      fl1X: 79.5, fl1Y: 73.5,
+      isUnderground: true
+    },
+    {
+      id: 'P8',
+      nivel: 'Nivel -1 (-3.20m)',
+      eje: "Ejes K-P (Corte D-D')",
+      recinto: 'Archivo Municipal e Inventario (fondo enterrado)',
+      rol: 'Fondo Bajo Losa',
+      svgX: 645, svgY: 425,
+      secX: 38.5, secY: 91.5,
+      fl1X: 57.5, fl1Y: 73.5,
+      isUnderground: true
+    }
+  ];
+
+  // Realistic Baseline RF Simulation based on Corte D-D' concrete & Low-E glass attenuation
+  function getDefaultSimulationData() {
+    const base = {
+      P0: {
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -79, rsrq: -9,  sinr: 16, conecta: 'S', voz: 5 },
+        Movistar: { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -81, rsrq: -10, sinr: 14, conecta: 'S', voz: 5 },
+        Claro:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -83, rsrq: -11, sinr: 13, conecta: 'S', voz: 4 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -80, rsrq: -10, sinr: 15, conecta: 'S', voz: 5 }
+      },
+      P1: {
+        Entel:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -74, rsrq: -8,  sinr: 19, conecta: 'S', voz: 5 },
+        Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -76, rsrq: -9,  sinr: 18, conecta: 'S', voz: 5 },
+        Claro:    { tec: '4G LTE', banda: 'B2 (1900)', rsrp: -78, rsrq: -9,  sinr: 16, conecta: 'S', voz: 5 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -75, rsrq: -8,  sinr: 18, conecta: 'S', voz: 5 }
+      },
+      P2: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -91, rsrq: -12, sinr: 8,  conecta: 'S', voz: 4 },
+        Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -93, rsrq: -13, sinr: 7,  conecta: 'S', voz: 4 },
+        Claro:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -95, rsrq: -14, sinr: 5,  conecta: 'S', voz: 3 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -96, rsrq: -14, sinr: 6,  conecta: 'S', voz: 3 }
+      },
+      P3: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -99,  rsrq: -15, sinr: 3,  conecta: 'S', voz: 3 },
+        Movistar: { tec: '4G LTE', banda: 'B5 (850)',  rsrp: -101, rsrq: -16, sinr: 1,  conecta: 'S', voz: 2 },
+        Claro:    { tec: '3G',     banda: 'B5 (850)',  rsrp: -103, rsrq: -17, sinr: 0,  conecta: 'S', voz: 2 },
+        WOM:      { tec: '4G LTE', banda: 'B4 (AWS)',  rsrp: -104, rsrq: -18, sinr: -1, conecta: 'N', voz: 2 }
+      },
+      P4: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -106, rsrq: -18, sinr: -2, conecta: 'N', voz: 2 },
+        Movistar: { tec: '3G',     banda: 'B5 (850)',  rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -112, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 }
+      },
+      P5: {
+        Entel:    { tec: '4G LTE', banda: 'B28 (700)', rsrp: -108, rsrq: -19, sinr: -3, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 }
+      },
+      P6: {
+        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -109, rsrq: -19, sinr: -4, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -111, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -115, rsrq: -20, sinr: -8, conecta: 'N', voz: 1 }
+      },
+      P7: {
+        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -110, rsrq: -20, sinr: -4, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -112, rsrq: -20, sinr: -5, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -114, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -116, rsrq: -20, sinr: -8, conecta: 'N', voz: 1 }
+      },
+      P8: {
+        Entel:    { tec: 'Sin Serv.', banda: 'B28 (700)', rsrp: -113, rsrq: -20, sinr: -6, conecta: 'N', voz: 1 },
+        Movistar: { tec: 'Sin Serv.', banda: 'B5 (850)',  rsrp: -115, rsrq: -20, sinr: -7, conecta: 'N', voz: 1 },
+        Claro:    { tec: 'Sin Serv.', banda: 'B2 (1900)', rsrp: -117, rsrq: -20, sinr: -9, conecta: 'N', voz: 1 },
+        WOM:      { tec: 'Sin Serv.', banda: 'B4 (AWS)',  rsrp: -118, rsrq: -20, sinr: -9, conecta: 'N', voz: 1 }
+      }
+    };
+    return base;
+  }
+
+  const CHECKLIST_ITEMS = [
+    { id: 'c1', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Anunciarse en recepción (Av. Salvador Allende 2029) y firmar AST con Prevencionista.' },
+    { id: 'c2', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Verificar EPP completo: casco con barbiquejo, calzado dieléctrico, chaleco reflectante y linterna.' },
+    { id: 'c3', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Inspeccionar barandas y acceso seguro en Azotea (Eje N–P) a más de 2 m del borde.' },
+    { id: 'c4', cat: 'Seguridad y Prevención (Prevencionista)', text: 'Identificar rutas de evacuación del Nivel -1 (Escalera Eje P–Q y Escalera Patio Inglés Ejes L–N).' },
+    { id: 'c5', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Medir en P1 (Azotea Eje P–Q) potencia de bandas B2 (1900), B4 (AWS - WOM) y B5 (850).' },
+    { id: 'c6', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Inspeccionar pasada vertical por Shafts GI 07 y GI 08 en Sala Racks Nivel 1 (Eje P–Q).' },
+    { id: 'c7', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Medir con huincha láser largo total de coaxial desde Azotea hasta techo de Informática (-3,20 m).' },
+    { id: 'c8', cat: 'Ingeniería RF y Factibilidad Wilson', text: 'Verificar material de tabiques entre Informática (Ejes Q–S), RR.PP. (S–T) y Archivo (K–P).' },
+    { id: 'c9', cat: 'Comercial (Tecnovoa)', text: 'Confirmar cantidad exacta de usuarios (>10) y operador de los teléfonos municipales con Álvaro Carreño.' }
+  ];
+
+  // State
+  let measurements = {};
+  let selectedOperator = 'ALL';
+  let selectedPoint = 'P6';
+  let currentView = 'schematic';
+  let wilsonSimActive = false;
+  let wilsonSimMode = '2ant'; // '1ant' or '2ant'
+
+  function loadState() {
+    const saved = localStorage.getItem('pac_rf_measurements_v1');
+    if (saved) {
+      try {
+        measurements = JSON.parse(saved);
+      } catch (e) {
+        measurements = getDefaultSimulationData();
+      }
+    } else {
+      measurements = getDefaultSimulationData();
+    }
+  }
+
+  function saveState() {
+    localStorage.setItem('pac_rf_measurements_v1', JSON.stringify(measurements));
+  }
+
+  // Returns the effective record (applying Wilson repeater gain if simulation is toggled ON)
+  function getEffectiveRecord(pointId, op) {
+    const raw = measurements[pointId][op];
+    if (!wilsonSimActive) return { ...raw };
+
+    // Calculate Wilson Repeater effect on underground points P3 to P8
+    const boostMap1Ant = { P3: 10, P4: 24, P5: 31, P6: 30, P7: 18, P8: 14 };
+    const boostMap2Ant = { P3: 14, P4: 28, P5: 34, P6: 34, P7: 30, P8: 25 };
+    const boost = (wilsonSimMode === '2ant' ? boostMap2Ant[pointId] : boostMap1Ant[pointId]) || 0;
+
+    if (!boost || raw.rsrp === '' || isNaN(Number(raw.rsrp))) return { ...raw };
+
+    const newRsrp = Math.min(-72, Number(raw.rsrp) + boost);
+    const newRsrq = Math.min(-7, Number(raw.rsrq || -18) + Math.round(boost * 0.3));
+    const newSinr = Math.min(20, Number(raw.sinr || -5) + Math.round(boost * 0.6));
+    const newVoz = newRsrp >= -85 ? 5 : (newRsrp >= -95 ? 4 : (newRsrp >= -102 ? 3 : 2));
+    return {
+      tec: '4G VoLTE',
+      banda: op === 'WOM' ? 'B4 (AWS)' : 'B2 (1900)',
+      rsrp: newRsrp,
+      rsrq: newRsrq,
+      sinr: newSinr,
+      conecta: newRsrp >= -102 ? 'S' : 'N',
+      voz: newVoz
+    };
+  }
+
+  function getPointAggregatedMetric(pointId) {
+    const ops = selectedOperator === 'ALL' ? OPERATORS : [selectedOperator];
+    let sumRsrp = 0, count = 0, sumVoz = 0;
+    ops.forEach(op => {
+      const rec = getEffectiveRecord(pointId, op);
+      if (rec.rsrp !== '' && !isNaN(Number(rec.rsrp))) {
+        sumRsrp += Number(rec.rsrp);
+        sumVoz += Number(rec.voz || 1);
+        count++;
+      }
+    });
+    if (count === 0) return { rsrp: null, voz: null };
+    return {
+      rsrp: Math.round(sumRsrp / count),
+      voz: (sumVoz / count).toFixed(1)
+    };
+  }
+
+  function rsrpToColor(rsrp) {
+    if (rsrp === null || rsrp === '' || isNaN(rsrp)) return '#64748b';
+    const v = Number(rsrp);
+    if (v >= -80) return '#22c55e';
+    if (v >= -90) return '#84cc16';
+    if (v >= -100) return '#eab308';
+    if (v >= -110) return '#f97316';
+    return '#ef4444';
+  }
+
+  function rsrpToLabel(rsrp) {
+    if (rsrp === null || rsrp === '' || isNaN(rsrp)) return 'Pendiente';
+    const v = Number(rsrp);
+    if (v >= -80) return 'Excelente';
+    if (v >= -90) return 'Buena';
+    if (v >= -100) return 'Regular';
+    if (v >= -110) return 'Débil / Corte';
+    return 'Sin Cobertura';
+  }
+
+  function renderAll() {
+    renderKPIs();
+    renderSchematicNodes();
+    renderPlanOverlays();
+    renderInspector();
+    renderProfileChart();
+    renderFullTable();
+  }
+
+  function renderKPIs() {
+    const p1 = getPointAggregatedMetric('P1');
+    const p5 = getPointAggregatedMetric('P5');
+    const p6 = getPointAggregatedMetric('P6');
+
+    const donorEl = document.getElementById('kpiDonorRsrp');
+    donorEl.textContent = p1.rsrp !== null ? `${p1.rsrp} dBm` : 'Pendiente';
+    donorEl.style.color = rsrpToColor(p1.rsrp);
+
+    const avgSub = (p5.rsrp !== null && p6.rsrp !== null) ? Math.round((p5.rsrp + p6.rsrp) / 2) : null;
+    const subEl = document.getElementById('kpiSubRsrp');
+    subEl.textContent = avgSub !== null ? `${avgSub} dBm` : 'Pendiente';
+    subEl.style.color = rsrpToColor(avgSub);
+
+    const subStatus = document.getElementById('kpiSubStatus');
+    if (avgSub !== null && p1.rsrp !== null) {
+      const diff = p1.rsrp - avgSub;
+      subStatus.textContent = wilsonSimActive
+        ? `¡Cobertura restituida con Wilson! (Ganancia neta +${35 - diff} dB)`
+        : `Pérdida Azotea → Piso -1: ${diff} dB (${rsrpToLabel(avgSub)})`;
+    }
+
+    // Voice viability in P4..P8 across 4 operators (20 combinations)
+    const subPoints = ['P4', 'P5', 'P6', 'P7', 'P8'];
+    let okCount = 0, totalCount = 0;
+    subPoints.forEach(pid => {
+      OPERATORS.forEach(op => {
+        const r = getEffectiveRecord(pid, op);
+        if (r.rsrp !== '' && !isNaN(Number(r.rsrp))) {
+          totalCount++;
+          if (r.conecta === 'S' && Number(r.rsrp) >= -100) okCount++;
+        }
+      });
+    });
+    const pct = totalCount > 0 ? Math.round((okCount / totalCount) * 100) : 0;
+    const voiceEl = document.getElementById('kpiVoiceOk');
+    voiceEl.textContent = `${pct}% (${okCount} / ${totalCount})`;
+    voiceEl.style.color = pct >= 80 ? '#22c55e' : (pct >= 40 ? '#eab308' : '#ef4444');
+  }
+
+  function renderSchematicNodes() {
+    const halosLayer = document.getElementById('svgHalosLayer');
+    const nodesLayer = document.getElementById('svgNodesLayer');
+    halosLayer.innerHTML = '';
+    nodesLayer.innerHTML = '';
+
+    // Highlight Wilson overlay if active
+    const wilsonGroup = document.getElementById('wilsonOverlayGroup');
+    wilsonGroup.setAttribute('opacity', wilsonSimActive ? '1' : '0.28');
+    document.getElementById('wilsonSecondBranch').style.display = wilsonSimMode === '2ant' ? 'block' : 'none';
+
+    POINTS_META.forEach(pt => {
+      const agg = getPointAggregatedMetric(pt.id);
+      const col = rsrpToColor(agg.rsrp);
+      const isSelected = pt.id === selectedPoint;
+
+      // Halo circle
+      const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      halo.setAttribute('cx', pt.svgX);
+      halo.setAttribute('cy', pt.svgY);
+      halo.setAttribute('r', pt.isUnderground ? 58 : 42);
+      halo.setAttribute('fill', col);
+      halo.setAttribute('opacity', '0.22');
+      halosLayer.appendChild(halo);
+
+      // Node Group
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.style.cursor = 'pointer';
+      g.onclick = () => selectPoint(pt.id);
+
+      if (isSelected) {
+        const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        ring.setAttribute('cx', pt.svgX);
+        ring.setAttribute('cy', pt.svgY);
+        ring.setAttribute('r', 28);
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', '#38bdf8');
+        ring.setAttribute('stroke-width', '3');
+        ring.setAttribute('stroke-dasharray', '4 2');
+        g.appendChild(ring);
+      }
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', pt.svgX);
+      circle.setAttribute('cy', pt.svgY);
+      circle.setAttribute('r', 21);
+      circle.setAttribute('fill', col);
+      circle.setAttribute('stroke', '#ffffff');
+      circle.setAttribute('stroke-width', isSelected ? '3.5' : '2');
+      g.appendChild(circle);
+
+      const idTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      idTxt.setAttribute('x', pt.svgX);
+      idTxt.setAttribute('y', pt.svgY - 3);
+      idTxt.setAttribute('text-anchor', 'middle');
+      idTxt.setAttribute('fill', '#0f172a');
+      idTxt.setAttribute('font-size', '12');
+      idTxt.setAttribute('font-weight', '900');
+      idTxt.textContent = pt.id;
+      g.appendChild(idTxt);
+
+      const valTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      valTxt.setAttribute('x', pt.svgX);
+      valTxt.setAttribute('y', pt.svgY + 10);
+      valTxt.setAttribute('text-anchor', 'middle');
+      valTxt.setAttribute('fill', '#0f172a');
+      valTxt.setAttribute('font-size', '9.5');
+      valTxt.setAttribute('font-weight', '800');
+      valTxt.textContent = agg.rsrp !== null ? `${agg.rsrp}` : '--';
+      g.appendChild(valTxt);
+
+      nodesLayer.appendChild(g);
+    });
+  }
+
+  function renderPlanOverlays() {
+    const secLayer = document.getElementById('pinsSectionLayer');
+    const fl1Layer = document.getElementById('pinsFloor1Layer');
+    secLayer.innerHTML = '';
+    fl1Layer.innerHTML = '';
+
+    POINTS_META.forEach(pt => {
+      const agg = getPointAggregatedMetric(pt.id);
+      const col = rsrpToColor(agg.rsrp);
+      const labelText = agg.rsrp !== null ? `${pt.id}: ${agg.rsrp} dBm` : pt.id;
+
+      // Pin for Section JPG
+      const pinSec = document.createElement('div');
+      pinSec.className = 'plan-pin' + (pt.id === selectedPoint ? ' selected' : '');
+      pinSec.style.left = pt.secX + '%';
+      pinSec.style.top = pt.secY + '%';
+      pinSec.style.background = col;
+      pinSec.style.color = '#0f172a';
+      pinSec.innerHTML = `${pt.id}<span class="plan-pin-label">${labelText}</span>`;
+      pinSec.onclick = () => selectPoint(pt.id);
+      secLayer.appendChild(pinSec);
+
+      // Pin for Floor 1 JPG
+      const pinFl1 = document.createElement('div');
+      pinFl1.className = 'plan-pin' + (pt.id === selectedPoint ? ' selected' : '');
+      pinFl1.style.left = pt.fl1X + '%';
+      pinFl1.style.top = pt.fl1Y + '%';
+      pinFl1.style.background = col;
+      pinFl1.style.color = '#0f172a';
+      pinFl1.innerHTML = `${pt.id}<span class="plan-pin-label">${labelText}</span>`;
+      pinFl1.onclick = () => selectPoint(pt.id);
+      fl1Layer.appendChild(pinFl1);
+    });
+  }
+
+  function renderInspector() {
+    const meta = POINTS_META.find(p => p.id === selectedPoint);
+    document.getElementById('inspPointId').textContent = meta.id;
+    document.getElementById('inspLevelBadge').textContent = meta.nivel;
+    document.getElementById('inspRoomTitle').textContent = meta.recinto;
+    document.getElementById('inspAxisSub').textContent = `${meta.eje} · ${meta.rol}`;
+
+    const container = document.getElementById('inspectorOperatorsContainer');
+    container.innerHTML = '';
+
+    OPERATORS.forEach(op => {
+      const raw = measurements[selectedPoint][op];
+      const eff = getEffectiveRecord(selectedPoint, op);
+      const col = rsrpToColor(eff.rsrp);
+
+      const card = document.createElement('div');
+      card.className = 'operator-editor-card';
+      card.innerHTML = `
+        <div class="op-header">
+          <span style="display:flex;align-items:center;gap:6px;">
+            <i class="legend-dot" style="background:${OP_COLORS[op]}"></i> ${op}
+          </span>
+          <span class="status-pill" style="background:${col}; color:#0f172a;">
+            ${eff.rsrp !== '' ? eff.rsrp + ' dBm · ' + rsrpToLabel(eff.rsrp) : 'Sin datos'}
+          </span>
+        </div>
+        <div class="op-grid">
+          <div class="field-group">
+            <label>RSRP (dBm)</label>
+            <input type="number" value="${eff.rsrp}" ${wilsonSimActive ? 'disabled' : ''}
+              onchange="updateField('${selectedPoint}','${op}','rsrp',this.value)" />
+          </div>
+          <div class="field-group">
+            <label>RSRQ (dB)</label>
+            <input type="number" value="${eff.rsrq}" ${wilsonSimActive ? 'disabled' : ''}
+              onchange="updateField('${selectedPoint}','${op}','rsrq',this.value)" />
+          </div>
+          <div class="field-group">
+            <label>SINR (dB)</label>
+            <input type="number" value="${eff.sinr}" ${wilsonSimActive ? 'disabled' : ''}
+              onchange="updateField('${selectedPoint}','${op}','sinr',this.value)" />
+          </div>
+          <div class="field-group">
+            <label>Banda MHz</label>
+            <input type="text" value="${eff.banda}" ${wilsonSimActive ? 'disabled' : ''}
+              onchange="updateField('${selectedPoint}','${op}','banda',this.value)" />
+          </div>
+          <div class="field-group">
+            <label>¿Conecta Voz?</label>
+            <select ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${selectedPoint}','${op}','conecta',this.value)">
+              <option value="S" ${eff.conecta === 'S' ? 'selected' : ''}>Sí (Conecta)</option>
+              <option value="N" ${eff.conecta === 'N' ? 'selected' : ''}>No (Falla/Corte)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Calidad Voz (1-5)</label>
+            <select ${wilsonSimActive ? 'disabled' : ''} onchange="updateField('${selectedPoint}','${op}','voz',this.value)">
+              <option value="5" ${Number(eff.voz) === 5 ? 'selected' : ''}>5 - Clara HD</option>
+              <option value="4" ${Number(eff.voz) === 4 ? 'selected' : ''}>4 - Buena</option>
+              <option value="3" ${Number(eff.voz) === 3 ? 'selected' : ''}>3 - Entrecortada</option>
+              <option value="2" ${Number(eff.voz) === 2 ? 'selected' : ''}>2 - Mala</option>
+              <option value="1" ${Number(eff.voz) === 1 ? 'selected' : ''}>1 - No conecta</option>
+            </select>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function renderProfileChart() {
+    const svg = document.getElementById('profileChartSvg');
+    svg.innerHTML = '';
+
+    const padL = 65, padR = 30, padT = 25, padB = 45;
+    const W = 1100 - padL - padR;
+    const H = 260 - padT - padB;
+    const minDbm = -125, maxDbm = -65;
+
+    const yForDbm = dbm => padT + ((maxDbm - dbm) / (maxDbm - minDbm)) * H;
+    const xForIdx = i => padL + (i / (POINTS_META.length - 1)) * W;
+
+    // Horizontal reference lines
+    [-70, -80, -90, -100, -110, -120].forEach(dbm => {
+      const y = yForDbm(dbm);
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', padL);
+      line.setAttribute('x2', padL + W);
+      line.setAttribute('y1', y);
+      line.setAttribute('y2', y);
+      line.setAttribute('stroke', dbm === -90 ? '#22c55e' : (dbm === -105 ? '#ef4444' : '#1e293b'));
+      line.setAttribute('stroke-dasharray', dbm === -90 || dbm === -100 ? '5 3' : 'none');
+      line.setAttribute('stroke-width', dbm === -90 ? '1.5' : '1');
+      svg.appendChild(line);
+
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', padL - 8);
+      txt.setAttribute('y', y + 4);
+      txt.setAttribute('text-anchor', 'end');
+      txt.setAttribute('fill', '#94a3b8');
+      txt.setAttribute('font-size', '11');
+      txt.textContent = `${dbm} dBm`;
+      svg.appendChild(txt);
+    });
+
+    // X-Axis Point Labels
+    POINTS_META.forEach((pt, idx) => {
+      const x = xForIdx(idx);
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', x);
+      txt.setAttribute('y', padT + H + 20);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('fill', pt.id === selectedPoint ? '#38bdf8' : '#e2e8f0');
+      txt.setAttribute('font-size', '11.5');
+      txt.setAttribute('font-weight', '700');
+      txt.textContent = pt.id;
+      svg.appendChild(txt);
+
+      const sub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      sub.setAttribute('x', x);
+      sub.setAttribute('y', padT + H + 34);
+      sub.setAttribute('text-anchor', 'middle');
+      sub.setAttribute('fill', '#64748b');
+      sub.setAttribute('font-size', '9.5');
+      sub.textContent = pt.eje.split(' ')[1] || pt.nivel.split(' ')[0];
+      svg.appendChild(sub);
+    });
+
+    // Operator Polylines
+    OPERATORS.forEach(op => {
+      if (selectedOperator !== 'ALL' && selectedOperator !== op) return;
+      const pts = [];
+      POINTS_META.forEach((pt, idx) => {
+        const rec = getEffectiveRecord(pt.id, op);
+        if (rec.rsrp !== '' && !isNaN(Number(rec.rsrp))) {
+          pts.push({ x: xForIdx(idx), y: yForDbm(Number(rec.rsrp)), val: rec.rsrp, id: pt.id });
+        }
+      });
+      if (pts.length > 1) {
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', OP_COLORS[op]);
+        poly.setAttribute('stroke-width', '2.8');
+        poly.setAttribute('points', pts.map(p => `${p.x},${p.y}`).join(' '));
+        svg.appendChild(poly);
+      }
+      pts.forEach(p => {
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', p.x);
+        c.setAttribute('cy', p.y);
+        c.setAttribute('r', '4.5');
+        c.setAttribute('fill', OP_COLORS[op]);
+        c.setAttribute('stroke', '#0f172a');
+        c.setAttribute('stroke-width', '1.5');
+        svg.appendChild(c);
+      });
+    });
+  }
+
+  function renderFullTable() {
+    const tbody = document.getElementById('fullTableBody');
+    tbody.innerHTML = '';
+    POINTS_META.forEach(pt => {
+      OPERATORS.forEach(op => {
+        if (selectedOperator !== 'ALL' && selectedOperator !== op) return;
+        const eff = getEffectiveRecord(pt.id, op);
+        const col = rsrpToColor(eff.rsrp);
+        const tr = document.createElement('tr');
+        tr.style.cursor = 'pointer';
+        tr.onclick = () => selectPoint(pt.id);
+        tr.innerHTML = `
+          <td><strong>${pt.id}</strong></td>
+          <td>${pt.nivel}</td>
+          <td>${pt.eje}</td>
+          <td>${pt.recinto}</td>
+          <td><span style="color:${OP_COLORS[op]};font-weight:700;">${op}</span></td>
+          <td>${eff.tec || '-'}</td>
+          <td>${eff.banda || '-'}</td>
+          <td><strong style="color:${col}">${eff.rsrp !== '' ? eff.rsrp + ' dBm' : '-'}</strong></td>
+          <td>${eff.rsrq !== '' ? eff.rsrq + ' dB' : '-'}</td>
+          <td>${eff.sinr !== '' ? eff.sinr + ' dB' : '-'}</td>
+          <td>${eff.conecta === 'S' ? '✅ Sí' : '❌ No'}</td>
+          <td>${eff.voz || '-'}/5</td>
+          <td><span class="status-pill" style="background:${col};color:#0f172a">${rsrpToLabel(eff.rsrp)}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+  }
+
+  function renderChecklist() {
+    const savedChecks = JSON.parse(localStorage.getItem('pac_rf_checks_v1') || '{}');
+    const container = document.getElementById('checklistContainer');
+    container.innerHTML = '';
+
+    const categories = [...new Set(CHECKLIST_ITEMS.map(i => i.cat))];
+    categories.forEach(cat => {
+      const box = document.createElement('div');
+      box.style.background = 'rgba(30, 41, 59, 0.4)';
+      box.style.border = '1px solid #334155';
+      box.style.borderRadius = '10px';
+      box.style.padding = '14px';
+      box.innerHTML = `<h3 style="font-size:13.5px; color:var(--accent); margin-bottom:10px;">${cat}</h3>`;
+
+      CHECKLIST_ITEMS.filter(i => i.cat === cat).forEach(item => {
+        const checked = !!savedChecks[item.id];
+        const lbl = document.createElement('label');
+        lbl.className = 'check-item' + (checked ? ' done' : '');
+        lbl.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleCheck('${item.id}', this.checked)" />
+          <span>${item.text}</span>
+        `;
+        box.appendChild(lbl);
+      });
+      container.appendChild(box);
+    });
+  }
+
+  function toggleCheck(id, val) {
+    const savedChecks = JSON.parse(localStorage.getItem('pac_rf_checks_v1') || '{}');
+    savedChecks[id] = val;
+    localStorage.setItem('pac_rf_checks_v1', JSON.stringify(savedChecks));
+    renderChecklist();
+  }
+
+  function updateField(pointId, op, field, value) {
+    measurements[pointId][op][field] = (field === 'rsrp' || field === 'rsrq' || field === 'sinr' || field === 'voz')
+      ? (value === '' ? '' : Number(value))
+      : value;
+    saveState();
+    renderAll();
+  }
+
+  function selectPoint(pointId) {
+    selectedPoint = pointId;
+    renderAll();
+  }
+
+  function setOperator(op, btn) {
+    selectedOperator = op;
+    document.querySelectorAll('#operatorFilter .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderAll();
+  }
+
+  function setDiagramView(view, btn) {
+    currentView = view;
+    document.querySelectorAll('#viewSwitcher .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('viewSchematic').style.display = view === 'schematic' ? 'block' : 'none';
+    document.getElementById('viewPlanSection').style.display = view === 'plan_section' ? 'block' : 'none';
+    document.getElementById('viewPlanFloor1').style.display = view === 'plan_floor1' ? 'block' : 'none';
+  }
+
+  function toggleWilsonSim() {
+    wilsonSimActive = !wilsonSimActive;
+    const btn = document.getElementById('btnWilsonToggle');
+    const lbl = document.getElementById('wilsonStateLabel');
+    const sel = document.getElementById('wilsonModeSelect');
+    if (wilsonSimActive) {
+      btn.classList.add('active');
+      lbl.textContent = 'ON (Con Repetidor Wilson)';
+      sel.style.display = 'inline-flex';
+    } else {
+      btn.classList.remove('active');
+      lbl.textContent = 'OFF (Estado Actual)';
+      sel.style.display = 'none';
+    }
+    renderAll();
+  }
+
+  function changeWilsonMode(mode) {
+    wilsonSimMode = mode;
+    renderAll();
+  }
+
+  function resetDemoData() {
+    measurements = getDefaultSimulationData();
+    saveState();
+    renderAll();
+  }
+
+  function clearForField() {
+    if (!confirm('¿Limpiar todos los valores RSRP/RSRQ/SINR para empezar a registrar datos reales en terreno?')) return;
+    wilsonSimActive = false;
+    document.getElementById('btnWilsonToggle').classList.remove('active');
+    document.getElementById('wilsonStateLabel').textContent = 'OFF (Estado Actual)';
+    document.getElementById('wilsonModeSelect').style.display = 'none';
+    POINTS_META.forEach(pt => {
+      OPERATORS.forEach(op => {
+        measurements[pt.id][op] = { tec: '4G LTE', banda: '', rsrp: '', rsrq: '', sinr: '', conecta: 'N', voz: 1 };
+      });
+    });
+    saveState();
+    renderAll();
+  }
+
+  function exportCSV() {
+    const rows = [
+      'punto,nivel,eje_plano,recinto,compania,tecnologia,banda_mhz,rsrp_dbm,rsrq_db,sinr_db,llamada_conecta,calidad_voz_1a5'
+    ];
+    POINTS_META.forEach(pt => {
+      OPERATORS.forEach(op => {
+        const r = getEffectiveRecord(pt.id, op);
+        rows.push([
+          pt.id,
+          `"${pt.nivel}"`,
+          `"${pt.eje}"`,
+          `"${pt.recinto}"`,
+          op,
+          `"${r.tec || ''}"`,
+          `"${r.banda || ''}"`,
+          r.rsrp,
+          r.rsrq,
+          r.sinr,
+          r.conecta,
+          r.voz
+        ].join(','));
+      });
+    });
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = wilsonSimActive ? 'mediciones_pac_simulacion_wilson.csv' : 'mediciones_pac_terreno.csv';
+    a.click();
+  }
+
+  function importCSV(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const lines = e.target.result.split(/\r?\n/).filter(Boolean);
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+        if (!cols || cols.length < 5) continue;
+        const clean = cols.map(c => c.replace(/^"|"$/g, ''));
+        const pid = clean[0];
+        const op = clean[4];
+        if (measurements[pid] && measurements[pid][op]) {
+          measurements[pid][op].tec = clean[5] || '4G LTE';
+          measurements[pid][op].banda = clean[6] || '';
+          measurements[pid][op].rsrp = clean[7] !== undefined && clean[7] !== '' ? Number(clean[7]) : '';
+          measurements[pid][op].rsrq = clean[8] !== undefined && clean[8] !== '' ? Number(clean[8]) : '';
+          measurements[pid][op].sinr = clean[9] !== undefined && clean[9] !== '' ? Number(clean[9]) : '';
+          measurements[pid][op].conecta = clean[10] || 'N';
+          measurements[pid][op].voz = clean[11] ? Number(clean[11]) : 1;
+        }
+      }
+      saveState();
+      renderAll();
+    };
+    reader.readAsText(file);
+  }
+
+  loadState();
+  renderAll();
+  renderChecklist();
+</script>
+
+</body>
+</html>
