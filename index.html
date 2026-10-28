@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Estudio de Cobertura Celular Indoor (Piso -1) — Municipalidad de PAC | Tecnovoa &amp; Wilson Connectivity</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <style>
     :root {
       --bg: #0b1120;
@@ -284,6 +286,135 @@
       pointer-events: none;
     }
 
+    /* Google Earth 3D Satellite View Stage & HUD */
+    .earth-stage {
+      position: relative;
+      width: 100%;
+      height: 550px;
+      background: #050811;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #earthMapCanvas {
+      width: 100%;
+      height: 100%;
+    }
+    .earth-hud-top {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 54px;
+      z-index: 15;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      pointer-events: none;
+    }
+    .earth-hud-btn {
+      pointer-events: auto;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #f8fafc;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.15s ease;
+    }
+    .earth-hud-btn:hover {
+      border-color: var(--accent);
+      background: rgba(30, 41, 59, 0.95);
+    }
+    .earth-hud-btn.active {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      border-color: #38bdf8;
+      color: #fff;
+    }
+    .earth-hud-bottom {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      z-index: 15;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .earth-info-pill {
+      pointer-events: auto;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.55);
+    }
+    .earth-marker-pin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s ease;
+    }
+    .earth-marker-pin:hover, .earth-marker-pin.selected {
+      transform: scale(1.22);
+      z-index: 30 !important;
+    }
+    .earth-marker-badge {
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      color: #0f172a;
+      border: 2px solid #ffffff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.75);
+      white-space: nowrap;
+    }
+    .earth-marker-pin.selected .earth-marker-badge {
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.65), 0 4px 14px rgba(0,0,0,0.9);
+    }
+    .earth-marker-sub {
+      margin-top: 2px;
+      background: rgba(15, 23, 42, 0.92);
+      color: #f8fafc;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      border: 1px solid #475569;
+      white-space: nowrap;
+    }
+    .earth-tower-pin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .earth-tower-badge {
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #0f172a;
+      border: 1.5px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      white-space: nowrap;
+    }
+
     /* Legend */
     .legend-bar {
       display: flex;
@@ -543,7 +674,8 @@
         </div>
         <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
           <div class="pill-group" id="viewSwitcher">
-            <button class="pill active" onclick="setDiagramView('schematic', this)">Corte Esquemático D-D'</button>
+            <button class="pill active" id="btnTabEarth3D" onclick="setDiagramView('earth_3d', this)">🌍 Mapa 3D Google Earth</button>
+            <button class="pill" onclick="setDiagramView('schematic', this)">Corte Esquemático D-D'</button>
             <button class="pill" onclick="setDiagramView('plan_section', this)">Plano Corte D-D' (JPG)</button>
             <button class="pill" onclick="setDiagramView('plan_floor1', this)">Plano Planta Nivel 1 (JPG)</button>
             <button class="pill" id="btnTabSubtelRadar" onclick="setDiagramView('subtel_radar', this)">📡 Radar Antenas SUBTEL (GIS)</button>
@@ -559,8 +691,29 @@
       </div>
 
       <div class="card-body">
+        <!-- VIEW 0: Google Earth 3D Satellite + Extruded 3D BIM Building & SUBTEL Cell Towers -->
+        <div id="viewGoogleEarth3D" class="earth-stage">
+          <div class="earth-hud-top">
+            <button class="earth-hud-btn active" id="btnEarthXray" onclick="setEarthCutaway('xray')">🔬 Rayos-X Subterráneo -1 (Ver Oficinas P4–P8)</button>
+            <button class="earth-hud-btn" id="btnEarthFull" onclick="setEarthCutaway('full')">🏢 Edificio Completo 3D (Niveles -1, 1, 2 y Azotea)</button>
+            <button class="earth-hud-btn" onclick="flyToEarthPreset('building')">🎯 Zoom 3D Municipalidad PAC</button>
+            <button class="earth-hud-btn" onclick="flyToEarthPreset('towers')">📡 Panorama 3D + 10 Torres SUBTEL</button>
+            <button class="earth-hud-btn" id="btnEarthOrbit" onclick="toggleEarthOrbit()">🔄 Órbita 360°</button>
+            <button class="earth-hud-btn" onclick="exportBuildingOBJ()" title="Descargar malla 3D .OBJ a escala para Blender o Scenario">⬇️ Exportar 3D (.OBJ)</button>
+          </div>
+          <div id="earthMapCanvas"></div>
+          <div class="earth-hud-bottom">
+            <div class="earth-info-pill">
+              🌍 <strong>Av. Pdte. Salvador Allende 2029 esq. Av. Club Hípico</strong> (-33.4886, -70.6655) · 🖱️ <em>Arrastrar: Mover | Clic Der. o Ctrl+Arrastrar: Inclinar/Rotar 3D | Rueda: Zoom</em>
+            </div>
+            <div class="earth-info-pill" id="earthStatusBadge" style="color:#fdba74; font-weight:700;">
+              Modo: Corte Rayos-X Subterráneo -1 · Haz clic en P0–P8 o Torres T1–T10
+            </div>
+          </div>
+        </div>
+
         <!-- VIEW 1: Interactive SVG Architectural Section D-D' -->
-        <div id="viewSchematic" class="diagram-stage">
+        <div id="viewSchematic" class="diagram-stage" style="display:none;">
           <svg id="schematicSvg" class="diagram-svg" viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
@@ -985,7 +1138,7 @@
     WOM: '#a855f7'
   };
 
-  // Architectural coordinates on Schematic SVG, Section JPG (Corte D-D'), and Floor 1 JPG
+  // Architectural coordinates on Schematic SVG, Section JPG (Corte D-D'), Floor 1 JPG, and GPS (WGS84)
   const POINTS_META = [
     {
       id: 'P0',
@@ -996,6 +1149,7 @@
       svgX: 955, svgY: 295,
       secX: 81.0, secY: 86.5,
       fl1X: 21.0, fl1Y: 51.0,
+      lat: -33.48860, lon: -70.66506,
       isUnderground: false
     },
     {
@@ -1007,6 +1161,7 @@
       svgX: 485, svgY: 118,
       secX: 31.5, secY: 77.5,
       fl1X: 64.5, fl1Y: 72.5,
+      lat: -33.48846, lon: -70.66552,
       isUnderground: false
     },
     {
@@ -1018,6 +1173,7 @@
       svgX: 485, svgY: 295,
       secX: 31.5, secY: 86.5,
       fl1X: 70.0, fl1Y: 79.0,
+      lat: -33.48854, lon: -70.66549,
       isUnderground: false
     },
     {
@@ -1029,6 +1185,7 @@
       svgX: 815, svgY: 425,
       secX: 46.5, secY: 91.5,
       fl1X: 56.0, fl1Y: 46.0,
+      lat: -33.48867, lon: -70.66524,
       isUnderground: true
     },
     {
@@ -1040,6 +1197,7 @@
       svgX: 485, svgY: 425,
       secX: 31.5, secY: 91.5,
       fl1X: 64.5, fl1Y: 73.5,
+      lat: -33.48863, lon: -70.66553,
       isUnderground: true
     },
     {
@@ -1051,6 +1209,7 @@
       svgX: 377, svgY: 425,
       secX: 27.5, secY: 91.5,
       fl1X: 71.0, fl1Y: 73.5,
+      lat: -33.48857, lon: -70.66566,
       isUnderground: true
     },
     {
@@ -1062,6 +1221,7 @@
       svgX: 262, svgY: 425,
       secX: 23.5, secY: 91.5,
       fl1X: 75.0, fl1Y: 73.5,
+      lat: -33.48857, lon: -70.66580,
       isUnderground: true
     },
     {
@@ -1073,6 +1233,7 @@
       svgX: 147, svgY: 425,
       secX: 19.5, secY: 91.5,
       fl1X: 79.5, fl1Y: 73.5,
+      lat: -33.48857, lon: -70.66594,
       isUnderground: true
     },
     {
@@ -1084,6 +1245,7 @@
       svgX: 645, svgY: 425,
       secX: 38.5, secY: 91.5,
       fl1X: 57.5, fl1Y: 73.5,
+      lat: -33.48852, lon: -70.66535,
       isUnderground: true
     }
   ];
@@ -1162,16 +1324,16 @@
 
   // Official SUBTEL GIS Base Stations (< 750 m around Centro Consistorial PAC: lat -33.4886, lon -70.6655)
   const SUBTEL_TOWERS = [
-    { id: 'T1', dist: 163, az: 235, card: 'SO',  ops: ['Claro'], primaryOp: 'Claro', code: '43_691 (Apolo - Teresa Vial)', addr: 'Av. Club Hípico N° 4676 (PAC)', height: 'Torre 9 m', tech: '4G LTE / 5G', bands: '2600 / 3500 MHz', match: 'B2/B5 vía macro + 4G/5G' },
-    { id: 'T2', dist: 253, az: 253, card: 'OSO', ops: ['WOM'], primaryOp: 'WOM', code: 'RM3519', addr: 'Calle Teresa Vial fte. N° 2431 (Poste 118671)', height: 'Poste 12 m', tech: '3G / 4G LTE', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
-    { id: 'T3', dist: 332, az: 14,  card: 'NNE', ops: ['WOM'], primaryOp: 'WOM', code: 'RM4114', addr: 'Pasaje Nueva Seis N° 1951 (PAC)', height: 'Poste 12 m', tech: '3G / 4G LTE', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
-    { id: 'T4', dist: 346, az: 259, card: 'O',   ops: ['Entel', 'Movistar'], primaryOp: 'Entel', code: 'UZM482 / GZM482 (Entel) · BALAK13 (Movistar)', addr: 'Balakireff N° 4417 — Parque André Jarlán (PAC)', height: 'Monoposte 12 m', tech: '3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
-    { id: 'T5', dist: 460, az: 110, card: 'ESE', ops: ['Claro', 'Entel'], primaryOp: 'Claro', code: '13_851 (Claro) · GVM662 (Entel)', addr: 'Av. J.J. Prieto (Ruta 5) N° 4260 esq. Salesianos', height: 'Monoposte 30 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
-    { id: 'T6', dist: 495, az: 5,   card: 'N',   ops: ['Entel', 'Claro'], primaryOp: 'Entel', code: 'URS078 / GRS078 / EPCS3736', addr: 'Av. Club Hípico N° 3365, Pob. Magallanes (PAC)', height: 'Monoposte 12 m', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS (1900 MHz)' },
-    { id: 'T7', dist: 553, az: 250, card: 'OSO', ops: ['Claro'], primaryOp: 'Claro', code: '13_517 (P.A.C.)', addr: 'Ángel Guarello esq. Félix Mendelssohn (PAC)', height: 'Monoposte 36 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
-    { id: 'T8', dist: 573, az: 212, card: 'SSO', ops: ['WOM'], primaryOp: 'WOM', code: 'RM3502', addr: 'Av. Club Hípico N° 4811 (PAC)', height: 'Monoposte 12 m', tech: '3G / 4G / 5G', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
-    { id: 'T9', dist: 684, az: 241, card: 'OSO', ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'MSA614 (Entel) · MRNC1 (Mov) · 43_687 (Claro)', addr: 'Av. La Marina N° 2725 (PAC)', height: 'Monoposte 25-30 m', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS (1900 MHz)' },
-    { id: 'T10', dist: 726, az: 160, card: 'SSE', ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'USA803 (Entel) · INA2U (Mov) · 13_938 (Claro)', addr: 'Av. José Joaquín Prieto N° 4850 (San Miguel)', height: 'Torre 30 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' }
+    { id: 'T1', dist: 163, az: 235, card: 'SO',  lat: -33.489442, lon: -70.666942, heightM: 14, ops: ['Claro'], primaryOp: 'Claro', code: '43_691 (Apolo - Teresa Vial)', addr: 'Av. Club Hípico N° 4676 (PAC)', height: 'Torre 9 m', tech: '4G LTE / 5G', bands: '2600 / 3500 MHz', match: 'B2/B5 vía macro + 4G/5G' },
+    { id: 'T2', dist: 253, az: 253, card: 'OSO', lat: -33.489261, lon: -70.668114, heightM: 16, ops: ['WOM'], primaryOp: 'WOM', code: 'RM3519', addr: 'Calle Teresa Vial fte. N° 2431 (Poste 118671)', height: 'Poste 12 m', tech: '3G / 4G LTE', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
+    { id: 'T3', dist: 332, az: 14,  card: 'NNE', lat: -33.485697, lon: -70.664664, heightM: 16, ops: ['WOM'], primaryOp: 'WOM', code: 'RM4114', addr: 'Pasaje Nueva Seis N° 1951 (PAC)', height: 'Poste 12 m', tech: '3G / 4G LTE', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
+    { id: 'T4', dist: 346, az: 259, card: 'O',   lat: -33.489167, lon: -70.669167, heightM: 18, ops: ['Entel', 'Movistar'], primaryOp: 'Entel', code: 'UZM482 / GZM482 (Entel) · BALAK13 (Movistar)', addr: 'Balakireff N° 4417 — Parque André Jarlán (PAC)', height: 'Monoposte 12 m', tech: '3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
+    { id: 'T5', dist: 460, az: 110, card: 'ESE', lat: -33.490000, lon: -70.660833, heightM: 32, ops: ['Claro', 'Entel'], primaryOp: 'Claro', code: '13_851 (Claro) · GVM662 (Entel)', addr: 'Av. J.J. Prieto (Ruta 5) N° 4260 esq. Salesianos', height: 'Monoposte 30 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
+    { id: 'T6', dist: 495, az: 5,   card: 'N',   lat: -33.484167, lon: -70.665000, heightM: 18, ops: ['Entel', 'Claro'], primaryOp: 'Entel', code: 'URS078 / GRS078 / EPCS3736', addr: 'Av. Club Hípico N° 3365, Pob. Magallanes (PAC)', height: 'Monoposte 12 m', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS (1900 MHz)' },
+    { id: 'T7', dist: 553, az: 250, card: 'OSO', lat: -33.490278, lon: -70.671111, heightM: 36, ops: ['Claro'], primaryOp: 'Claro', code: '13_517 (P.A.C.)', addr: 'Ángel Guarello esq. Félix Mendelssohn (PAC)', height: 'Monoposte 36 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' },
+    { id: 'T8', dist: 573, az: 212, card: 'SSO', lat: -33.492969, lon: -70.668775, heightM: 16, ops: ['WOM'], primaryOp: 'WOM', code: 'RM3502', addr: 'Av. Club Hípico N° 4811 (PAC)', height: 'Monoposte 12 m', tech: '3G / 4G / 5G', bands: 'AWS 1700/2100 MHz', match: '✅ Banda 4 AWS (1700/2100)' },
+    { id: 'T9', dist: 684, az: 241, card: 'OSO', lat: -33.491544, lon: -70.671981, heightM: 30, ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'MSA614 (Entel) · MRNC1 (Mov) · 43_687 (Claro)', addr: 'Av. La Marina N° 2725 (PAC)', height: 'Monoposte 25-30 m', tech: '2G / 3G / 4G / 5G', bands: '1900 / 2600 / 3500 MHz', match: '✅ Banda 2 PCS (1900 MHz)' },
+    { id: 'T10', dist: 726, az: 160, card: 'SSE', lat: -33.494722, lon: -70.662778, heightM: 32, ops: ['Entel', 'Movistar', 'Claro'], primaryOp: 'Movistar', code: 'USA803 (Entel) · INA2U (Mov) · 13_938 (Claro)', addr: 'Av. José Joaquín Prieto N° 4850 (San Miguel)', height: 'Torre 30 m', tech: '2G / 3G / 4G / 5G', bands: '850 / 1900 / 2600 / 3500 MHz', match: '✅ Banda 5 (850) + Banda 2 (1900)' }
   ];
 
   // State
@@ -1179,9 +1341,15 @@
   let selectedOperator = 'ALL';
   let selectedPoint = 'P6';
   let selectedTowerId = 'T4';
-  let currentView = 'schematic';
+  let currentView = 'earth_3d';
   let wilsonSimActive = false;
   let wilsonSimMode = 'office200_2ant';
+  let earthMap = null;
+  let earthMapLoaded = false;
+  let earthCutawayMode = 'xray';
+  let earthPointMarkers = {};
+  let earthTowerMarkers = {};
+  let earthOrbitId = null;
 
   function loadState() {
     const saved = localStorage.getItem('pac_rf_measurements_v1');
@@ -1301,6 +1469,7 @@
     renderPlanOverlays();
     renderSubtelRadar();
     renderSubtelTowersTable();
+    renderGoogleEarth3D();
     renderInspector();
     renderLinkBudget();
     renderProfileChart();
@@ -1748,10 +1917,19 @@
     currentView = view;
     document.querySelectorAll('#viewSwitcher .pill').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
+    document.getElementById('viewGoogleEarth3D').style.display = view === 'earth_3d' ? 'block' : 'none';
     document.getElementById('viewSchematic').style.display = view === 'schematic' ? 'block' : 'none';
     document.getElementById('viewPlanSection').style.display = view === 'plan_section' ? 'block' : 'none';
     document.getElementById('viewPlanFloor1').style.display = view === 'plan_floor1' ? 'block' : 'none';
     document.getElementById('viewSubtelRadar').style.display = view === 'subtel_radar' ? 'block' : 'none';
+    if (view === 'earth_3d') {
+      if (!earthMap) {
+        initGoogleEarthMap();
+      } else {
+        setTimeout(() => earthMap.resize(), 60);
+        renderGoogleEarth3D();
+      }
+    }
   }
 
   function openSubtelRadarView() {
@@ -1764,7 +1942,433 @@
     selectedTowerId = towerId;
     renderSubtelRadar();
     renderSubtelTowersTable();
-    openSubtelRadarView();
+    renderGoogleEarth3D();
+    if (currentView === 'earth_3d' && earthMap) {
+      const t = SUBTEL_TOWERS.find(x => x.id === towerId);
+      if (t) {
+        earthMap.flyTo({
+          center: [(t.lon + -70.66552) / 2, (t.lat + -33.48855) / 2],
+          zoom: 15.8,
+          pitch: 60,
+          bearing: (t.az + 35) % 360,
+          duration: 1400
+        });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      openSubtelRadarView();
+    }
+  }
+
+  // Helper to create rectangular polygon [lon1, lat1] to [lon2, lat2]
+  function rectPoly(lonW, latS, lonE, latN) {
+    return [[
+      [lonW, latS],
+      [lonE, latS],
+      [lonE, latN],
+      [lonW, latN],
+      [lonW, latS]
+    ]];
+  }
+
+  // Helper to create octagonal 3D tower/cylinder polygon around [lon, lat] with radius in meters
+  function cylinderPoly(lon, lat, radiusM) {
+    const coords = [];
+    const dLat = radiusM / 111320;
+    const dLon = radiusM / (111320 * Math.cos(lat * Math.PI / 180));
+    for (let i = 0; i <= 12; i++) {
+      const ang = (i / 12) * Math.PI * 2;
+      coords.push([lon + Math.cos(ang) * dLon, lat + Math.sin(ang) * dLat]);
+    }
+    return [coords];
+  }
+
+  // Build dynamic 3D GeoJSON for Centro Consistorial de Pedro Aguirre Cerda (GMM Arquitectos) + SUBTEL Towers
+  function buildEarth3DGeoJSON() {
+    const features = [];
+    const cP3 = rsrpToColor(getPointAggregatedMetric('P3').rsrp);
+    const cP4 = rsrpToColor(getPointAggregatedMetric('P4').rsrp);
+    const cP5 = rsrpToColor(getPointAggregatedMetric('P5').rsrp);
+    const cP6 = rsrpToColor(getPointAggregatedMetric('P6').rsrp);
+    const cP7 = rsrpToColor(getPointAggregatedMetric('P7').rsrp);
+    const cP8 = rsrpToColor(getPointAggregatedMetric('P8').rsrp);
+
+    // 1. Subterráneo Nivel -1 Rooms (Corte D-D' Ejes T a A along Av. Salvador Allende 2029)
+    const subRooms = [
+      { name: 'Nivel -1: Relaciones Públicas (Ejes S–T · P7)', lonW: -70.66601, lonE: -70.66587, latS: -33.48865, latN: -33.48848, color: cP7, base: 0, height: 4.2 },
+      { name: 'Nivel -1: Jefe Informática Álvaro Carreño + Emergencia (Ejes R–S · P6)', lonW: -70.665865, lonE: -70.66573, latS: -33.48865, latN: -33.48848, color: cP6, base: 0, height: 4.2 },
+      { name: 'Nivel -1: 2 Técnicos Informática + Bodega TI (Ejes Q–R · P5)', lonW: -70.665725, lonE: -70.66559, latS: -33.48865, latN: -33.48848, color: cP5, base: 0, height: 4.2 },
+      { name: 'Nivel -1: Hall Subterráneo / Ascensor (Ejes P–Q · P4)', lonW: -70.665585, lonE: -70.66546, latS: -33.48865, latN: -33.48848, color: cP4, base: 0, height: 4.2 },
+      { name: 'Nivel -1: Archivo Municipal e Inventario (Ejes K–P · P8)', lonW: -70.665455, lonE: -70.66522, latS: -33.48860, latN: -33.48846, color: cP8, base: 0, height: 4.0 },
+      { name: 'Nivel -1: Patio Inglés Hundido y Escalera (Ejes L–N · P3)', lonW: -70.66536, lonE: -70.66516, latS: -33.48870, latN: -33.48861, color: cP3, base: 0, height: 2.2 },
+      { name: 'Nivel -1: Estacionamientos Subterráneos (Ejes A–K)', lonW: -70.665215, lonE: -70.66498, latS: -33.48866, latN: -33.48846, color: '#334155', base: 0, height: 3.6 }
+    ];
+
+    subRooms.forEach(r => {
+      features.push({
+        type: 'Feature',
+        properties: { name: r.name, color: r.color, base: r.base, height: r.height, opacity: 0.88 },
+        geometry: { type: 'Polygon', coordinates: rectPoly(r.lonW, r.latS, r.lonE, r.latN) }
+      });
+    });
+
+    // 2. Shaft Vertical GI 07/08 + Antena Donante Omni Plus 314422 (Ejes P-Q) & Antena Domo 314407 (Eje R)
+    features.push({
+      type: 'Feature',
+      properties: { name: 'Shaft GI 07/08 + Mástil Antena Omni Plus 314422 (Azotea +8,25 m)', color: '#f97316', base: 0, height: 19.5, opacity: 0.95 },
+      geometry: { type: 'Polygon', coordinates: cylinderPoly(-70.66552, -33.48848, 2.6) }
+    });
+    features.push({
+      type: 'Feature',
+      properties: { name: 'Antena Domo Indoor 314407 (Eje R · Nivel -1)', color: wilsonSimActive ? '#22c55e' : '#38bdf8', base: 0, height: 8.5, opacity: 0.95 },
+      geometry: { type: 'Polygon', coordinates: cylinderPoly(-70.66568, -33.48856, 2.2) }
+    });
+
+    // 3. Upper Architectural Levels (Nivel 1, Nivel 2, Caseta Azotea) when in 'full' 3D building mode
+    if (earthCutawayMode === 'full') {
+      // Planta Nivel 1 (+0,45 m)
+      features.push({
+        type: 'Feature',
+        properties: { name: 'Planta Nivel 1 (+0,45 m): DIDECO / Salud / Educación / Acceso Principal', color: '#1e3a5f', base: 4.4, height: 8.4, opacity: 0.82 },
+        geometry: { type: 'Polygon', coordinates: rectPoly(-70.66602, -33.48866, -70.66497, -33.48845) }
+      });
+      // Sala Racks y Servidores Nivel 1 (Ejes P-Q)
+      features.push({
+        type: 'Feature',
+        properties: { name: 'Sala Racks y Central Servidores (Ejes P–Q · Nivel 1)', color: '#0284c7', base: 4.4, height: 8.6, opacity: 0.92 },
+        geometry: { type: 'Polygon', coordinates: rectPoly(-70.66558, -33.48858, -70.66545, -33.48845) }
+      });
+      // Planta Nivel 2 (+4,35 m) — Volumen Principal GMM Arquitectos
+      features.push({
+        type: 'Feature',
+        properties: { name: 'Planta Nivel 2 (+4,35 m): Alcaldía, SECPLAN y Administración y Finanzas', color: '#334155', base: 8.6, height: 13.0, opacity: 0.85 },
+        geometry: { type: 'Polygon', coordinates: rectPoly(-70.66603, -33.48867, -70.66502, -33.48844) }
+      });
+      // Caseta Azotea (+8,25 m) en Ejes P-Q
+      features.push({
+        type: 'Feature',
+        properties: { name: 'Caseta Azotea (+8,25 m · Núcleo Ejes P–Q)', color: '#475569', base: 13.0, height: 16.5, opacity: 0.92 },
+        geometry: { type: 'Polygon', coordinates: rectPoly(-70.66560, -33.48858, -70.66544, -33.48845) }
+      });
+    }
+
+    // 4. Official 3D SUBTEL Cell Towers (T1 to T10) extruded at their exact GPS locations
+    SUBTEL_TOWERS.forEach(t => {
+      if (selectedOperator !== 'ALL' && !t.ops.includes(selectedOperator)) return;
+      const col = OP_COLORS[t.primaryOp] || '#38bdf8';
+      const isSel = t.id === selectedTowerId;
+      features.push({
+        type: 'Feature',
+        properties: {
+          name: `Torre SUBTEL ${t.id} (${t.ops.join('+')}) · ${t.addr}`,
+          color: isSel ? '#ffffff' : col,
+          base: 0,
+          height: (t.heightM || 15) * 1.8,
+          opacity: 0.95
+        },
+        geometry: { type: 'Polygon', coordinates: cylinderPoly(t.lon, t.lat, isSel ? 9 : 6) }
+      });
+    });
+
+    return { type: 'FeatureCollection', features };
+  }
+
+  // Build GeoJSON LineStrings for RF Donor Links from SUBTEL Towers (T1-T10) to Rooftop Omni Plus 314422 (P1) + Coax routing
+  function buildEarthLinksGeoJSON() {
+    const features = [];
+    const donorCoord = [-70.66552, -33.48846]; // P1 Rooftop Omni Plus 314422
+
+    SUBTEL_TOWERS.forEach(t => {
+      if (selectedOperator !== 'ALL' && !t.ops.includes(selectedOperator)) return;
+      const col = OP_COLORS[t.primaryOp] || '#38bdf8';
+      const isSel = t.id === selectedTowerId;
+      features.push({
+        type: 'Feature',
+        properties: { color: col, width: isSel ? 4.5 : 2.2, opacity: isSel ? 0.95 : 0.6 },
+        geometry: { type: 'LineString', coordinates: [[t.lon, t.lat], donorCoord] }
+      });
+    });
+
+    // Coaxial Wilson400 routing inside the building (P1 -> P2 -> P4 -> P5 -> P6 -> P7 & P8)
+    const profile = MODEL_PROFILES[wilsonSimMode] || MODEL_PROFILES.office200_2ant;
+    features.push({
+      type: 'Feature',
+      properties: { color: '#f97316', width: wilsonSimActive ? 5 : 3, opacity: wilsonSimActive ? 1.0 : 0.7 },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-70.66552, -33.48846], // P1 Azotea
+          [-70.66553, -33.48863], // P4 Hall -1
+          [-70.66566, -33.48857], // P5 Técnicos TI
+          [-70.66580, -33.48857], // P6 Jefe Informática Álvaro Carreño
+          ...(profile.twoBranches ? [[-70.66594, -33.48857]] : [])
+        ]
+      }
+    });
+
+    return { type: 'FeatureCollection', features };
+  }
+
+  function initGoogleEarthMap() {
+    if (earthMap || typeof maplibregl === 'undefined') return;
+
+    earthMap = new maplibregl.Map({
+      container: 'earthMapCanvas',
+      style: {
+        version: 8,
+        sources: {
+          'esri-world-imagery': {
+            type: 'raster',
+            tiles: [
+              'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+            ],
+            tileSize: 256,
+            maxzoom: 19,
+            attribution: '© Esri World Imagery · SUBTEL · GMM Arquitectos · Tecnovoa'
+          },
+          'esri-hybrid-labels': {
+            type: 'raster',
+            tiles: [
+              'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}'
+            ],
+            tileSize: 256,
+            maxzoom: 19
+          }
+        },
+        layers: [
+          {
+            id: 'satellite-base',
+            type: 'raster',
+            source: 'esri-world-imagery',
+            paint: { 'raster-contrast': 0.12, 'raster-saturation': 0.1 }
+          },
+          {
+            id: 'satellite-streets-overlay',
+            type: 'raster',
+            source: 'esri-hybrid-labels',
+            paint: { 'raster-opacity': 0.85 }
+          }
+        ]
+      },
+      center: [-70.66552, -33.48856],
+      zoom: 18.4,
+      pitch: 62,
+      bearing: -24,
+      maxPitch: 82,
+      antialias: true
+    });
+
+    earthMap.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+    earthMap.on('load', () => {
+      earthMapLoaded = true;
+
+      earthMap.addSource('pac-rf-links', {
+        type: 'geojson',
+        data: buildEarthLinksGeoJSON()
+      });
+
+      earthMap.addLayer({
+        id: 'pac-rf-links-layer',
+        type: 'line',
+        source: 'pac-rf-links',
+        paint: {
+          'line-color': ['get', 'color'],
+          'line-width': ['get', 'width'],
+          'line-opacity': ['get', 'opacity'],
+          'line-dasharray': [2, 1.5]
+        }
+      });
+
+      earthMap.addSource('pac-3d-structures', {
+        type: 'geojson',
+        data: buildEarth3DGeoJSON()
+      });
+
+      earthMap.addLayer({
+        id: 'pac-3d-extrusion-layer',
+        type: 'fill-extrusion',
+        source: 'pac-3d-structures',
+        paint: {
+          'fill-extrusion-color': ['get', 'color'],
+          'fill-extrusion-height': ['get', 'height'],
+          'fill-extrusion-base': ['get', 'base'],
+          'fill-extrusion-opacity': 0.86
+        }
+      });
+
+      renderGoogleEarth3D();
+    });
+  }
+
+  function renderGoogleEarth3D() {
+    if (!earthMap) {
+      if (currentView === 'earth_3d') initGoogleEarthMap();
+      return;
+    }
+    if (earthMapLoaded) {
+      const structSrc = earthMap.getSource('pac-3d-structures');
+      if (structSrc) structSrc.setData(buildEarth3DGeoJSON());
+      const linksSrc = earthMap.getSource('pac-rf-links');
+      if (linksSrc) linksSrc.setData(buildEarthLinksGeoJSON());
+    }
+
+    // Update or create 3D HTML Markers for P0 to P8
+    POINTS_META.forEach(pt => {
+      const agg = getPointAggregatedMetric(pt.id);
+      const col = rsrpToColor(agg.rsrp);
+      const rsrpTxt = agg.rsrp !== null ? `${agg.rsrp} dBm` : '--';
+      const isSel = pt.id === selectedPoint;
+
+      if (!earthPointMarkers[pt.id]) {
+        const el = document.createElement('div');
+        el.className = 'earth-marker-pin' + (isSel ? ' selected' : '');
+        el.onclick = e => {
+          e.stopPropagation();
+          selectPoint(pt.id);
+        };
+        el.innerHTML = `
+          <div class="earth-marker-badge" style="background:${col}">${pt.id} · ${rsrpTxt}</div>
+          <div class="earth-marker-sub">${pt.id === 'P6' ? 'Álvaro Carreño (Jefe TI)' : (pt.id === 'P1' ? 'Omni Plus 314422' : pt.eje.split(' ')[1] || pt.nivel)}</div>
+        `;
+        const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+          .setLngLat([pt.lon, pt.lat])
+          .addTo(earthMap);
+        earthPointMarkers[pt.id] = { marker, el };
+      } else {
+        const { el } = earthPointMarkers[pt.id];
+        el.className = 'earth-marker-pin' + (isSel ? ' selected' : '');
+        const badge = el.querySelector('.earth-marker-badge');
+        if (badge) {
+          badge.style.background = col;
+          badge.textContent = `${pt.id} · ${rsrpTxt}`;
+        }
+      }
+    });
+
+    // Update or create 3D HTML Markers for SUBTEL Towers T1 to T10
+    SUBTEL_TOWERS.forEach(t => {
+      const visible = selectedOperator === 'ALL' || t.ops.includes(selectedOperator);
+      const col = OP_COLORS[t.primaryOp] || '#38bdf8';
+      const isSel = t.id === selectedTowerId;
+
+      if (!earthTowerMarkers[t.id]) {
+        const el = document.createElement('div');
+        el.className = 'earth-tower-pin';
+        el.onclick = e => {
+          e.stopPropagation();
+          selectSubtelTower(t.id);
+        };
+        el.innerHTML = `
+          <div class="earth-tower-badge" style="background:${col}; border-color:${isSel ? '#fff' : '#0f172a'}">
+            📡 ${t.id}: ${t.ops.join('+')} (${t.dist}m)
+          </div>
+        `;
+        const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+          .setLngLat([t.lon, t.lat])
+          .addTo(earthMap);
+        earthTowerMarkers[t.id] = { marker, el };
+      }
+      earthTowerMarkers[t.id].el.style.display = visible ? 'flex' : 'none';
+      const badge = earthTowerMarkers[t.id].el.querySelector('.earth-tower-badge');
+      if (badge) {
+        badge.style.boxShadow = isSel ? '0 0 0 4px rgba(255,255,255,0.8), 0 4px 12px rgba(0,0,0,0.9)' : '0 2px 8px rgba(0,0,0,0.7)';
+      }
+    });
+  }
+
+  function setEarthCutaway(mode) {
+    earthCutawayMode = mode;
+    document.getElementById('btnEarthXray').classList.toggle('active', mode === 'xray');
+    document.getElementById('btnEarthFull').classList.toggle('active', mode === 'full');
+    document.getElementById('earthStatusBadge').textContent = mode === 'xray'
+      ? 'Modo: Corte Rayos-X Subterráneo -1 (P4–P8 visibles en 3D)'
+      : 'Modo: Edificio Completo 3D (Niveles -1, 1, 2 y Caseta Azotea)';
+    renderGoogleEarth3D();
+  }
+
+  function flyToEarthPreset(preset) {
+    if (!earthMap) return;
+    if (earthOrbitId) toggleEarthOrbit();
+    if (preset === 'building') {
+      earthMap.flyTo({
+        center: [-70.66552, -33.48856],
+        zoom: 18.5,
+        pitch: 64,
+        bearing: -24,
+        duration: 1400
+      });
+    } else if (preset === 'towers') {
+      earthMap.flyTo({
+        center: [-70.66552, -33.48856],
+        zoom: 15.1,
+        pitch: 58,
+        bearing: -35,
+        duration: 1600
+      });
+    }
+  }
+
+  function toggleEarthOrbit() {
+    const btn = document.getElementById('btnEarthOrbit');
+    if (earthOrbitId) {
+      cancelAnimationFrame(earthOrbitId);
+      earthOrbitId = null;
+      btn.classList.remove('active');
+      btn.textContent = '🔄 Órbita 360°';
+      return;
+    }
+    btn.classList.add('active');
+    btn.textContent = '⏹️ Detener Órbita';
+    function step() {
+      if (!earthMap || !earthOrbitId) return;
+      earthMap.setBearing((earthMap.getBearing() + 0.25) % 360);
+      earthOrbitId = requestAnimationFrame(step);
+    }
+    earthOrbitId = requestAnimationFrame(step);
+  }
+
+  // Export Parametric 3D Building Mesh (.OBJ) at true metric scale for Blender (scenario-blender) or Scenario 3D
+  function exportBuildingOBJ() {
+    const boxes = [
+      // [name, xMin, xMax, yMin, yMax, zMin, zMax] in meters (Origin = Eje T, Cota 0.00m)
+      ['Subterraneo_RRPP_Ejes_ST_P7',          0, 12, -3.2, 0.0,  0, 18],
+      ['Subterraneo_Jefe_Informatica_RS_P6',  12, 24, -3.2, 0.0,  0, 18],
+      ['Subterraneo_Tecnicos_TI_QR_P5',       24, 36, -3.2, 0.0,  0, 18],
+      ['Subterraneo_Hall_Ascensor_PQ_P4',     36, 48, -3.2, 0.0,  0, 18],
+      ['Subterraneo_Archivo_KP_P8',           48, 72, -3.2, 0.0,  0, 15],
+      ['Subterraneo_Patio_Ingles_LN_P3',      54, 72, -3.2, 0.0, 15, 24],
+      ['Subterraneo_Estacionamientos_AK',     72, 96, -3.2, 0.0,  0, 22],
+      ['Planta_Nivel_1_Principal',             0, 96,  0.45, 4.35, 0, 22],
+      ['Sala_Racks_Servidores_GI0708_P2',     36, 48,  0.45, 4.35, 2, 12],
+      ['Planta_Nivel_2_Alcaldia_SECPLAN',      0, 92,  4.35, 8.25, 0, 24],
+      ['Caseta_Azotea_Nucleo_PQ',             36, 48,  8.25, 11.2, 2, 14],
+      ['Mastil_Antena_Omni_Plus_314422_P1', 41.5, 42.5, 11.2, 14.5, 7.5, 8.5]
+    ];
+    let obj = '# Centro Consistorial Municipalidad de Pedro Aguirre Cerda (GMM Arquitectos)\n';
+    obj += '# Modelo 3D Parametrico en metros (Niveles -1, 1, 2, Azotea + Kit weBoost Office 200)\n\n';
+    let vOffset = 1;
+    boxes.forEach(([name, x0, x1, y0, y1, z0, z1]) => {
+      obj += `o ${name}\n`;
+      const verts = [
+        [x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0],
+        [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]
+      ];
+      verts.forEach(v => { obj += `v ${v[0]} ${v[1]} ${v[2]}\n`; });
+      const faces = [
+        [1,2,3,4], [5,8,7,6], [1,5,6,2],
+        [2,6,7,3], [3,7,8,4], [5,1,4,8]
+      ];
+      faces.forEach(f => {
+        obj += `f ${f.map(i => i + vOffset - 1).join(' ')}\n`;
+      });
+      vOffset += 8;
+    });
+    const blob = new Blob([obj], { type: 'text/plain;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'centro_consistorial_pac_3d.obj';
+    a.click();
   }
 
   function renderSubtelRadar() {

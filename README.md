@@ -56,7 +56,12 @@ Según la ficha oficial [`531047-530047_office200_ss_LATAM_102721b (1).pdf`](./5
 
 ## Estructura del Repositorio
 
-- [`index.html`](./index.html): Aplicación web interactiva (GitHub Pages) con diagrama del `Corte D-D'`, visor sobre planos reales, simulador de 5 configuraciones **Wilson Connectivity** (`weBoost Office 200`, `WilsonPro 1300R`, `WilsonPro 4300R`, `Zinwave Hybrid DAS`), calculadora de *Link Budget* (`Wilson400 50 Ω`) y verificación de aislamiento SUBTEL ($I_{\text{mín}} > G + 15\text{ dB} = 89\text{ dB}$).
+- [`index.html`](./index.html): Aplicación web interactiva (GitHub Pages) con **5 vistas sincronizadas**:
+  1. **`🌍 Mapa 3D Google Earth` (MapLibre GL + Satélite Esri World Imagery):** Vista satelital 3D inclinable/rotable de `Av. Presidente Salvador Allende N° 2029 esq. Av. Club Hípico`, con el **modelo 3D extruido del Centro Consistorial**, modo **Rayos-X Subterráneo `-1`** (recintos `P3`–`P8` coloreados en vivo según RSRP), las **10 Torres SUBTEL (`T1`–`T10`)** extruidas en 3D en sus coordenadas GPS exactas con haces de enlace hacia la azotea (`P1`), vuelo orbital 360° y exportador de malla 3D **`.OBJ`** para Blender/Scenario.
+  2. **`Corte Esquemático D-D'`:** Diagrama vectorial interactivo de los niveles `-1`, `1`, `2` y `Azotea` con trazado del coaxial `Wilson400`.
+  3. **`Plano Corte D-D' (JPG)`:** Pines interactivos sobre el plano original de cortes de *GMM Arquitectos*.
+  4. **`Plano Planta Nivel 1 (JPG)`:** Pines interactivos sobre la planta arquitectónica original.
+  5. **`📡 Radar Antenas SUBTEL (GIS)`:** Radar polar azimutal (`0°–360°`) de estaciones base en radio `< 750 m`.
 - [`Procedimiento_Medicion_Cobertura_Subterraneo.md`](./Procedimiento_Medicion_Cobertura_Subterraneo.md): Procedimiento completo de terreno (Comercial + Prevencionista de Riesgos), ingeniería de detalle del kit `531047`, normativa SUBTEL y plantilla de registro.
 - [`plantilla_mediciones_pac.csv`](./plantilla_mediciones_pac.csv): Matriz pre-cargada con los **9 puntos estructurales (`P0` a `P8`) × 4 compañías** lista para Excel/Sheets o importación directa en la web app.
 - [`531047-530047_office200_ss_LATAM_102721b (1).pdf`](./531047-530047_office200_ss_LATAM_102721b%20(1).pdf): Datasheet oficial en español del kit **weBoost Office 200 LATAM (`531047 / 530047`)**.
