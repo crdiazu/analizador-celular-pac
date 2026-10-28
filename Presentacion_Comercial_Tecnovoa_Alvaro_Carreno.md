@@ -74,11 +74,14 @@ Para resolver este aislamiento sin depender de que las telcos instalen costosas 
 
 ---
 
-## 💼 5. Respaldo y Garantía Tecnovoa
+## 💼 5. Respaldo, Garantía y Cadena de Suministro Oficial
 
-* **3 Años de Garantía de Fábrica** en el amplificador Wilson weBoost.
-* **Soporte Técnico Local Certificado:** Ingenieros de Tecnovoa disponibles para post-venta, calibración y mediciones de verificación post-instalación.
-* **Respaldo en Terreno:** Medición previa con instrumental profesional (G-NetTrack y modelamiento 3D) que certifica el antes y el después de la señal en cada escritorio municipal.
+* **Alianza con Distribuidor Oficial en Chile:** Tecnovoa integra y suministra soluciones con el respaldo directo de **CellSignal Chile (`www.cellsignal.cl`)**, distribuidor e importador oficial de **Wilson Electronics (weBoost & WilsonPro)** en nuestro país.
+  * **Stock Local en Santiago:** Disponibilidad inmediata del kit **weBoost Office 200 LATAM (SKU 531047)**, splitters y bobinas de cable Wilson400 sin esperas de importación internacional.
+  * **Equipos 100% Homologados LATAM:** Garantiza que el hardware cuenta con la calibración exacta para las frecuencias reguladas por SUBTEL (Bandas B2, B4 AWS y B5) y no versiones extranjeras incompatibles.
+* **3 Años de Garantía de Fábrica** en el amplificador Wilson weBoost con soporte y laboratorio técnico local en Santiago.
+* **Soporte Técnico Especializado Tecnovoa:** Profesionales certificados para post-venta, calibración y mediciones de verificación post-instalación.
+* **Medición Científica Certificada:** Entrega de informe comparativo "Antes vs. Después" con instrumental RF (G-NetTrack y modelamiento 3D) certificando el cumplimiento del servicio en cada oficina municipal.
 
 ---
 

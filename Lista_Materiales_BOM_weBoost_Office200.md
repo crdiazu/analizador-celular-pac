@@ -2,6 +2,7 @@
 **Proyecto:** Optimización de Señal Celular Indoor — Subterráneo Nivel -1 (Informática)  
 **Cliente:** Ilustre Municipalidad de Pedro Aguirre Cerda (Centro Consistorial)  
 **Integrador:** Tecnovoa Ltda. — KAM TI: Cristián Díaz (`cristian@tecnovoa.cl` / `+569 4943 8288`)  
+**Proveedor Oficial de Hardware / Distribución Chile:** **CellSignal (`www.cellsignal.cl`)** — Partner Oficial Wilson Electronics / weBoost  
 **Equipo Base Cotizado:** **weBoost Office 200 LATAM 50 Ω (SKU 531047)** — `CLP$ 1.650.898 + IVA`  
 
 ---
