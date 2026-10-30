@@ -849,11 +849,14 @@
             <div class="stage-3d-box">
               <div class="stage-3d-toolbar">
                 <div class="stage-3d-group">
-                  <button class="btn-3d active" id="btnModeXray" onclick="set3dMode('xray')">🔬 Rayos-X (Subterráneo -1)</button>
-                  <button class="btn-3d" id="btnModeFull" onclick="set3dMode('full')">🏢 Edificio Completo</button>
+                  <button class="btn-3d active" id="btnModeXray" onclick="set3dMode('xray')">🔬 Rayos-X (Piso -1 + Óvalo)</button>
+                  <button class="btn-3d" id="btnModeFull" onclick="set3dMode('full')">🏢 Edificio 3D Real (U + Óvalo)</button>
                   <button class="btn-3d" id="btnModeExplode" onclick="set3dMode('explode')">💥 Vista Explotada</button>
+                  <button class="btn-3d active" id="btnToggleSat" onclick="toggleSatelliteBase()">🛰️ Satélite Google Maps</button>
+                  <button class="btn-3d active" id="btnToggleLabels" onclick="toggle3dLabels()">🏷️ Etiquetas 3D</button>
                 </div>
                 <div class="stage-3d-group">
+                  <button class="btn-3d" onclick="setTopDownCamera()">🦅 Vista Cenital</button>
                   <button class="btn-3d" id="btnRotate3d" onclick="toggle3dAutoRotate()">🔄 Rotación Auto</button>
                   <button class="btn-3d" onclick="reset3dCamera()">🎯 Reset Vista</button>
                   <button class="btn-3d" onclick="exportBuildingOBJ()">⬇️ Exportar OBJ</button>
@@ -921,9 +924,13 @@
                 <rect x="75" y="230" width="965" height="100" fill="#1a2639" stroke="#94a3b8" stroke-width="2" />
                 <!-- Racks Room in Level 1 (Eje P-Q) -->
                 <rect x="435" y="232" width="100" height="96" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" stroke-width="1.5" />
-                <text x="485" y="254" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle">RACKS Y CENTRAL</text>
-                <text x="485" y="267" fill="#38bdf8" font-size="10" text-anchor="middle">SERVIDORES (GI 07/08)</text>
-                <text x="240" y="275" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle">PLANTA NIVEL 1 (+0,45 m) — DIDECO / Salud / Educación</text>
+                <text x="485" y="254" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle">HUB SUR / RACK PISO 1</text>
+                <text x="485" y="267" fill="#38bdf8" font-size="10" text-anchor="middle">Cruce a Sala de Concejo</text>
+                <!-- Sala de Concejo Municipal / Óvalo on Level 1 -->
+                <rect x="545" y="234" width="205" height="92" rx="18" fill="rgba(154, 52, 18, 0.45)" stroke="#fdba74" stroke-width="2" />
+                <text x="647" y="255" fill="#fed7aa" font-size="11" font-weight="800" text-anchor="middle">SALA DE CONCEJO (ÓVALO)</text>
+                <text x="647" y="269" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Piso 1 · Domo 2A (Cable 15,24 m)</text>
+                <text x="240" y="275" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle">PLANTA NIVEL 1 (+0,45 m) — Recepciones / Puente Óvalo</text>
                 <text x="955" y="255" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">ACCESO PRINCIPAL</text>
                 <text x="955" y="270" fill="#94a3b8" font-size="10" text-anchor="middle">Av. Salvador Allende</text>
 
@@ -932,51 +939,52 @@
                 <text x="15" y="323" fill="#94a3b8" font-size="10" font-weight="700">N ±0,00</text>
                 <text x="15" y="465" fill="#f87171" font-size="10" font-weight="700">N -3,20m</text>
 
-                <!-- Level -1 Underground Offices -->
-                <rect x="90" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
-                <text x="147" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">RELACIONES PÚBLICAS</text>
-                <text x="147" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Jefatura + 2 Profesionales</text>
+                <!-- Level -1 Underground Offices (Updated with Real Field Visit Zones) -->
+                <rect x="90" y="336" width="115" height="134" fill="#111827" stroke="#38bdf8" stroke-width="2" />
+                <text x="147" y="356" fill="#38bdf8" font-size="10.5" font-weight="800" text-anchor="middle">SERVICIOS ESPECIALES</text>
+                <text x="147" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Ala Poniente -1 (Domo 1B)</text>
 
-                <rect x="205" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
-                <text x="262" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">JEFE INFORMÁTICA</text>
-                <text x="262" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Álvaro Carreño + Emergencia</text>
+                <rect x="205" y="336" width="115" height="134" fill="#111827" stroke="#22c55e" stroke-width="2" />
+                <text x="262" y="356" fill="#4ade80" font-size="10.5" font-weight="800" text-anchor="middle">OF. ÁLVARO CARREÑO</text>
+                <text x="262" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">+ Pasillo Interior Sur (Domo 2B)</text>
 
-                <rect x="320" y="336" width="115" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
-                <text x="377" y="356" fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle">2 TÉC. INFORMÁTICA</text>
-                <text x="377" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">+ Bodega TI (Ejes Q–R)</text>
+                <rect x="320" y="336" width="115" height="134" fill="#111827" stroke="#38bdf8" stroke-width="2" />
+                <text x="377" y="356" fill="#38bdf8" font-size="10.5" font-weight="800" text-anchor="middle">DESPACHO MÓVILES</text>
+                <text x="377" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">+ Pasillo Interior Norte (Domo 1A)</text>
 
-                <rect x="435" y="336" width="100" height="134" fill="#172033" stroke="#64748b" stroke-width="2" />
-                <text x="485" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">HALL / ASCENSOR</text>
-                <text x="485" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Núcleo Escalera Eje P–Q</text>
+                <rect x="435" y="336" width="100" height="134" fill="#172033" stroke="#38bdf8" stroke-width="2" />
+                <text x="485" y="356" fill="#38bdf8" font-size="10.5" font-weight="800" text-anchor="middle">SEG. CIUDADANA</text>
+                <text x="485" y="370" fill="#cbd5e1" font-size="9.5" text-anchor="middle">Video Wall + Rack -1 (Domo 1A)</text>
 
                 <rect x="535" y="336" width="220" height="134" fill="#111827" stroke="#475569" stroke-width="2" />
-                <text x="645" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">ARCHIVO E INVENTARIO</text>
-                <text x="645" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Encargado + Bodega + Archivo (Ejes K–P)</text>
+                <text x="645" y="356" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">ZÓCALO BAJO ÓVALO / CASINO</text>
+                <text x="645" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Conexión Pasillo Interior Piso -1</text>
 
                 <rect x="755" y="336" width="120" height="134" fill="#0d1526" stroke="#475569" stroke-width="2" stroke-dasharray="5 3" />
                 <text x="815" y="356" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle">PATIO INGLÉS</text>
-                <text x="815" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Escalera Ext. / Vidrio Low-E</text>
+                <text x="815" y="370" fill="#94a3b8" font-size="9.5" text-anchor="middle">Graderías Centrales -1</text>
 
                 <rect x="875" y="336" width="165" height="134" fill="#0f172a" stroke="#475569" stroke-width="2" />
                 <text x="957" y="395" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">ESTACIONAMIENTOS -1</text>
-                <text x="957" y="410" fill="#475569" font-size="9.5" text-anchor="middle">(Ejes A–N · Corte B-B')</text>
+                <text x="957" y="410" fill="#475569" font-size="9.5" text-anchor="middle">(Subterráneo Perimetral)</text>
 
                 <!-- WILSON COAXIAL INFRASTRUCTURE OVERLAY -->
                 <g id="wilsonOverlayGroup" opacity="0.4">
-                  <!-- Coax Vertical Drop along Shaft GI 07/08 (Eje P-Q) -->
+                  <!-- Coax Vertical Drop along Shafts -->
                   <path d="M 485 65 L 485 385 L 320 385" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="6 4" />
-                  <path id="wilsonSecondBranch" d="M 320 385 L 155 385 M 485 385 L 640 385" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="4 4" />
+                  <path id="wilsonSecondBranch" d="M 320 385 L 155 385 M 485 280 L 645 280" fill="none" stroke="#22c55e" stroke-width="3.5" stroke-dasharray="5 3" />
                   <!-- Donor Omni Plus 314422 Antenna Icon on Rooftop -->
                   <rect x="479" y="28" width="12" height="38" rx="6" fill="#f97316" stroke="#fff" stroke-width="1.5" />
                   <circle cx="485" cy="28" r="14" fill="none" stroke="#fdba74" stroke-width="1.5" stroke-dasharray="3 2" />
-                  <text id="svgDonorLabel" x="512" y="48" fill="#fdba74" font-size="10.5" font-weight="700">Antena Omni Plus 314422 + Protector 859902</text>
-                  <text x="512" y="62" fill="#94a3b8" font-size="9.5">Cable Wilson400 18,28 m por Shaft GI 07/08</text>
+                  <text id="svgDonorLabel" x="512" y="48" fill="#fdba74" font-size="10.5" font-weight="700">2× Antenas Omni Plus 314422 (Postes 3,5 m Norte y Sur)</text>
+                  <text x="512" y="62" fill="#94a3b8" font-size="9.5">2× Bajadas Wilson400 18,28 m hacia Rack Seguridad (-1) y Rack Piso 1</text>
                   <!-- Amplifier Box -->
-                  <rect x="438" y="371" width="94" height="25" rx="4" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
-                  <text id="svgAmpLabel" x="485" y="387" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">OFFICE 200 (74dB)</text>
-                  <!-- Indoor Dome Antenna 314407 at Eje R -->
-                  <path d="M 306 336 Q 320 352 334 336 Z" fill="#38bdf8" stroke="#fff" stroke-width="1.2" />
-                  <text x="320" y="398" fill="#fdba74" font-size="9" font-weight="700" text-anchor="middle">Domo 314407 (Eje R)</text>
+                  <rect x="434" y="371" width="102" height="25" rx="4" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+                  <text id="svgAmpLabel" x="485" y="387" fill="#fff" font-size="8.5" font-weight="800" text-anchor="middle">2× OFFICE 200 (74dB)</text>
+                  <!-- Indoor Dome Antennas 314407 -->
+                  <path d="M 363 336 Q 377 352 391 336 Z" fill="#38bdf8" stroke="#fff" stroke-width="1.2" />
+                  <text x="377" y="398" fill="#fdba74" font-size="9" font-weight="700" text-anchor="middle">Domos 1A/1B/2B (-1)</text>
+                  <path d="M 633 234 Q 647 250 661 234 Z" fill="#22c55e" stroke="#fff" stroke-width="1.2" />
                 </g>
 
                 <!-- Halos & Nodes Layers (Rendered by JS) -->
@@ -1255,10 +1263,10 @@
     {
       id: 'P0',
       nivel: 'Nivel 1 (+0.45m)',
-      eje: 'Ejes A-D / 6-8',
-      recinto: 'Acceso Principal (Av. Salvador Allende)',
+      eje: 'Ala Poniente / Acceso',
+      recinto: 'Acceso Principal (Av. Club Hípico / Salvador Allende)',
       rol: 'Referencia Exterior Calle',
-      x: 28, y: 0.45, z: 12,
+      x: -56.4, y: 1.2, z: 2.1,
       svgX: 955, svgY: 295,
       secX: 81.0, secY: 86.5,
       fl1X: 21.0, fl1Y: 51.0,
@@ -1267,11 +1275,11 @@
     },
     {
       id: 'P1',
-      nivel: 'Azotea (+8.25m)',
-      eje: 'Ejes P-Q / 12-14',
-      recinto: 'Cubierta Núcleo / Shaft GI 07-08',
-      rol: 'Antena Donante Omni Plus 314422 (360°)',
-      x: -4, y: 8.25, z: 0,
+      nivel: 'Azotea (+11.5m)',
+      eje: 'Postes Techumbre 3,5 m (Norte y Sur)',
+      recinto: 'Postación Disponible Techumbre (Omni Plus 314422)',
+      rol: 'Antenas Donantes Exteriores 360° (Norte y Sur)',
+      x: -33.6, y: 12.2, z: -21.5,
       svgX: 485, svgY: 118,
       secX: 31.5, secY: 77.5,
       fl1X: 64.5, fl1Y: 72.5,
@@ -1280,11 +1288,11 @@
     },
     {
       id: 'P2',
-      nivel: 'Nivel 1 (+0.45m)',
-      eje: 'Ejes P-Q / 14-15',
-      recinto: 'Sala Racks y Central Servidores (GI 07-08)',
-      rol: 'Paso Vertical Coaxial Wilson400',
-      x: -4, y: 0.45, z: 0,
+      nivel: 'Nivel 1 (+1.8m)',
+      eje: 'Núcleo Sur / Puente Óvalo',
+      recinto: 'Sala Racks Nivel 1 / Hub 2 (Bajada Poste Sur)',
+      rol: 'Hub Amplificador #2 (Hacia Óvalo e Informática)',
+      x: 19.9, y: 2.0, z: 18.8,
       svgX: 485, svgY: 295,
       secX: 31.5, secY: 86.5,
       fl1X: 70.0, fl1Y: 79.0,
@@ -1294,10 +1302,10 @@
     {
       id: 'P3',
       nivel: 'Nivel -1 (-3.20m)',
-      eje: 'Ejes L-N / Patio',
-      recinto: 'Patio Inglés Hundido (Graderías)',
+      eje: 'Patio Central / Graderías',
+      recinto: 'Patio Inglés Hundido y Casino Central',
       rol: 'Difracción Exterior Zócalo',
-      x: 8, y: -3.2, z: -8,
+      x: -6.5, y: -2.6, z: -0.7,
       svgX: 815, svgY: 425,
       secX: 46.5, secY: 91.5,
       fl1X: 56.0, fl1Y: 46.0,
@@ -1307,65 +1315,65 @@
     {
       id: 'P4',
       nivel: 'Nivel -1 (-3.20m)',
-      eje: 'Ejes P-Q (Corte D-D\')',
-      recinto: 'Hall Subterráneo / Escalera',
-      rol: 'Acceso Vertical Piso -1',
-      x: -4, y: -3.2, z: 0,
+      eje: 'Ala Norte (Zona 3)',
+      recinto: 'Subterráneo Seguridad Ciudadana y Video Wall',
+      rol: 'Zona Crítica Norte 1 (Cubierta por Domo 1A)',
+      x: -14.2, y: -2.2, z: -20.1,
       svgX: 485, svgY: 425,
       secX: 31.5, secY: 91.5,
-      fl1X: 64.5, fl1Y: 73.5,
+      fl1X: 36.0, fl1Y: 29.5,
       lat: -33.48863, lon: -70.66553,
       isUnderground: true
     },
     {
       id: 'P5',
       nivel: 'Nivel -1 (-3.20m)',
-      eje: 'Ejes Q-R (Corte D-D\')',
-      recinto: 'Oficina 2 Técnicos TI + Bodega',
-      rol: 'Zona Crítica 1 (Antena Domo 314407)',
-      x: -12, y: -3.2, z: 0,
+      eje: 'Ala Norte Oriente (Zona 3)',
+      recinto: 'Despacho de Móviles y Pasillo Interior Norte',
+      rol: 'Zona Crítica Norte 2 (Cubierta por Domo 1A)',
+      x: 8.6, y: -2.2, z: -18.3,
       svgX: 377, svgY: 425,
       secX: 27.5, secY: 91.5,
-      fl1X: 71.0, fl1Y: 73.5,
+      fl1X: 46.5, fl1Y: 31.0,
       lat: -33.48857, lon: -70.66566,
       isUnderground: true
     },
     {
       id: 'P6',
       nivel: 'Nivel -1 (-3.20m)',
-      eje: 'Ejes R-S (Corte D-D\')',
-      recinto: 'Oficina Jefe Informática (Álvaro Carreño) + Emergencia',
-      rol: 'Zona Crítica 2 (Jefatura TI)',
-      x: -20, y: -3.2, z: 0,
+      eje: 'Ala Sur Oriente (Zona 1)',
+      recinto: 'Oficina Álvaro Carreño (Informática) y Pasillo Interior Trasero',
+      rol: 'Zona Crítica Sur (Cubierta por Domo 2B)',
+      x: 26.6, y: -2.2, z: 24.9,
       svgX: 262, svgY: 425,
       secX: 23.5, secY: 91.5,
-      fl1X: 75.0, fl1Y: 73.5,
+      fl1X: 64.5, fl1Y: 85.0,
       lat: -33.48857, lon: -70.66580,
       isUnderground: true
     },
     {
       id: 'P7',
       nivel: 'Nivel -1 (-3.20m)',
-      eje: 'Ejes S-T (Corte D-D\')',
-      recinto: 'Relaciones Públicas (Jefatura + 2 Prof.)',
-      rol: 'Zona Crítica 3 (RR.PP.)',
-      x: -28, y: -3.2, z: 0,
+      eje: 'Ala Poniente (Zona 2)',
+      recinto: 'Subterráneo Servicios Especiales (Ala Poniente)',
+      rol: 'Zona Crítica Poniente (Cubierta por Domo 1B)',
+      x: -46.7, y: -2.2, z: 5.5,
       svgX: 147, svgY: 425,
       secX: 19.5, secY: 91.5,
-      fl1X: 79.5, fl1Y: 73.5,
+      fl1X: 22.5, fl1Y: 56.0,
       lat: -33.48857, lon: -70.66594,
       isUnderground: true
     },
     {
       id: 'P8',
-      nivel: 'Nivel -1 (-3.20m)',
-      eje: 'Ejes K-P (Corte D-D\')',
-      recinto: 'Archivo Municipal e Inventario',
-      rol: 'Fondo Bajo Losa',
-      x: 4, y: -3.2, z: 4,
-      svgX: 645, svgY: 425,
-      secX: 38.5, secY: 91.5,
-      fl1X: 57.5, fl1Y: 73.5,
+      nivel: 'Nivel 1 (+2.20m)',
+      eje: 'Volumen Central Ovalado',
+      recinto: 'Sala de Concejo Municipal / Óvalo del Alcalde (Piso 1)',
+      rol: 'Zona Crítica Concejo (Cubierta por Domo 2A)',
+      x: 22.5, y: 2.5, z: -1.9,
+      svgX: 647, svgY: 285,
+      secX: 38.5, secY: 86.5,
+      fl1X: 63.0, fl1Y: 55.0,
       lat: -33.48852, lon: -70.66535,
       isUnderground: true
     }
@@ -1606,22 +1614,43 @@
     return 'Sin Cobertura';
   }
 
-  // --- THREE.JS 3D ARCHITECTURAL MODEL ---
+  // --- THREE.JS 3D ARCHITECTURAL MODEL (EXTRACTED FROM GOOGLE MAPS SATELLITE & CAD) ---
   let scene, camera, renderer, controls;
-  let groupBasement, groupLevel1, groupLevel2, groupRoof, groupHardware, groupNodes;
+  let groupSatellite, groupBasement, groupLevel1, groupLevel2, groupRoof, groupHardware, groupLabels3D, groupNodes;
   let sphereMeshes = {};
   let autoRotate = false;
+  let showSatellite = true;
+  let showLabels3D = true;
+
+  // Calibration from Google Maps Satellite image (985 x 680 px, scale 1 m = 7.22 px -> 0.1385 m/px)
+  const SAT_W_PX = 985;
+  const SAT_H_PX = 680;
+  const M_PER_PX = 0.1385;
+  function pxToX(px) { return (px - SAT_W_PX / 2) * M_PER_PX; }
+  function pyToZ(py) { return (py - SAT_H_PX / 2) * M_PER_PX; }
+
+  // Exact U-shaped building outer & inner polygon vertices extracted from Google Maps Satellite
+  const U_BUILDING_PX = [
+    [97, 58],   // NW corner (Club Hípico esq. Manuela Errázuriz)
+    [815, 185], // NE tip of North Wing (Manuela Errázuriz)
+    [812, 238], // Inner East of North Wing
+    [225, 212], // Inner NW corner of Courtyard
+    [218, 456], // Inner SW corner of Courtyard
+    [787, 480], // Inner East of South Wing
+    [782, 592], // SE corner of South Wing (Av. Salvador Allende)
+    [68, 563]   // SW corner (Club Hípico esq. Salvador Allende)
+  ];
 
   function initThreeJs() {
     const container = document.getElementById('threeJsCanvas');
     if (!container || scene) return;
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0f172a);
-    scene.fog = new THREE.FogExp2(0x0f172a, 0.008);
+    scene.background = new THREE.Color(0x0b1324);
+    scene.fog = new THREE.FogExp2(0x0b1324, 0.0035);
 
-    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.5, 1000);
-    camera.position.set(45, 38, 55);
+    camera = new THREE.PerspectiveCamera(42, container.clientWidth / container.clientHeight, 0.5, 1200);
+    camera.position.set(-15, 78, 92);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -1632,41 +1661,46 @@
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
-    controls.target.set(0, 0, 0);
-    controls.maxPolarAngle = Math.PI / 2 + 0.05;
+    controls.target.set(0, 0, 2);
+    controls.maxPolarAngle = Math.PI / 2 - 0.02;
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.78);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.85);
-    dirLight.position.set(50, 70, 40);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight.position.set(65, 110, 60);
     dirLight.castShadow = true;
     scene.add(dirLight);
 
-    const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 0.4);
-    dirLight2.position.set(-40, -30, -30);
+    const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 0.35);
+    dirLight2.position.set(-60, 40, -50);
     scene.add(dirLight2);
 
-    // Ground Grid
-    const grid = new THREE.GridHelper(110, 22, 0x334155, 0x1e293b);
-    grid.position.y = -3.22;
+    // Subtle metric grid under the satellite map
+    const grid = new THREE.GridHelper(160, 32, 0x334155, 0x1e293b);
+    grid.position.y = -3.45;
     scene.add(grid);
 
+    groupSatellite = new THREE.Group();
     groupBasement = new THREE.Group();
     groupLevel1 = new THREE.Group();
     groupLevel2 = new THREE.Group();
     groupRoof = new THREE.Group();
     groupHardware = new THREE.Group();
+    groupLabels3D = new THREE.Group();
     groupNodes = new THREE.Group();
 
+    scene.add(groupSatellite);
     scene.add(groupBasement);
     scene.add(groupLevel1);
     scene.add(groupLevel2);
     scene.add(groupRoof);
     scene.add(groupHardware);
+    scene.add(groupLabels3D);
     scene.add(groupNodes);
 
+    buildSatelliteBasePlane();
     buildArchitecturalGeometry();
     buildWilsonHardware3D();
     buildMeasurementSpheres();
@@ -1675,6 +1709,64 @@
     renderer.domElement.addEventListener('click', onCanvasClick);
 
     animate();
+  }
+
+  function buildSatelliteBasePlane() {
+    groupSatellite.clear();
+    const planeW = SAT_W_PX * M_PER_PX; // 136.42 m
+    const planeH = SAT_H_PX * M_PER_PX; // 94.18 m
+    const geom = new THREE.PlaneGeometry(planeW, planeH);
+    const texLoader = new THREE.TextureLoader();
+    const satTex = texLoader.load('./assets/fotos/24-vista-cenital-satelite-edificio-pac.jpg');
+    satTex.anisotropy = 8;
+    const mat = new THREE.MeshBasicMaterial({
+      map: satTex,
+      transparent: true,
+      opacity: 0.92,
+      side: THREE.DoubleSide
+    });
+    const mesh = new THREE.Mesh(geom, mat);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.y = -3.32;
+    groupSatellite.add(mesh);
+  }
+
+  // Extrude any polygon defined in pixel coordinates [px, py] into a 3D architectural volume
+  function makeExtrudedPolygon(ptsPx, yBottom, height, colorHex, opacity = 1, edgeColorHex = 0x94a3b8) {
+    const shape = new THREE.Shape();
+    ptsPx.forEach((pt, idx) => {
+      const x = pxToX(pt[0]);
+      const z = pyToZ(pt[1]);
+      // Shape is in XY plane; after rotation.x = -Math.PI/2, shape(x, -z) maps to world (x, y, z)
+      if (idx === 0) shape.moveTo(x, -z);
+      else shape.lineTo(x, -z);
+    });
+    shape.closePath();
+
+    const extrudeGeom = new THREE.ExtrudeGeometry(shape, { depth: height, bevelEnabled: false });
+    extrudeGeom.rotateX(-Math.PI / 2);
+    extrudeGeom.translate(0, yBottom, 0);
+
+    const mat = new THREE.MeshLambertMaterial({
+      color: colorHex,
+      transparent: opacity < 1,
+      opacity: opacity
+    });
+    const mesh = new THREE.Mesh(extrudeGeom, mat);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    if (edgeColorHex !== null) {
+      const edges = new THREE.EdgesGeometry(extrudeGeom);
+      const lineMat = new THREE.LineBasicMaterial({
+        color: edgeColorHex,
+        transparent: true,
+        opacity: Math.min(1, opacity + 0.25)
+      });
+      const wireframe = new THREE.LineSegments(edges, lineMat);
+      mesh.add(wireframe);
+    }
+    return mesh;
   }
 
   function makeBox(w, h, d, color, opacity = 1) {
@@ -1686,138 +1778,308 @@
     return mesh;
   }
 
+  // Create crisp 3D floating text badge using HTML5 Canvas texture
+  function makeTextSprite(text, bgColor = 'rgba(15, 23, 42, 0.92)', borderColor = '#38bdf8', textColor = '#ffffff', scaleW = 18) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 112;
+    const ctx = canvas.getContext('2d');
+
+    // Rounded pill box
+    ctx.fillStyle = bgColor;
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 6;
+    const r = 22;
+    ctx.beginPath();
+    ctx.moveTo(r, 8);
+    ctx.lineTo(504 - r, 8);
+    ctx.quadraticCurveTo(504, 8, 504, 8 + r);
+    ctx.lineTo(504, 104 - r);
+    ctx.quadraticCurveTo(504, 104, 504 - r, 104);
+    ctx.lineTo(r, 104);
+    ctx.quadraticCurveTo(8, 104, 8, 104 - r);
+    ctx.lineTo(8, 8 + r);
+    ctx.quadraticCurveTo(8, 8, r, 8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = 'bold 26px Poppins, Roboto, sans-serif';
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 256, 56);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+    const sprite = new THREE.Sprite(spriteMat);
+    sprite.scale.set(scaleW, scaleW * (112 / 512), 1);
+    sprite.renderOrder = 999;
+    return sprite;
+  }
+
   function buildArchitecturalGeometry() {
-    // 1. NIVEL -1
-    const bFloor = makeBox(70, 0.3, 24, 0x1e293b);
-    bFloor.position.set(0, -3.2, 0);
-    groupBasement.add(bFloor);
+    groupBasement.clear();
+    groupLevel1.clear();
+    groupLevel2.clear();
+    groupRoof.clear();
 
-    // Relaciones Públicas (P7)
-    const bRRPP = makeBox(10, 3.0, 14, 0x334155, 0.7);
-    bRRPP.position.set(-27, -1.6, 0);
-    groupBasement.add(bRRPP);
+    // =========================================================
+    // 1. NIVEL -1 (ZÓCALO SUBTERRÁNEO EN "U" · Cota -3.20 m a 0.00 m)
+    // =========================================================
+    // Base U-shaped slab & perimeter walls of Floor -1
+    const uBasementShell = makeExtrudedPolygon(U_BUILDING_PX, -3.25, 3.1, 0x1e293b, 0.42, 0x475569);
+    groupBasement.add(uBasementShell);
 
-    // Jefe Informática Álvaro Carreño (P6)
-    const bJefeTI = makeBox(9, 3.0, 14, 0x1e40af, 0.75);
-    bJefeTI.position.set(-18, -1.6, 0);
-    groupBasement.add(bJefeTI);
+    // Zona 3 Norte (-1): Video Wall, Seguridad Ciudadana y Despacho de Móviles
+    const zoneNortePx = [[225, 118], [645, 165], [642, 226], [225, 212]];
+    const zNorteMesh = makeExtrudedPolygon(zoneNortePx, -3.15, 2.85, 0x0284c7, 0.68, 0x38bdf8);
+    groupBasement.add(zNorteMesh);
 
-    // 2 Técnicos TI + Bodega (P5)
-    const bTecTI = makeBox(9, 3.0, 14, 0x0284c7, 0.75);
-    bTecTI.position.set(-9.5, -1.6, 0);
-    groupBasement.add(bTecTI);
+    // Zona 2 Poniente (-1): Servicios Especiales
+    const zonePonientePx = [[82, 210], [222, 212], [218, 456], [76, 456]];
+    const zPonienteMesh = makeExtrudedPolygon(zonePonientePx, -3.15, 2.85, 0x0369a1, 0.68, 0x38bdf8);
+    groupBasement.add(zPonienteMesh);
 
-    // Hall Subterráneo / Shaft GI 07/08 (P4)
-    const bHall = makeBox(7, 3.0, 14, 0x475569, 0.65);
-    bHall.position.set(-1.5, -1.6, 0);
-    groupBasement.add(bHall);
+    // Zona 1 Sur-Oriente (-1): Oficina Álvaro Carreño (Informática) y Pasillo Trasero
+    const zoneSurPx = [[455, 470], [787, 480], [782, 588], [452, 578]];
+    const zSurMesh = makeExtrudedPolygon(zoneSurPx, -3.15, 2.85, 0x1d4ed8, 0.72, 0x60a5fa);
+    groupBasement.add(zSurMesh);
 
-    // Archivo e Inventario (P8)
-    const bArchivo = makeBox(16, 3.0, 14, 0x334155, 0.7);
-    bArchivo.position.set(10, -1.6, 0);
-    groupBasement.add(bArchivo);
+    // Graderías escalonadas del Patio Cívico Hundido (bajando de Poniente a Oriente hacia el Óvalo)
+    for (let i = 0; i < 6; i++) {
+      const stepX1 = 420 + i * 16;
+      const stepX2 = stepX1 + 15;
+      const stepPx = [[stepX1, 248], [stepX2, 248], [stepX2, 420], [stepX1, 420]];
+      const stepMesh = makeExtrudedPolygon(stepPx, -3.2, 0.45 * (6 - i), 0x475569, 0.75, 0x64748b);
+      groupBasement.add(stepMesh);
+    }
 
-    // Patio Inglés Hundido (P3)
-    const bPatio = makeBox(14, 1.2, 8, 0x0284c7, 0.35);
-    bPatio.position.set(8, -2.5, -9);
-    groupBasement.add(bPatio);
+    // =========================================================
+    // 2. NIVEL 1 (+0.00 m a +4.10 m) + ÓVALO DEL ALCALDE / CONCEJO
+    // =========================================================
+    const uLevel1 = makeExtrudedPolygon(U_BUILDING_PX, 0.0, 4.0, 0x38bdf8, 0.28, 0x7dd3fc);
+    groupLevel1.add(uLevel1);
 
-    // 2. NIVEL 1
-    const l1Slab = makeBox(70, 0.35, 24, 0x64748b, 0.85);
-    l1Slab.position.set(0, 0.3, 0);
-    groupLevel1.add(l1Slab);
+    // ÓVALO DEL ALCALDE / SALA DE CONCEJO MUNICIPAL (Volumen elíptico en Acero Corten)
+    const ovalCx = pxToX(655);
+    const ovalCz = pyToZ(326);
+    const ovalRx = 106 * M_PER_PX; // ~14.7 m
+    const ovalRz = 72 * M_PER_PX;  // ~10.0 m
 
-    const l1Acceso = makeBox(14, 3.6, 20, 0x38bdf8, 0.35);
-    l1Acceso.position.set(26, 2.2, 0);
-    groupLevel1.add(l1Acceso);
+    // Sunken base pedestal of the Oval (Nivel -1 Casino / Foyer)
+    const ovalBaseGeom = new THREE.CylinderGeometry(1, 1, 3.1, 48);
+    ovalBaseGeom.scale(ovalRx * 0.88, 1, ovalRz * 0.88);
+    const ovalBaseMat = new THREE.MeshLambertMaterial({ color: 0x334155, transparent: true, opacity: 0.75 });
+    const ovalBaseMesh = new THREE.Mesh(ovalBaseGeom, ovalBaseMat);
+    ovalBaseMesh.position.set(ovalCx, -1.6, ovalCz);
+    groupBasement.add(ovalBaseMesh);
 
-    const l1Racks = makeBox(7, 3.6, 10, 0x0284c7, 0.7);
-    l1Racks.position.set(-1.5, 2.2, 0);
-    groupLevel1.add(l1Racks);
-
-    // Volumen Ovalado Sala de Concejo Municipal (Acero Corten Óxido real)
-    const ovalGeom = new THREE.CylinderGeometry(7, 8, 4.2, 32);
-    const ovalMat = new THREE.MeshLambertMaterial({ color: 0x9a3412, transparent: true, opacity: 0.88 });
+    // Main Corten Steel Oval Cylinder (Piso 1 — Sala de Concejo Municipal)
+    const ovalGeom = new THREE.CylinderGeometry(1, 1, 4.4, 48);
+    ovalGeom.scale(ovalRx, 1, ovalRz);
+    const ovalMat = new THREE.MeshLambertMaterial({ color: 0x9a3412, transparent: true, opacity: 0.82 });
     const ovalConcejo = new THREE.Mesh(ovalGeom, ovalMat);
-    ovalConcejo.position.set(14, 2.5, -10);
-    groupLevel1.add(ovalConcejo);
+    ovalConcejo.position.set(ovalCx, 2.2, ovalCz);
+    const ovalEdges = new THREE.EdgesGeometry(ovalGeom);
+    ovalConcejo.add(new THREE.LineSegments(ovalEdges, new THREE.LineBasicMaterial({ color: 0xfdba74 })));
+    // Add Oval to both Basement (X-Ray) or keep visible in X-Ray so Domo 2A is always in context!
+    groupBasement.add(ovalConcejo);
 
-    const l1Galeria = makeBox(34, 3.6, 12, 0x94a3b8, 0.3);
-    l1Galeria.position.set(-17, 2.2, 0);
-    groupLevel1.add(l1Galeria);
+    // Cubierta Verde Circular sobre el Óvalo (pasto sintético / jardín visible en Google Maps)
+    const greenRoofGeom = new THREE.CylinderGeometry(1, 1, 0.25, 36);
+    greenRoofGeom.scale(50 * M_PER_PX, 1, 46 * M_PER_PX);
+    const greenRoofMat = new THREE.MeshLambertMaterial({ color: 0x4d7c0f, transparent: true, opacity: 0.9 });
+    const greenRoofMesh = new THREE.Mesh(greenRoofGeom, greenRoofMat);
+    greenRoofMesh.position.set(pxToX(680), 4.45, pyToZ(326));
+    groupLevel1.add(greenRoofMesh);
 
-    // 3. NIVEL 2
-    const l2Slab = makeBox(68, 0.35, 22, 0x64748b, 0.85);
-    l2Slab.position.set(0, 4.35, 0);
-    groupLevel2.add(l2Slab);
+    // Pasarelas Peatonales (Puente Norte y Puente Sur hacia el Óvalo en Piso 1)
+    const bridgeSurPx = [[605, 392], [652, 392], [652, 476], [605, 476]];
+    const bridgeSurMesh = makeExtrudedPolygon(bridgeSurPx, 1.2, 2.2, 0x64748b, 0.7, 0x94a3b8);
+    groupBasement.add(bridgeSurMesh);
 
-    const l2Alcaldia = makeBox(32, 3.6, 14, 0x334155, 0.45);
-    l2Alcaldia.position.set(-16, 6.2, 0);
-    groupLevel2.add(l2Alcaldia);
+    const bridgeNortePx = [[612, 228], [655, 232], [655, 265], [612, 265]];
+    const bridgeNorteMesh = makeExtrudedPolygon(bridgeNortePx, 1.2, 2.2, 0x64748b, 0.7, 0x94a3b8);
+    groupBasement.add(bridgeNorteMesh);
 
-    const l2Secplan = makeBox(24, 3.6, 14, 0x334155, 0.45);
-    l2Secplan.position.set(16, 6.2, 0);
-    groupLevel2.add(l2Secplan);
+    // =========================================================
+    // 3. NIVEL 2 (+4.10 m a +8.20 m)
+    // =========================================================
+    const uLevel2 = makeExtrudedPolygon(U_BUILDING_PX, 4.1, 4.0, 0x1e293b, 0.38, 0x64748b);
+    groupLevel2.add(uLevel2);
 
-    // 4. CUBIERTA / AZOTEA
-    const roofSlab = makeBox(68, 0.3, 22, 0x475569, 0.9);
-    roofSlab.position.set(0, 8.25, 0);
-    groupRoof.add(roofSlab);
+    // =========================================================
+    // 4. TECHUMBRE / AZOTEA (+8.20 m) + HELIPUERTO DRONES
+    // =========================================================
+    const uRoofSlab = makeExtrudedPolygon(U_BUILDING_PX, 8.15, 0.35, 0x475569, 0.78, 0x94a3b8);
+    groupRoof.add(uRoofSlab);
 
-    const caseta = makeBox(8, 3.2, 12, 0x334155);
-    caseta.position.set(-1.5, 9.85, 0);
-    groupRoof.add(caseta);
+    // Casetas de Clima / Escaleras en Techumbre (visibles en Google Maps)
+    const casetaNortePx = [[228, 98], [268, 102], [268, 152], [228, 152]];
+    groupRoof.add(makeExtrudedPolygon(casetaNortePx, 8.5, 2.6, 0x334155, 0.9, 0xcbd5e1));
+
+    const casetaSurPx = [[668, 535], [732, 538], [732, 578], [668, 575]];
+    groupRoof.add(makeExtrudedPolygon(casetaSurPx, 8.5, 2.6, 0x334155, 0.9, 0xcbd5e1));
+
+    // Zona Helipuerto de Drones + Estación Meteorológica en Techumbre Norponiente
+    const droneDeckPx = [[105, 65], [222, 82], [220, 155], [100, 145]];
+    const droneDeckMesh = makeExtrudedPolygon(droneDeckPx, 8.52, 0.15, 0x0284c7, 0.65, 0x38bdf8);
+    groupRoof.add(droneDeckMesh);
   }
 
   function buildWilsonHardware3D() {
     groupHardware.clear();
+    groupLabels3D.clear();
 
-    // Mástil & Antena Donante 314422 (P1)
-    const mastGeom = new THREE.CylinderGeometry(0.12, 0.12, 3.5, 12);
-    const mastMat = new THREE.MeshLambertMaterial({ color: 0x94a3b8 });
-    const mast = new THREE.Mesh(mastGeom, mastMat);
-    mast.position.set(-1.5, 12.8, 0);
-    groupHardware.add(mast);
+    // Helper to build a rooftop 3.5m mast + Omni Plus 314422 antenna
+    function addRooftopMast(px, py, labelText) {
+      const x = pxToX(px);
+      const z = pyToZ(py);
+      const mastGeom = new THREE.CylinderGeometry(0.14, 0.14, 3.5, 12);
+      const mastMat = new THREE.MeshLambertMaterial({ color: 0xe2e8f0 });
+      const mast = new THREE.Mesh(mastGeom, mastMat);
+      mast.position.set(x, 8.5 + 1.75, z);
+      groupHardware.add(mast);
 
-    const antGeom = new THREE.CylinderGeometry(0.3, 0.3, 1.2, 16);
-    const antMat = new THREE.MeshLambertMaterial({ color: 0xf97316 });
-    const antDonor = new THREE.Mesh(antGeom, antMat);
-    antDonor.position.set(-1.5, 14.2, 0);
-    groupHardware.add(antDonor);
+      const antGeom = new THREE.CylinderGeometry(0.32, 0.32, 1.3, 16);
+      const antMat = new THREE.MeshLambertMaterial({ color: 0xf97316, emissive: 0x9a3412 });
+      const ant = new THREE.Mesh(antGeom, antMat);
+      ant.position.set(x, 8.5 + 3.6, z);
+      groupHardware.add(ant);
 
-    // Coaxial Wilson400 bajada por Shaft GI 07/08
-    const cableCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-1.5, 13.8, 0),
-      new THREE.Vector3(-1.5, 8.25, 0),
-      new THREE.Vector3(-1.5, 0.45, 0),
-      new THREE.Vector3(-1.5, -2.8, 0),
-      new THREE.Vector3(-10, -2.8, 0)
-    ]);
-    const tubeGeom = new THREE.TubeGeometry(cableCurve, 32, 0.14, 8, false);
-    const tubeMat = new THREE.MeshLambertMaterial({ color: 0xf97316, emissive: 0x7c2d12 });
-    const cableMesh = new THREE.Mesh(tubeGeom, tubeMat);
-    groupHardware.add(cableMesh);
+      // Donor 360° reception ring
+      const ringGeom = new THREE.RingGeometry(1.8, 2.2, 32);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0xf97316, side: THREE.DoubleSide, transparent: true, opacity: 0.7 });
+      const ring = new THREE.Mesh(ringGeom, ringMat);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.set(x, 8.5 + 4.1, z);
+      groupHardware.add(ring);
 
-    // Amplificador Office 200
-    const ampBox = makeBox(1.6, 0.5, 1.2, 0xea580c);
-    ampBox.position.set(-10, -2.7, 0);
-    groupHardware.add(ampBox);
-
-    // Antena Domo 314407
-    const domeGeom = new THREE.SphereGeometry(0.65, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2);
-    const domeMat = new THREE.MeshLambertMaterial({ color: 0x38bdf8 });
-    const dome = new THREE.Mesh(domeGeom, domeMat);
-    dome.rotation.x = Math.PI;
-    dome.position.set(-12, -2.6, 0);
-    groupHardware.add(dome);
-
-    if (wilsonSimActive) {
-      const rfSphereGeom = new THREE.SphereGeometry(14, 24, 18);
-      const rfSphereMat = new THREE.MeshLambertMaterial({ color: 0x22c55e, transparent: true, opacity: 0.22 });
-      const rfSphere = new THREE.Mesh(rfSphereGeom, rfSphereMat);
-      rfSphere.position.set(-14, -2.6, 0);
-      groupHardware.add(rfSphere);
+      const lbl = makeTextSprite(labelText, 'rgba(154, 52, 18, 0.92)', '#f97316', '#ffffff', 20);
+      lbl.position.set(x, 14.8, z);
+      groupLabels3D.add(lbl);
     }
+
+    // Helper to build a Coaxial Cable Tube from array of [px, py, y]
+    function addCoaxCable(pts, colorHex = 0xf97316) {
+      const vecs = pts.map(p => new THREE.Vector3(pxToX(p[0]), p[2], pyToZ(p[1])));
+      const curve = new THREE.CatmullRomCurve3(vecs);
+      const tubeGeom = new THREE.TubeGeometry(curve, 36, 0.22, 8, false);
+      const tubeMat = new THREE.MeshLambertMaterial({ color: colorHex, emissive: colorHex, emissiveIntensity: 0.35 });
+      const mesh = new THREE.Mesh(tubeGeom, tubeMat);
+      groupHardware.add(mesh);
+    }
+
+    // Helper to build an Indoor Low-Profile Dome Antenna 314407 + 3D RF Coverage Halo
+    function addIndoorDome(px, py, y, domeColorHex, haloColorHex, radiusM, labelText) {
+      const x = pxToX(px);
+      const z = pyToZ(py);
+      const domeGeom = new THREE.SphereGeometry(0.85, 20, 14, 0, Math.PI * 2, 0, Math.PI / 2);
+      const domeMat = new THREE.MeshLambertMaterial({ color: domeColorHex, emissive: domeColorHex, emissiveIntensity: 0.3 });
+      const dome = new THREE.Mesh(domeGeom, domeMat);
+      dome.rotation.x = Math.PI;
+      dome.position.set(x, y, z);
+      groupHardware.add(dome);
+
+      if (wilsonSimActive) {
+        const rfGeom = new THREE.SphereGeometry(radiusM, 28, 20);
+        rfGeom.scale(1.25, 0.35, 0.95);
+        const rfMat = new THREE.MeshLambertMaterial({
+          color: haloColorHex,
+          transparent: true,
+          opacity: 0.28,
+          depthWrite: false
+        });
+        const rfMesh = new THREE.Mesh(rfGeom, rfMat);
+        rfMesh.position.set(x, y - 0.6, z);
+        groupHardware.add(rfMesh);
+      }
+
+      const borderCol = domeColorHex === 0x38bdf8 ? '#38bdf8' : '#22c55e';
+      const lbl = makeTextSprite(labelText, 'rgba(15, 23, 42, 0.94)', borderCol, '#ffffff', 22);
+      lbl.position.set(x, y + 3.2, z);
+      groupLabels3D.add(lbl);
+    }
+
+    // =========================================================
+    // SISTEMA 1 (HUB NORTE - RACK SEGURIDAD PISO -1)
+    // =========================================================
+    addRooftopMast(250, 185, '📡 Poste Norte 3,5m · Omni #1');
+
+    // Bajada vertical 18.28m desde Poste Norte a Hub 1 (Rack Seguridad Piso -1)
+    addCoaxCable([
+      [250, 185, 11.8],
+      [250, 185, 8.2],
+      [250, 185, -1.2]
+    ], 0xf97316);
+
+    // Chasis Office 200 #1 + Splitter 2 Vías en Rack Seguridad (-1)
+    const hub1Box = makeBox(2.2, 0.9, 1.6, 0xea580c);
+    hub1Box.position.set(pxToX(250), -1.2, pyToZ(185));
+    groupHardware.add(hub1Box);
+
+    // Rama 1A (Cable 22.86m incluido) -> Domo 1A (Video Wall, Seguridad Ciudadana y Despacho Móviles)
+    addCoaxCable([
+      [250, 185, -1.2],
+      [360, 192, -0.8],
+      [500, 202, -0.8]
+    ], 0x38bdf8);
+    addIndoorDome(500, 202, -0.8, 0x38bdf8, 0x22c55e, 14.5, '🔵 Domo 1A: Video Wall / Seg. Ciudadana (-1)');
+
+    // Rama 1B (Cable 15.24m extra) -> Domo 1B (Servicios Especiales Ala Poniente)
+    addCoaxCable([
+      [250, 185, -1.2],
+      [175, 205, -0.8],
+      [168, 375, -0.8]
+    ], 0x38bdf8);
+    addIndoorDome(168, 375, -0.8, 0x38bdf8, 0x22c55e, 13.5, '🔵 Domo 1B: Servicios Especiales (-1)');
+
+    // =========================================================
+    // SISTEMA 2 (HUB SUR - RACK PISO 1 / SHAFT SUR)
+    // =========================================================
+    if (wilsonSimMode === 'office200_dual_4ant' || wilsonSimMode === 'wilsonpro_4300r' || !wilsonSimActive) {
+      addRooftopMast(636, 476, '📡 Poste Sur 3,5m · Omni #2');
+
+      // Bajada vertical 18.28m desde Poste Sur a Hub 2 (Rack Piso 1 / Shaft Sur)
+      addCoaxCable([
+        [636, 476, 11.8],
+        [636, 476, 8.2],
+        [636, 476, 1.8]
+      ], 0xf97316);
+
+      const hub2Box = makeBox(2.2, 0.9, 1.6, 0xea580c);
+      hub2Box.position.set(pxToX(636), 1.8, pyToZ(476));
+      groupHardware.add(hub2Box);
+
+      // Rama 2A (Cable 15.24m extra) -> Cruza puente Piso 1 hacia Domo 2A (Óvalo del Alcalde / Sala Concejo)
+      addCoaxCable([
+        [636, 476, 1.8],
+        [628, 415, 2.4],
+        [635, 326, 3.2]
+      ], 0x4ade80);
+      addIndoorDome(635, 326, 3.2, 0x22c55e, 0x22c55e, 13.0, '🟢 Domo 2A: Óvalo Alcalde / Concejo (Piso 1)');
+
+      // Rama 2B (Cable 22.86m incluido) -> Baja a Piso -1 hacia Domo 2B (Of. Álvaro Carreño + Pasillo Trasero)
+      addCoaxCable([
+        [636, 476, 1.8],
+        [636, 476, -1.2],
+        [685, 515, -0.8],
+        [735, 515, -0.8]
+      ], 0x4ade80);
+      addIndoorDome(710, 515, -0.8, 0x22c55e, 0x22c55e, 14.5, '🟢 Domo 2B: Of. Álvaro Carreño + Pasillo (-1)');
+    }
+
+    // Helipuerto de Drones + AP Meraki Outdoor en Techumbre Norponiente
+    const apX = pxToX(162);
+    const apZ = pyToZ(108);
+    const apMesh = makeBox(1.2, 0.4, 1.2, 0x06b6d4);
+    apMesh.position.set(apX, 8.9, apZ);
+    groupRoof.add(apMesh);
+
+    const droneLbl = makeTextSprite('🚁 Zona Drones + AP Meraki Outdoor', 'rgba(8, 51, 68, 0.92)', '#06b6d4', '#ecfeff', 21);
+    droneLbl.position.set(apX, 11.8, apZ);
+    groupLabels3D.add(droneLbl);
   }
 
   function buildMeasurementSpheres() {
@@ -1829,11 +2091,11 @@
       const col = rsrpToHexColor(agg.rsrp);
       const isSel = pt.id === selectedPoint;
 
-      const geom = new THREE.SphereGeometry(isSel ? 1.4 : 1.05, 16, 16);
+      const geom = new THREE.SphereGeometry(isSel ? 1.55 : 1.15, 18, 18);
       const mat = new THREE.MeshLambertMaterial({
         color: col,
-        emissive: isSel ? 0x0284c7 : 0x000000,
-        emissiveIntensity: isSel ? 0.6 : 0.0
+        emissive: isSel ? 0x38bdf8 : 0x000000,
+        emissiveIntensity: isSel ? 0.65 : 0.0
       });
       const mesh = new THREE.Mesh(geom, mat);
       mesh.position.set(pt.x, pt.y, pt.z);
@@ -1842,7 +2104,7 @@
       sphereMeshes[pt.id] = mesh;
 
       if (isSel) {
-        const ringGeom = new THREE.RingGeometry(1.6, 1.9, 24);
+        const ringGeom = new THREE.RingGeometry(1.85, 2.25, 28);
         const ringMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide });
         const ring = new THREE.Mesh(ringGeom, ringMat);
         ring.rotation.x = Math.PI / 2;
@@ -1867,11 +2129,32 @@
       groupLevel2.visible = true; groupLevel2.position.y = 0;
       groupRoof.visible = true; groupRoof.position.y = 0;
     } else if (mode === 'explode') {
-      groupBasement.visible = true; groupBasement.position.y = -6;
+      groupBasement.visible = true; groupBasement.position.y = -7;
       groupLevel1.visible = true; groupLevel1.position.y = 0;
-      groupLevel2.visible = true; groupLevel2.position.y = 6;
-      groupRoof.visible = true; groupRoof.position.y = 12;
+      groupLevel2.visible = true; groupLevel2.position.y = 8;
+      groupRoof.visible = true; groupRoof.position.y = 16;
     }
+  }
+
+  function toggleSatelliteBase() {
+    showSatellite = !showSatellite;
+    if (groupSatellite) groupSatellite.visible = showSatellite;
+    const btn = document.getElementById('btnToggleSat');
+    if (btn) btn.classList.toggle('active', showSatellite);
+  }
+
+  function toggle3dLabels() {
+    showLabels3D = !showLabels3D;
+    if (groupLabels3D) groupLabels3D.visible = showLabels3D;
+    const btn = document.getElementById('btnToggleLabels');
+    if (btn) btn.classList.toggle('active', showLabels3D);
+  }
+
+  function setTopDownCamera() {
+    if (!camera || !controls) return;
+    camera.position.set(0, 128, 4);
+    controls.target.set(0, 0, 0);
+    controls.update();
   }
 
   function toggle3dAutoRotate() {
@@ -1880,8 +2163,8 @@
   }
 
   function reset3dCamera() {
-    camera.position.set(45, 38, 55);
-    controls.target.set(0, 0, 0);
+    camera.position.set(-15, 78, 92);
+    controls.target.set(0, 0, 2);
   }
 
   function onCanvasClick(event) {
