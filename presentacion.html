@@ -434,15 +434,460 @@
       background: #fff;
     }
 
+    /* Slide Deck Presentation Mode Styles — Tecnovoa Modern Corporate Dark Theme */
+    body.presentation-mode {
+      background: radial-gradient(ellipse at 50% 12%, #0d2847 0%, #07172b 55%, #020811 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+    }
+    body.presentation-mode .deck-container {
+      max-width: 1360px;
+      margin: 16px auto 90px;
+      padding: 0 16px;
+      gap: 0;
+    }
+    body.presentation-mode .slide {
+      display: none;
+      min-height: 82vh;
+      background: linear-gradient(180deg, rgba(11, 37, 64, 0.96) 0%, rgba(6, 21, 39, 0.98) 100%);
+      border: 1px solid rgba(75, 168, 203, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.75), 0 0 35px rgba(75, 168, 203, 0.14);
+      color: #f1f5f9;
+      backdrop-filter: blur(20px);
+      animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body.presentation-mode .slide.active-slide {
+      display: block;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    body.presentation-mode .slide-header {
+      background: linear-gradient(135deg, rgba(7, 25, 46, 0.98) 0%, rgba(13, 49, 89, 0.98) 50%, rgba(20, 95, 160, 0.95) 100%);
+      border-bottom: 3px solid var(--tecnovoa-cyan);
+      box-shadow: 0 4px 14px rgba(75, 168, 203, 0.25);
+    }
+    body.presentation-mode .slide-badge {
+      color: #7dd3fc;
+      background: rgba(75, 168, 203, 0.15);
+      border: 1px solid rgba(75, 168, 203, 0.35);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+    body.presentation-mode .slide-num {
+      background: rgba(20, 95, 160, 0.35);
+      border: 1px solid #38bdf8;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    body.presentation-mode .slide-body {
+      color: #e2e8f0;
+    }
+    body.presentation-mode .slide-body h2 {
+      color: #ffffff;
+    }
+    body.presentation-mode .info-box {
+      background: rgba(11, 33, 56, 0.72);
+      border: 1px solid rgba(75, 168, 203, 0.28);
+      border-left: 4px solid var(--tecnovoa-cyan);
+      border-radius: 12px;
+      color: #cbd5e1;
+    }
+    body.presentation-mode .info-box.orange {
+      border-left-color: var(--wilson-orange);
+      background: rgba(40, 20, 14, 0.65);
+      border-color: rgba(249, 115, 22, 0.35);
+    }
+    body.presentation-mode .info-box.green {
+      border-left-color: var(--tecnovoa-accent);
+      background: rgba(10, 36, 22, 0.65);
+      border-color: rgba(97, 206, 112, 0.35);
+    }
+    body.presentation-mode .info-box h3 {
+      color: #7dd3fc;
+    }
+    body.presentation-mode .info-box.orange h3 {
+      color: #fb923c;
+    }
+    body.presentation-mode .info-box.green h3 {
+      color: #86efac;
+    }
+    body.presentation-mode .info-box ul {
+      color: #cbd5e1;
+    }
+    body.presentation-mode .info-box strong {
+      color: #ffffff;
+    }
+    body.presentation-mode .fig-card {
+      border: 1.5px solid rgba(75, 168, 203, 0.35);
+      border-radius: 12px;
+      background: #091728;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+    body.presentation-mode .fig-caption {
+      background: rgba(11, 37, 64, 0.95);
+      color: #cbd5e1;
+      border-top: 1px solid rgba(75, 168, 203, 0.25);
+    }
+    body.presentation-mode .fig-caption strong {
+      color: #38bdf8;
+    }
+    body.presentation-mode .prod-card {
+      background: rgba(11, 33, 56, 0.85);
+      border: 1.5px solid rgba(75, 168, 203, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      color: #e2e8f0;
+    }
+    body.presentation-mode .prod-img-box {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(75, 168, 203, 0.25);
+    }
+    body.presentation-mode .prod-title {
+      color: #7dd3fc;
+    }
+    body.presentation-mode .sku-pill {
+      background: rgba(75, 168, 203, 0.2);
+      border: 1px solid #38bdf8;
+      color: #7dd3fc;
+    }
+    body.presentation-mode .prod-desc {
+      color: #cbd5e1;
+    }
+    body.presentation-mode table {
+      border: 1px solid rgba(75, 168, 203, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(11, 33, 56, 0.65);
+    }
+    body.presentation-mode th {
+      background: #0b2540;
+      color: #7dd3fc;
+      border-bottom: 2px solid #4BA8CB;
+    }
+    body.presentation-mode td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+    body.presentation-mode tr:nth-child(even) td {
+      background: rgba(15, 33, 56, 0.55);
+    }
+    body.presentation-mode tr:hover td {
+      background: rgba(75, 168, 203, 0.14);
+    }
+    body.presentation-mode .slide-footer {
+      background: rgba(6, 21, 39, 0.98);
+      border-top: 1px solid rgba(75, 168, 203, 0.25);
+      color: #94a3b8;
+    }
+    body.presentation-mode .slide-footer a {
+      color: #38bdf8;
+    }
+
+    /* Floating Presenter Bottom Bar */
+    .presenter-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(7, 23, 43, 0.92);
+      backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(75, 168, 203, 0.55);
+      border-radius: 999px;
+      padding: 8px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(75, 168, 203, 0.2);
+      transition: all 0.2s ease;
+    }
+    body:not(.presentation-mode) .presenter-bar {
+      display: none;
+    }
+    .presenter-btn {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 168, 203, 0.4);
+      background: rgba(20, 95, 160, 0.35);
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .presenter-btn:hover {
+      background: #145FA0;
+      border-color: #38bdf8;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+      color: #fff;
+    }
+    .presenter-btn.btn-primary {
+      background: linear-gradient(135deg, #145FA0, #0284c7);
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    }
+    .presenter-btn.btn-primary:hover {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #0b2540;
+    }
+    .presenter-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .presenter-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .presenter-dot:hover {
+      background: rgba(75, 168, 203, 0.7);
+      transform: scale(1.2);
+    }
+    .presenter-dot.active {
+      background: #4BA8CB;
+      border-color: #ffffff;
+      transform: scale(1.35);
+      box-shadow: 0 0 10px #4BA8CB, 0 0 20px rgba(56, 189, 248, 0.6);
+    }
+    .presenter-counter {
+      color: #e2e8f0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+    .presenter-counter:hover {
+      background: rgba(75, 168, 203, 0.2);
+      color: #38bdf8;
+    }
+
+    /* Mobile Responsive Optimizations for Phone */
+    @media (max-width: 900px) {
+      .pres-toolbar {
+        padding: 8px 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .pres-toolbar-brand {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .pres-toolbar-brand img {
+        height: 28px;
+      }
+      .pres-toolbar-title {
+        font-size: 12px;
+        line-height: 1.3;
+      }
+      .pres-toolbar-actions {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        gap: 6px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .pres-toolbar-actions::-webkit-scrollbar { display: none; }
+      .pres-toolbar-actions .btn {
+        flex-shrink: 0;
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+      body.presentation-mode .deck-container {
+        margin: 8px auto 90px;
+        padding: 0 8px;
+      }
+      body.presentation-mode .slide {
+        border-radius: 14px;
+        min-height: calc(100vh - 170px);
+      }
+      .slide-cover {
+        grid-template-columns: 1fr !important;
+        padding: 20px 16px;
+        gap: 18px;
+      }
+      .slide-cover h1 {
+        font-size: 19px !important;
+        line-height: 1.3;
+      }
+      .slide-cover p.lead {
+        font-size: 13.5px;
+        margin-bottom: 16px;
+      }
+      .cover-meta-grid {
+        grid-template-columns: 1fr !important;
+        padding: 12px 14px;
+        font-size: 12px;
+      }
+      .slide-header {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .slide-header h2 {
+        font-size: 15px;
+        line-height: 1.35;
+      }
+      .slide-header-left {
+        width: 100%;
+      }
+      .slide-num {
+        align-self: flex-start;
+        font-size: 11px;
+        padding: 3px 8px;
+      }
+      .slide-body {
+        padding: 16px 12px;
+      }
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 14px;
+      }
+      .info-box {
+        padding: 12px 14px;
+      }
+      .info-box h3 {
+        font-size: 13.5px;
+      }
+      .info-box ul {
+        font-size: 12.5px;
+        padding-left: 16px;
+      }
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      table {
+        font-size: 11.5px;
+        min-width: 520px;
+      }
+      th, td {
+        padding: 8px 10px;
+      }
+      .prod-card {
+        border-radius: 10px;
+      }
+      .prod-img-box {
+        height: 150px;
+        padding: 10px;
+      }
+      .prod-body {
+        padding: 10px 12px;
+      }
+      .prod-title {
+        font-size: 13px;
+      }
+      .presenter-bar {
+        bottom: 12px;
+        width: calc(100% - 24px);
+        max-width: 420px;
+        padding: 6px 12px;
+        justify-content: space-between;
+        gap: 6px;
+      }
+      .presenter-dots {
+        display: none;
+      }
+      .presenter-btn {
+        font-size: 11.5px;
+        padding: 6px 14px;
+      }
+      .presenter-counter {
+        font-size: 11.5px;
+      }
+    }
+
     @media print {
-      body { background: #ffffff; }
-      .pres-toolbar { display: none !important; }
+      body { background: #ffffff !important; }
+      body.presentation-mode .slide { display: block !important; }
+      .pres-toolbar, .presenter-bar { display: none !important; }
       .deck-container { margin: 0; padding: 0; max-width: 100%; gap: 0; }
       .slide { box-shadow: none; border-radius: 0; border: none; page-break-after: always; margin-bottom: 0; }
     }
+  
+    /* Quick Slide Picker Menu Popover */
+    .slide-menu-popover {
+      position: fixed;
+      bottom: 74px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      z-index: 1010;
+      background: rgba(7, 23, 43, 0.96);
+      backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(75, 168, 203, 0.5);
+      border-radius: 14px;
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      width: 90vw;
+      max-width: 380px;
+      max-height: 70vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(75, 168, 203, 0.25);
+      opacity: 0;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide-menu-popover.open {
+      display: flex;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .slide-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      font-size: 12px;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .slide-menu-item:hover, .slide-menu-item.active {
+      background: rgba(20, 95, 160, 0.4);
+      border-color: #38bdf8;
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+    .slide-menu-item strong {
+      color: #7dd3fc;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
   </style>
 </head>
-<body>
+<body class="presentation-mode">
 
   <!-- Top Navigation & Print Toolbar -->
   <div class="pres-toolbar">
@@ -453,15 +898,17 @@
       </div>
     </div>
     <div class="pres-toolbar-actions">
-      <a href="./index.html" class="btn">⬅️ Volver al Gemelo Digital 3D</a>
-      <a href="#slide-visita" class="btn">1. Visita Terreno</a>
-      <a href="#slide-corte" class="btn">2. Corte Transversal</a>
-      <a href="#slide-subtel" class="btn">3. Torres SUBTEL 3D</a>
-      <a href="#slide-arquitectura" class="btn">4. Arquitectura 2× Office 200</a>
-      <a href="#slide-planos" class="btn">5. Planos</a>
-      <a href="#slide-equipamiento" class="btn">6. Equipamiento</a>
-      <a href="#slide-racks" class="btn">7. Racks &amp; Canalizaciones</a>
-      <button class="btn btn-cyan" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+      <a href="./index.html" class="btn" style="background:#145FA0; border-color:#4BA8CB; color:#fff; font-weight:700;">🧊 Gemelo Digital 3D</a>
+      <button class="btn btn-primary" id="btnToggleMode" onclick="togglePresentationMode()">🎞️ Modo Slides: ON</button>
+      <button class="btn" onclick="toggleDeckFullscreen()">⛶ Pantalla Completa</button>
+      <a href="#slide-visita" class="btn" onclick="goToSlide(1)">1. Terreno</a>
+      <a href="#slide-corte" class="btn" onclick="goToSlide(2)">2. Corte</a>
+      <a href="#slide-subtel" class="btn" onclick="goToSlide(3)">3. SUBTEL</a>
+      <a href="#slide-arquitectura" class="btn" onclick="goToSlide(4)">4. 2× Office 200</a>
+      <a href="#slide-planos" class="btn" onclick="goToSlide(5)">5. Planos</a>
+      <a href="#slide-equipamiento" class="btn" onclick="goToSlide(6)">6. Equipos</a>
+      <a href="#slide-racks" class="btn" onclick="goToSlide(7)">7. Racks</a>
+      <button class="btn btn-cyan" onclick="window.print()">🖨️ PDF</button>
     </div>
   </div>
 
@@ -719,7 +1166,7 @@
         </div>
 
         <!-- Resumen de Presupuesto de Enlace -->
-        <table>
+        <div class="table-responsive"><table>
           <thead>
             <tr>
               <th>Sistema / Rama</th>
@@ -769,7 +1216,7 @@
               <td><code>12 a 15 m</code> lineales</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div class="slide-footer">
         <span>Ingeniería RF Tecnovoa · Impedancia Profesional 50 Ω · Cumple Resolución Exenta N° 737 SUBTEL</span>
@@ -890,7 +1337,7 @@
         </div>
 
         <h3 style="font-size:15px; color:var(--tecnovoa-primary); margin-bottom:10px;">📋 Cuadro Consolidado de Materiales para Ingeniería (Sin Valorizar)</h3>
-        <table>
+        <div class="table-responsive"><table>
           <thead>
             <tr>
               <th>Ítem</th>
@@ -943,7 +1390,7 @@
               <td>Interconexión entre puerto Indoor del Amplificador y entrada del Splitter</td>
             </tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div class="slide-footer">
         <span>Listado de Hardware para validación de Ingeniería y Obras Civiles Tecnovoa</span>
@@ -1050,12 +1497,203 @@
 
   </div>
 
+  <!-- Floating Presenter Controls Bar (Bottom Dock) -->
+    <!-- Quick Slide Menu Popover -->
+  <div id="slideMenuPopover" class="slide-menu-popover">
+    <div style="font-size:11px; font-weight:700; color:#7dd3fc; text-transform:uppercase; letter-spacing:0.06em; padding:4px 8px 6px; border-bottom:1px solid rgba(75,168,203,0.25); margin-bottom:4px; display:flex; justify-content:space-between; align-items:center;">
+      <span>📑 Índice de Láminas</span>
+      <span style="cursor:pointer; color:#94a3b8; font-size:14px;" onclick="toggleSlideMenu(event)">✕</span>
+    </div>
+    <div class="slide-menu-item" onclick="goToSlide(0)"><strong>Portada</strong> Diseño Cobertura PAC</div>
+    <div class="slide-menu-item" onclick="goToSlide(1)"><strong>Lámina 01</strong> Diagnóstico en Terreno</div>
+    <div class="slide-menu-item" onclick="goToSlide(2)"><strong>Lámina 02</strong> Corte Transversal & Bajadas</div>
+    <div class="slide-menu-item" onclick="goToSlide(3)"><strong>Lámina 03</strong> Catastro SUBTEL 3D</div>
+    <div class="slide-menu-item" onclick="goToSlide(4)"><strong>Lámina 04</strong> Configuración 2× Office 200</div>
+    <div class="slide-menu-item" onclick="goToSlide(5)"><strong>Lámina 05</strong> Planos CAD & Antenas Domo</div>
+    <div class="slide-menu-item" onclick="goToSlide(6)"><strong>Lámina 06</strong> Hardware Wilson 50 Ω</div>
+    <div class="slide-menu-item" onclick="goToSlide(7)"><strong>Lámina 07</strong> Racks de Comunicaciones</div>
+    <div class="slide-menu-item" onclick="goToSlide(8)"><strong>Lámina 08</strong> Hoja de Ruta & Cierre</div>
+  </div>
+
+  <div class="presenter-bar" id="presenterBar">
+    <button class="presenter-btn" onclick="prevSlide()" title="Diapositiva Anterior (Flecha Izquierda / Swipe)">
+      ◀ Anterior
+    </button>
+    <div class="presenter-dots" id="presenterDotsContainer"></div>
+    <span class="presenter-counter" id="presenterCounter" onclick="toggleSlideMenu(event)" title="Toca para ver el índice de láminas">1 / 9</span>
+    <button class="presenter-btn btn-primary" onclick="nextSlide()" title="Siguiente Diapositiva (Flecha Derecha / Espacio / Swipe)">
+      Siguiente ▶
+    </button>
+  </div>
+
   <!-- Lightbox Modal -->
   <div id="lightboxModal" class="lightbox" onclick="closeLightbox()">
     <img id="lightboxImg" src="" alt="Vista Ampliada" />
   </div>
 
   <script>
+    let currentSlide = 0;
+    let isSlideMode = true;
+    let slides = [];
+
+    function initPresentation() {
+      slides = Array.from(document.querySelectorAll('.deck-container > .slide'));
+      buildDots();
+      updateSlideDisplay();
+
+      // Keyboard navigation
+      document.addEventListener('keydown', e => {
+        if (!isSlideMode) return;
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(slides.length - 1);
+        }
+      });
+
+      // Mobile Touch Swipe Navigation
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      }, { passive: true });
+
+      function handleSwipe() {
+        if (!isSlideMode) return;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        // Check horizontal swipe dominates vertical scroll
+        if (Math.abs(deltaX) > 48 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+          if (deltaX < 0) nextSlide();
+          else prevSlide();
+        }
+      }
+    }
+
+    function buildDots() {
+      const container = document.getElementById('presenterDotsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = 'presenter-dot' + (idx === currentSlide ? ' active' : '');
+        dot.title = `Ir a Lámina ${idx + 1}`;
+        dot.onclick = () => goToSlide(idx);
+        container.appendChild(dot);
+      });
+    }
+
+    function toggleSlideMenu(e) {
+      if (e) e.stopPropagation();
+      const popover = document.getElementById('slideMenuPopover');
+      if (popover) {
+        popover.classList.toggle('open');
+      }
+    }
+
+    document.addEventListener('click', e => {
+      const popover = document.getElementById('slideMenuPopover');
+      const counter = document.getElementById('presenterCounter');
+      if (popover && popover.classList.contains('open') && !popover.contains(e.target) && e.target !== counter) {
+        popover.classList.remove('open');
+      }
+    });
+
+    function updateSlideDisplay() {
+      if (!slides.length) return;
+      if (isSlideMode) {
+        document.body.classList.add('presentation-mode');
+        slides.forEach((s, idx) => {
+          s.classList.toggle('active-slide', idx === currentSlide);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        document.body.classList.remove('presentation-mode');
+        slides.forEach(s => s.classList.remove('active-slide'));
+      }
+
+      // Update counter
+      const counter = document.getElementById('presenterCounter');
+      if (counter) {
+        if (currentSlide === 0) {
+          counter.innerHTML = `Portada <span style="font-size:10px; opacity:0.8;">(1/${slides.length})</span> ▾`;
+        } else {
+          counter.innerHTML = `Lámina ${currentSlide}/${slides.length - 1} <span style="font-size:10px; opacity:0.8;">(${currentSlide + 1}/${slides.length})</span> ▾`;
+        }
+      }
+
+      // Update dots
+      document.querySelectorAll('.presenter-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Update slide menu items active state
+      document.querySelectorAll('.slide-menu-item').forEach((item, idx) => {
+        item.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Close menu if open
+      const popover = document.getElementById('slideMenuPopover');
+      if (popover) popover.classList.remove('open');
+
+      // Update toggle button text
+      const btn = document.getElementById('btnToggleMode');
+      if (btn) btn.textContent = isSlideMode ? '🎞️ Modo Slides: ON' : '📜 Modo Continuo';
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlideDisplay();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlideDisplay();
+      }
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < slides.length) {
+        currentSlide = idx;
+        if (!isSlideMode) togglePresentationMode();
+        else updateSlideDisplay();
+      }
+    }
+
+    function togglePresentationMode() {
+      isSlideMode = !isSlideMode;
+      updateSlideDisplay();
+    }
+
+    function toggleDeckFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
     function openLightbox(src) {
       document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxModal').style.display = 'flex';
@@ -1063,6 +1701,8 @@
     function closeLightbox() {
       document.getElementById('lightboxModal').style.display = 'none';
     }
+
+    window.addEventListener('DOMContentLoaded', initPresentation);
   </script>
 </body>
 </html>
