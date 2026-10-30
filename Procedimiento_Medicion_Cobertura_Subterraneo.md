@@ -50,7 +50,7 @@ Si en la visita el cliente solicita ampliar el alcance (por ejemplo, cubrir tamb
 
 | Nivel / Solución | Modelo / SKU | Cobertura / Puertos | Cuándo ofrecerlo a la Municipalidad |
 | :--- | :--- | :--- | :--- |
-| **Opción 1 (Base Cotizada)** | **weBoost Office 200 LATAM (`531047`)** — 1 Antena Domo (`314407`) | Hasta `4.300 m²` (1 puerto indoor, `+22 dBm` DL, `74 dB` ganancia) | Si los tabiques entre Informática (`Ejes Q–S`) y RR.PP. (`Ejes S–T`) son livianos/vidrio (`$1.650.898 + IVA`). |
+| **Opción 1 (Base 1 Domo)** | **weBoost Office 200 LATAM (`531047`)** — 1 Antena Domo (`314407`) | Hasta `4.300 m²` (1 puerto indoor, `+22 dBm` DL, `74 dB` ganancia) | Si los tabiques entre Informática (`Ejes Q–S`) y RR.PP. (`Ejes S–T`) son livianos/vidrio. |
 | **Opción 2 (Expansión Pasiva)** | **weBoost Office 200 (`531047`) + Splitter 2/3 Vías 50 Ω + Antenas Domo extra** | 2 o 3 zonas dedicadas en Piso -1 (pierde `3,2 dB` en splitter de 2 vías) | Si hay muros de hormigón entre **Informática (`Eje R`)**, **RR.PP. (`Eje S`)** y **Archivo (`Eje O`)**. |
 | **Opción 3 (Rack + Gestión Cloud)** | **WilsonPro Enterprise 1300R (`460149`)** (Chasis Rack 19" + **WilsonPro Cloud**) | Hasta `3.700 m²` · Monitoreo remoto Ethernet RJ-45 / LTE | Si Álvaro Carreño quiere montar el equipo en su **Rack de 19" (`Sala Racks Eje P–Q`)** y recibir alertas por correo/SMS en *WilsonPro Cloud*. |
 | **Opción 4 (Multi-Torre / 4 Zonas)** | **WilsonPro Enterprise 4300R (`460153`)** (4 Amplificadores + **MTT 3 Donantes**) | Hasta `9.200 m²` · **4 salidas indoor** independientes + **3 antenas exteriores LPDA** | Si quieren cubrir **todo el subterráneo** (Informática + RR.PP. + Archivo + Auditorio + Estacionamientos) sin pérdidas por splitters. |
@@ -165,7 +165,7 @@ En cada uno de los puntos `P0` a `P8` definidos en la plantilla:
 | **Dirección** | Av. Presidente Salvador Allende N° 2029 (esq. Manuela Errázuriz y Vassari), PAC |
 | **Contraparte Cliente** | **Álvaro O. Carreño Cerda** — Jefe Depto. de Informática (SECPLA) · `+569 9442 7478` · `22 396 5042 / 5043 / 5044` · `alvarocarreno@pedroaguirrecerda.cl` |
 | **Equipo Tecnovoa** | **Comercial:** Cristián Díaz (`cristian@tecnovoa.cl`, `+569 4943 8288`) · **Prevencionista:** ______________________ |
-| **Solución Principal Evaluada** | **weBoost Office 200 LATAM (`SKU 531047`, 50 Ω)** — `74 dB` ganancia, bandas `B5 (850) / B4 (AWS) / B2 (1900)`, Antena Omni Plus `314422` + Antena Domo `314407` + `41,74 m` cable `Wilson400` (`$1.650.898 + IVA`). |
+| **Solución Principal Evaluada** | **weBoost Office 200 LATAM (`SKU 531047`, 50 Ω)** — `74 dB` ganancia, bandas `B5 (850) / B4 (AWS) / B2 (1900)`, Antena Omni Plus `314422` + Antena Domo `314407` + `41,74 m` cable `Wilson400`. |
 | **Modelos de Teléfonos de Prueba** | |
 
 ---

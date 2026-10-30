@@ -1,0 +1,1 @@
+Timestamp	Longitude	Latitude	Operatorname	NetworkTech	Level	Speed	Altitude	Filemark

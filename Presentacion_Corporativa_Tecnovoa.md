@@ -62,7 +62,7 @@ Tecnovoa estructura su portafolio en **6 unidades de especialización técnica**
 * **Soluciones de Cobertura Celular para Subterráneos y Edificios Corporativos:** Erradicación definitiva de "zonas muertas" y caídas de llamadas en zócalos, salas técnicas y oficinas blindadas por hormigón.
 * **Amplificación Multi-Operador:** Distribución simultánea para **Entel, Movistar, Claro y WOM** en voz HD (VoLTE) y datos móviles 4G/5G.
 * **Cumplimiento Normativo SUBTEL:** Equipos con certificación de apagado automático anti-oscilación (Res. Ex. N° 737) para garantizar cero interferencias hacia las radiobases públicas.
-* **Partner Oficial de Hardware:** Suministro garantizado a través de **CellSignal Chile (`cellsignal.cl`)** y **Wilson Electronics (weBoost / WilsonPro)** con stock local y 3 años de garantía.
+* **Partner Oficial de Hardware:** Integración directa de soluciones **Wilson Electronics (weBoost / WilsonPro)** con soporte local y 3 años de garantía de fábrica.
 
 ### B. Networking, Conectividad y Cableado Estructurado
 * **Cableado Estructurado de Alto Rendimiento:** Categorías 6, 6A y 7 en cobre (UTP/FTP) bajo normas ANSI/TIA-568.
@@ -97,7 +97,7 @@ En Tecnovoa trabajamos con marcas líderes mundiales, asegurando trazabilidad de
 
 | Categoría Tecnológica | Marcas y Partners Oficiales |
 | :--- | :--- |
-| **Conectividad Celular In-Building** | **Wilson Electronics** · **weBoost** · **WilsonPro** · **CellSignal Chile** |
+| **Conectividad Celular In-Building** | **Wilson Electronics** · **weBoost** · **WilsonPro** · **Zinwave** |
 | **Networking & Wi-Fi Empresarial** | **Cisco** · **Aruba Networks** · **Fortinet** · **Ubiquiti UniFi** · **Huawei** |
 | **Cableado Estructurado & Racks** | **Panduit** · **CommScope** · **Furukawa** · **Legrand** · **Siemon** |
 | **Datacenter & Servidores** | **Dell Technologies** · **HPE** · **Lenovo** · **VMware** · **Microsoft** |
@@ -145,3 +145,4 @@ En Tecnovoa trabajamos con marcas líderes mundiales, asegurando trazabilidad de
 ---
 
 *Tecnovoa Ltda. — Innovación, Infraestructura y Conectividad sin Interrupciones.*
+

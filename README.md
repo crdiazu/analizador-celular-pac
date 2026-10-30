@@ -1,114 +1,66 @@
-# Optimización de Cobertura Celular Indoor — Municipalidad de Pedro Aguirre Cerda
+# Optimización de Cobertura Celular Indoor y Conectividad Outdoor — Municipalidad de Pedro Aguirre Cerda
 
-Repositorio técnico-comercial y aplicación web de ingeniería para el levantamiento de terreno, diagnóstico de cobertura móvil (4G LTE / 5G / 3G — Voz) y dimensionamiento de la solución BDA **Wilson Connectivity (`weBoost Office 200 LATAM SKU 531047`)** en el **Piso -1 (cota `-3,20 m`)** del Centro Consistorial de la **Ilustre Municipalidad de Pedro Aguirre Cerda** (`Av. Presidente Salvador Allende N° 2029`).
+Repositorio de ingeniería de radiofrecuencia y aplicación web interactiva para el diagnóstico de cobertura móvil (4G LTE / VoLTE / 3G — Voz) y diseño de la solución **Wilson Connectivity (`2× weBoost Office 200 LATAM SKU 531047` + `4 Antenas Domo Interiores`)** en el **Piso -1 (Zócalo Subterráneo)** y **Piso 1 (Óvalo del Alcalde / Sala de Concejo Municipal)** del Centro Consistorial de la **Ilustre Municipalidad de Pedro Aguirre Cerda** (`Av. Presidente Salvador Allende N° 2029`).
 
-- **Plataforma Web Interactiva (GitHub Pages):** https://crdiazu.github.io/analizador-celular-pac/
-- **Integrador TI:** **Tecnovoa Ltda.** (`www.tecnovoa.cl`) — Pedro de Valdivia #273, Providencia, Santiago.
-- **Responsable Comercial / Preventa:** Cristián Díaz, KAM TI (+569 4943 8288 | `cristian@tecnovoa.cl`).
-- **Contraparte Técnica:** Álvaro O. Carreño Cerda — Jefe Departamento de Informática (`SECPLA`), Municipalidad de Pedro Aguirre Cerda.
-- **Operadores Evaluados:** Entel, Movistar, Claro y WOM.
-
----
-
-## 1. Alcance y Diagnóstico del Problema
-
-El Centro Consistorial de Pedro Aguirre Cerda (obra de *GMM Arquitectos*) cuenta con **100% de cobertura exterior declarada en 3G, 4G y 5G** en las 4 compañías de telefonía móvil según el Geoportal Oficial de la **SUBTEL** (`licancabur.subtel.gob.cl`).
-
-Sin embargo, las dependencias ubicadas en el **Subterráneo Nivel -1 (`cota -3,20 m`)** presentan una condición de **sombra de radiofrecuencia severa** con niveles RSRP inferiores a `-110 dBm` (sin servicio / corte inmediato de llamadas), producto de:
-1. **Dos losas macizas de hormigón armado** entre el nivel de calle y el subterráneo (atenuación acumulada superior a `32 dB`).
-2. Muros perimetrales de contención enterrados y ventanales con perfilería metálica y cristales térmicos Low-E en el patio inglés.
-3. Dependencias afectadas:
-   - **Oficina Jefe de Informática (Álvaro Carreño)** y **Jefatura de Emergencia** (`Ejes R-S · Punto P6`).
-   - **Oficina 2 Técnicos de Informática y Bodega TI** (`Ejes Q-R · Punto P5`).
-   - **Relaciones Públicas** (`Ejes S-T · Punto P7`).
-   - **Archivo Municipal e Inventario** (`Ejes K-P · Punto P8`).
-   - **Hall Subterráneo y Salida de Ascensores** (`Ejes P-Q · Punto P4`).
+- **Presentación Ejecutiva de Ingeniería:** [https://crdiazu.github.io/analizador-celular-pac/presentacion.html](https://crdiazu.github.io/analizador-celular-pac/presentacion.html)
+- **Plataforma Web Interactiva 3D:** [https://crdiazu.github.io/analizador-celular-pac/](https://crdiazu.github.io/analizador-celular-pac/)
+- **Integrador TI:** **Tecnovoa Ltda.** (`www.tecnovoa.cl`) — Av. Pedro de Valdivia N° 273, Providencia, Santiago.
+- **Equipo de Proyecto Tecnovoa:** Cristián Díaz (KAM TI | `cristian@tecnovoa.cl` | +569 4943 8288), Javier De la Fuente y Diego Pérez (Ingeniería).
+- **Contraparte Técnica Municipal:** Álvaro O. Carreño Cerda — Jefe Departamento de Informática (`SECPLA`).
+- **Operadores Soportados:** Entel, Movistar, Claro y WOM.
 
 ---
 
-## 2. Solución Cotizada: `weBoost Office 200 LATAM (SKU 531047)`
+## 1. Diagnóstico en Terreno (Visita Técnica 29 de Octubre de 2026)
 
-- **Precio Referencial:** **CLP$ 1.650.898 + IVA** (Entrega desde 48 horas post orden de compra).
-- **Ganancia del Sistema:** **`74 dB`** con tecnología patentada **XDR (eXtended Dynamic Range)** que previene auto-oscilaciones y sobrecargas de señal.
-- **Impedancia Profesional:** **`50 Ohm`** con conectores N-Hembra y cables coaxiales de ultra baja pérdida **`Wilson400`**.
-- **Bandas Homologadas SUBTEL Chile:**
-  - Banda 5 (`850 MHz`) — Movistar y Claro.
-  - Banda 4 AWS (`1700/2100 MHz`) — WOM y Entel.
-  - Banda 25/2 PCS (`1900 MHz`) — Entel, Movistar y Claro.
-- **Topología de Instalación:**
-  1. **Antena Donante Exterior (`Omni Plus 314422`):** Montada en mástil sobre la azotea (`+8,25 m`) en el Eje P-Q, recibiendo en 360° las torres celulares circundantes de las 4 compañías.
-  2. **Protector de Relámpago (`859902`):** Aterrizado a la malla de tierra física de la caseta de azotea.
-  3. **Bajada Vertical Coaxial `Wilson400` (18,28 m):** A través del **Shaft de Corrientes Débiles `GI 07/08`** pasando junto a la Sala de Racks del Nivel 1.
-  4. **Amplificador `Office 200`:** Montado en rack o sobre cielo falso en el Nivel -1.
-  5. **Antena Servidora Interior (`Domo 314407`):** Embutida en cielo falso en el pasillo de Informática (`Eje R`), irradiando en 360° hacia Informática, Emergencia y RR.PP.
+El Centro Consistorial de Pedro Aguirre Cerda cuenta con **100% de cobertura exterior declarada en 3G, 4G y 5G** en las 4 compañías de telefonía móvil según el Geoportal Oficial de la **SUBTEL** (`licancabur.subtel.gob.cl`).
 
----
+Sin embargo, tras el levantamiento técnico en sitio se identificaron las siguientes zonas críticas con **sombra de radiofrecuencia severa** (niveles RSRP inferiores a `-110 dBm` por atenuación de losas de hormigón armado):
 
-## 3. Características de la Aplicación Web Tecnovoa (`index.html`)
-
-La plataforma web interactiva cuenta con las siguientes secciones:
-
-1. **Plano 3D Interactivo del Edificio (Three.js):**
-   - Modelado arquitectónico tridimensional volumétrico a escala basado en los planos de *GMM Arquitectos*.
-   - **Modo Rayos-X:** Oculta los niveles 1 y 2 para inspeccionar el interior del Subterráneo Nivel -1, las oficinas de Informática y la cúpula de radiación RF.
-   - **Modo Edificio Completo y Vista Explotada:** Separa los niveles verticalmente para entender la bajada coaxial.
-   - Esferas 3D interactivas para los puntos de medición `P0` a `P8`, coloreadas dinámicamente según RSRP.
-   - Botón simulador **`Amplificador Wilson: ON/OFF`** que demuestra la recuperación de señal desde `-111 dBm` (Rojo) hasta `-78 dBm` (Verde).
-2. **Galería Fotográfica de Terreno (20 Fotografías de Alta Resolución):**
-   - Registro visual exhaustivo del edificio clasificado por zonas: Patio Central Cívico, Patio Hundido hacia Nivel -1, Escaleras de Hormigón, Volumen Oval de Sala de Concejo en Acero Corten, Acceso Principal y Galerías.
-   - Visor modal con ficha técnica de impacto en propagación RF para cada foto.
-3. **Radar y Catastro de Antenas SUBTEL (GIS):**
-   - Gráfico polar de las 10 radiobases más cercanas en un radio menor a 750 m (`T1` a `T10`), detallando azimut, distancia, operadoras (Entel, Movistar, Claro, WOM), códigos de estación y calce de bandas.
-4. **Visor de Planos Arquitectónicos 2D:**
-   - Visualización directa de los planos originales de arquitectura (`Elevation-Sections-001.jpg`, `First_Floor_Plan-001.jpg`, `Second_Floor_Plan-001.jpg`).
-5. **Calculadora de Presupuesto de Enlace (Link Budget 50 Ω):**
-   - Cálculo en tiempo real de pérdidas por tramo de cable `Wilson400` por frecuencia (850, 1900, 2100 MHz) y verificación de aislamiento anti-oscilación exigido por SUBTEL ($I_{\text{mín}} > G + 15\text{ dB} = 89\text{ dB}$).
-6. **Exportación e Importación CSV:**
-   - Permite descargar la matriz completa de mediciones para trabajo de campo y reimportarla para actualizar el modelo.
+1. **Planta Tipo "U" en Piso -1 (`cota -3,20 m`):**
+   - **Sector Norte (Zona 3):** Video Wall, Dirección de Seguridad Ciudadana y Despacho de Móviles.
+   - **Sector Poniente (Zona 2):** Servicios Especiales (bajo acceso principal).
+   - **Sector Sur-Oriente (Zona 1):** Oficina Jefe de Informática (Álvaro Carreño), Técnicos TI y Pasillo Trasero.
+2. **Piso 1 — Óvalo del Alcalde / Sala de Concejo Municipal:**
+   - Volumen central ovalado donde se requiere garantizar continuidad de voz y datos móviles durante sesiones municipales.
+3. **Requerimiento Complementario en Techumbre (Drones y Estación Meteorológica):**
+   - Habilitación de **2 puntos de red Cat.6 exterior** y **1 Access Point Cisco Meraki Outdoor** en la techumbre para dar cobertura Wi-Fi al helipuerto de drones de Seguridad Comunal y respaldar la estación meteorológica / fluviómetro.
 
 ---
 
-## 4. Estructura de Archivos del Proyecto
+## 2. Arquitectura Maestra Propuesta: `2× weBoost Office 200 LATAM (SKU 531047)` + `4 Antenas Domo`
 
-```text
-├── index.html                                   # Aplicación web interactiva Tecnovoa (Three.js + Radar + Galería)
-├── README.md                                    # Documento técnico principal
-├── Procedimiento_Medicion_Cobertura_Subterraneo.md # Protocolo de visita comercial y prevención de riesgos
-├── mediciones_pac_terreno1.csv                  # Matriz de mediciones de campo (P0 a P8 x 4 compañías)
-├── 531047-530047_office200_ss_LATAM_102721b (1).pdf # Ficha técnica oficial weBoost Office 200 LATAM
-├── Elevation-Sections-001.jpg                   # Plano original de cortes D-D' y E-E' (GMM Arquitectos)
-├── First_Floor_Plan-001.jpg                     # Plano original Planta Nivel 1
-├── Second_Floor_Plan-001.jpg                    # Plano original Planta Nivel 2
-├── assets/
-│   ├── logo-tecnovoa.png                        # Logo corporativo Tecnovoa
-│   ├── favicon-tecnovoa.png                     # Favicon Tecnovoa
-│   └── fotos/                                   # 20 fotos del Centro Consistorial clasificadas
-│       ├── 01-patio-central-nucleo-escalera.png
-│       ├── 02-patio-hundido-volumen-corten.png
-│       ├── 03-escalera-interior-hacia-nivel-1.png
-│       ├── ...
-│       └── 20-patio-hundido-fachada-nivel-1.png
-```
+Aprovechando que el edificio cuenta en ambos extremos de la techumbre con **postes metálicos existentes de `3,5 metros`** y salas de racks en los pisos `-1`, `1` y `2`, se diseña una arquitectura simétrica de **2 sistemas amplificadores independientes de `50 Ohm`**:
+
+### 🔴 Sistema 1 — Hub Norte / Poniente (Rack Seguridad Piso -1)
+- **Antena Donante #1 (`Omni Plus 314422`):** Montada en poste de `3,5 m` de la Techumbre Norte con protector de sobretensión (`859902`) y bajada coaxial de `18,28 m` (`952360`) hasta el **Rack de Seguridad (-1)**.
+- **Amplificador `Office 200 #1` + Splitter 2 Vías (`859957`):**
+  - **Domo 1A (`314407` en Piso -1 Norte):** Con el rollo incluido de `22,86 m` (`952375`) cubre **Video Wall, Seguridad Ciudadana y Despacho de Móviles**.
+  - **Domo 1B (`314407` en Piso -1 Poniente):** Con un rollo adicional de `15,24 m` (`952350`) cubre **Servicios Especiales (Ala Poniente)**.
+
+### 🟢 Sistema 2 — Hub Sur / Oriente (Rack Piso 1 & Piso -1)
+- **Antena Donante #2 (`Omni Plus 314422`):** Montada en poste de `3,5 m` de la Techumbre Sur con bajada coaxial de `18,28 m` (`952360`) hasta el núcleo sur junto al puente del Óvalo.
+- **Amplificador `Office 200 #2` + Splitter 2 Vías (`859957`):**
+  - **Domo 2A (`314407` en Piso 1):** Con un rollo adicional de `15,24 m` (`952350`) cruza la pasarela peatonal para iluminar el **Óvalo del Alcalde / Sala de Concejo Municipal**.
+  - **Domo 2B (`314407` en Piso -1 Sur-Oriente):** Con el rollo incluido de `22,86 m` (`952375`) baja al Piso -1 para cubrir la **Oficina de Álvaro Carreño (Informática)** y el **Pasillo Trasero**.
 
 ---
 
-## 5. Contacto Comercial e Ingeniería
+## 3. Cuadro Consolidado de Equipamiento (BOM Técnico)
 
-**Tecnovoa Tecnología & Servicios**  
-- **KAM TI:** Cristián Díaz  
-- **Teléfono / WhatsApp:** +569 4943 8288  
-- **Email:** [cristian@tecnovoa.cl](mailto:cristian@tecnovoa.cl)  
-- **Dirección:** Pedro de Valdivia #273, Providencia, Santiago  
+| Ítem | SKU Wilson | Descripción Técnica | Cant. (1 Ala) | Cant. (Solución 2 Alas) |
+| :---: | :---: | :--- | :---: | :---: |
+| **01** | `531047` | **Kit Amplificador weBoost Office 200 LATAM (50 Ω)** (Incluye Amplificador 74 dB, 1 Antena Omni Plus `314422`, 1 Antena Domo `314407`, Protector `859902`, Jumper `0,60 m`, Cable `18,28 m` y Cable `22,86 m`) | 1 Kit | **2 Kits** |
+| **02** | `859957` | **Splitter Pasivo de 2 Vías Wideband (698–2700 MHz, 50 Ω, -3 dB)** | 1 un. | **2 un.** |
+| **03** | `314407` | **Antena Interior Domo de Perfil Bajo Adicional (50 Ω, N-Hembra)** | 1 un. | **2 un.** |
+| **04** | `952350` | **Cable Coaxial Baja Pérdida Wilson400 de 50 ft / 15,24 m (N-Macho)** | 1 rollo | **2 rollos** |
+| **05** | `952302` | **Jumper Coaxial Wilson400 de 2 ft / 0,60 m (N-Macho)** | 1 un. | **2 un.** |
+
+---
+
+## 4. Contacto de Ingeniería y Preventa
+
+**Tecnovoa Tecnología & Servicios Ltda.**  
+- **KAM TI:** Cristián Díaz (`cristian@tecnovoa.cl` | +569 4943 8288)  
+- **Dirección:** Av. Pedro de Valdivia N° 273, Providencia, Santiago  
 - **Web:** [www.tecnovoa.cl](https://www.tecnovoa.cl/)
-
----
-
-## 5. Contacto Comercial e Ingeniería
-
-**Tecnovoa Tecnología & Servicios**  
-- **KAM TI:** Cristián Díaz  
-- **Teléfono / WhatsApp:** +569 4943 8288  
-- **Email:** [cristian@tecnovoa.cl](mailto:cristian@tecnovoa.cl)  
-- **Dirección:** Pedro de Valdivia #273, Providencia, Santiago  
-- **Web:** [www.tecnovoa.cl](https://www.tecnovoa.cl/)
-

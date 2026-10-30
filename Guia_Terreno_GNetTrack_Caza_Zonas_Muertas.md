@@ -164,3 +164,4 @@ Cuando Álvaro Carreño te acompañe y vea las mediciones en pantalla, resume la
 
 *Tecnovoa Ltda. — Soluciones Profesionales de Conectividad Celular y Telecomunicaciones.*  
 *Pedro de Valdivia #273, Providencia, Santiago | www.tecnovoa.cl*
+

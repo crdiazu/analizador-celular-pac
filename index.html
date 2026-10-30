@@ -722,7 +722,7 @@
 <div class="top-bar">
   <div>
     <span>Integrador TI Oficial: <strong>Tecnovoa Ltda.</strong></span> · 
-    <span>Hardware Oficial: <strong>Wilson Electronics / CellSignal Chile (cellsignal.cl)</strong></span> · 
+    <span>Hardware Oficial: <strong>Wilson Electronics / weBoost (50 Ω)</strong></span> · 
     <span>Proyecto: <strong>Optimizador de Señal Celular e Indoor BDA</strong></span>
   </div>
   <div class="top-bar-contact">
@@ -741,17 +741,21 @@
       <div class="project-header-info">
         <h1>Centro Consistorial Ilustre Municipalidad de Pedro Aguirre Cerda</h1>
         <div class="sub">
-          Av. Pdte. Salvador Allende N° 2029 · Depto. Informática (Piso -1) · Contraparte: <strong>Álvaro Carreño Cerda</strong>
+          Av. Pdte. Salvador Allende N° 2029 · Pisos -1 y 1 (Concejo) · Contraparte: <strong>Álvaro Carreño Cerda</strong>
         </div>
       </div>
     </div>
     <div class="header-actions">
+      <a class="btn" href="./presentacion.html" style="background:#0b2540; color:#fff; border-color:#4BA8CB; font-weight:700;">
+        📊 Presentación de Ingeniería
+      </a>
       <button id="btnWilsonToggle" class="btn btn-sim" onclick="toggleWilsonSim()">
         📡 Amplificador Wilson: <strong id="wilsonStatusLabel">OFF (Estado Actual)</strong>
       </button>
-      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none; max-width:300px;">
-        <option value="office200_1ant">weBoost Office 200 LATAM (SKU 531047) — 1 Domo</option>
-        <option value="office200_2ant" selected>weBoost Office 200 LATAM (SKU 531047) — 2 Domos</option>
+      <select id="wilsonModeSelect" class="btn" onchange="changeWilsonMode(this.value)" style="display:none; max-width:320px;">
+        <option value="office200_dual_4ant" selected>2× weBoost Office 200 LATAM — 4 Domos (2 Alas + Óvalo)</option>
+        <option value="office200_2ant">1× weBoost Office 200 LATAM (SKU 531047) — 2 Domos</option>
+        <option value="office200_1ant">1× weBoost Office 200 LATAM (SKU 531047) — 1 Domo</option>
         <option value="wilsonpro_1300r">WilsonPro Enterprise 1300R (Rack 19" + Cloud)</option>
         <option value="wilsonpro_4300r">WilsonPro Enterprise 4300R (4 Puertos Multi-Tower)</option>
       </select>
@@ -778,10 +782,10 @@
     <div class="kpi-card">
       <div class="kpi-title">Señal Donante Azotea (P1 · Omni Plus 314422)</div>
       <div class="kpi-val" id="kpiDonorVal" style="color:var(--good)">-76 dBm</div>
-      <div class="kpi-desc">Excelente captación 360° exterior en las 4 compañías</div>
+      <div class="kpi-desc">Excelente captación 360° exterior en Postes de 3,5 m</div>
     </div>
     <div class="kpi-card kpi-alert">
-      <div class="kpi-title">Piso -1 Informática (P5–P6 Álvaro Carreño)</div>
+      <div class="kpi-title">Piso -1 Informática &amp; Seguridad</div>
       <div class="kpi-val" id="kpiBasementVal" style="color:var(--dead)">-111 dBm</div>
       <div class="kpi-desc" id="kpiBasementDesc">Sombra severa por 2 losas de hormigón armado (-35 dB)</div>
     </div>
@@ -791,9 +795,9 @@
       <div class="kpi-desc">Mediciones P4 a P8 en Entel, Movistar, Claro y WOM</div>
     </div>
     <div class="kpi-card kpi-wilson">
-      <div class="kpi-title">Solución Cotizada Tecnovoa</div>
-      <div class="kpi-val" style="color:var(--wilson-orange)">Office 200 LATAM</div>
-      <div class="kpi-desc">SKU 531047 · 74 dB · 50 Ω · CLP$ 1.650.898 + IVA</div>
+      <div class="kpi-title">Arquitectura Propuesta Tecnovoa</div>
+      <div class="kpi-val" style="color:var(--wilson-orange)">2× Office 200 LATAM</div>
+      <div class="kpi-desc">SKU 531047 · 74 dB · 50 Ω · 4 Domos Interiores (Pisos -1 y 1)</div>
     </div>
   </div>
 
@@ -803,6 +807,9 @@
       <div class="tab-buttons-group">
         <button class="tab-btn active" id="btnTab3d" onclick="switchMainTab('tab3d', this)">
           🧊 Modelo 3D Interactivo
+        </button>
+        <button class="tab-btn" id="btnTabMaster" onclick="switchMainTab('tabMaster', this)">
+          🗺️ Configuración Maestra (2× Office 200)
         </button>
         <button class="tab-btn" id="btnTabSchematic" onclick="switchMainTab('tabSchematic', this)">
           📐 Corte Esquemático 2D D-D'
@@ -814,7 +821,7 @@
           🗺️ Plano Planta Nivel 1 (JPG)
         </button>
         <button class="tab-btn" id="btnTabFotos" onclick="switchMainTab('tabFotos', this)">
-          📸 Fotos de Terreno (20 Fotos)
+          📸 Fotos y Planos (25 Imágenes)
         </button>
         <button class="tab-btn" id="btnTabRadar" onclick="switchMainTab('tabRadar', this)">
           📡 Radar Antenas SUBTEL
@@ -854,6 +861,18 @@
               </div>
 
               <div id="threeJsCanvas"></div>
+            </div>
+          </div>
+
+          <!-- VIEW 1B: MASTER DUAL OFFICE 200 LAYOUT -->
+          <div id="tabMaster" class="view-panel" style="display:none;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+              <div class="plan-overlay-wrap">
+                <img src="./assets/fotos/26-configuracion-maestra-2-office200-aerea.jpg" alt="Vista Aérea Configuración Maestra 2x Office 200" />
+              </div>
+              <div class="plan-overlay-wrap">
+                <img src="./assets/fotos/27-configuracion-maestra-2-office200-planta.jpg" alt="Plano CAD Configuración Maestra 2x Office 200" />
+              </div>
             </div>
           </div>
 
@@ -1397,7 +1416,10 @@
     { file: '17-concejo-y-graderias.png', cat: 'concejo', pt: 'P3', title: 'Graderías y Sala de Concejo', desc: 'Perspectiva frontal del volumen de acero corten desde el nivel plaza.' },
     { file: '18-patio-central-panoramica.png', cat: 'patio', pt: 'Conjunto', title: 'Panorámica Amplia del Edificio', desc: 'Árboles protegidos y volumen arquitectónico diseñado por GMM Arquitectos.' },
     { file: '19-hall-acceso-recepcion.png', cat: 'acceso', pt: 'P0', title: 'Hall de Acceso y Mesón de Recepción', desc: 'Doble altura de entrada pública con columnas de hormigón martelinado.' },
-    { file: '20-patio-hundido-fachada-nivel-1.png', cat: 'subterraneo', pt: 'P4 / P5', title: 'Fachada Zócalo Nivel -1 desde Patio Hundido', desc: 'Acceso de luz hacia las oficinas subterráneas de Informática y RR.PP.' }
+    { file: '20-patio-hundido-fachada-nivel-1.png', cat: 'subterraneo', pt: 'P4 / P5', title: 'Fachada Zócalo Nivel -1 desde Patio Hundido', desc: 'Acceso de luz hacia las oficinas subterráneas de Informática y RR.PP.' },
+    { file: '26-configuracion-maestra-2-office200-aerea.jpg', cat: 'subterraneo', pt: 'Piso -1 y 1', title: 'Configuración Maestra Aérea (2× Office 200 + 4 Domos)', desc: 'Distribución satelital de los 2 sistemas weBoost Office 200 cubriendo Seguridad, Servicios Especiales, Óvalo e Informática.' },
+    { file: '27-configuracion-maestra-2-office200-planta.jpg', cat: 'subterraneo', pt: 'Piso -1 y 1', title: 'Plano CAD Configuración Maestra (2× Office 200 + 4 Domos)', desc: 'Trazado de cables Wilson400 de 22,86 m y 15,24 m desde ambos puntos de bajada.' },
+    { file: '23-propuesta-distribucion-2-antenas-15m.jpg', cat: 'subterraneo', pt: 'Piso -1', title: 'Validación Radio 15 m Cable Coaxial', desc: 'Verificación de alcance con tramos de 15,24 m (50 ft) sobre grilla estructural de 6,0 m.' }
   ];
 
   // State
@@ -1408,9 +1430,15 @@
   let currentMainTab = 'tab3d';
   let current3dMode = 'xray';
   let wilsonSimActive = false;
-  let wilsonSimMode = 'office200_2ant';
+  let wilsonSimMode = 'office200_dual_4ant';
 
   const MODEL_PROFILES = {
+    office200_dual_4ant: {
+      name: '2× OFFICE 200 (74dB · 4 Domos)',
+      donorLabel: '2× Antenas Omni Plus 314422 (Norte y Sur)',
+      twoBranches: true,
+      boost: { P3: 22, P4: 32, P5: 36, P6: 36, P7: 34, P8: 31 }
+    },
     office200_1ant: {
       name: 'OFFICE 200 (74dB · 1 Domo)',
       donorLabel: 'Antena Omni Plus 314422 + Protector 859902',
@@ -2551,7 +2579,7 @@
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
 
-    ['tab3d', 'tabSchematic', 'tabPlanSection', 'tabPlanFloor1', 'tabFotos', 'tabRadar'].forEach(id => {
+    ['tab3d', 'tabMaster', 'tabSchematic', 'tabPlanSection', 'tabPlanFloor1', 'tabFotos', 'tabRadar'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = (id === tabId) ? 'block' : 'none';
     });

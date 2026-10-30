@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentación de Ingeniería: Cobertura Celular In-Building & Red Outdoor — Municipalidad de PAC | Tecnovoa</title>
+  <link rel="icon" type="image/png" href="./assets/favicon-tecnovoa.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tecnovoa-primary: #145FA0;
+      --tecnovoa-dark: #0b2540;
+      --tecnovoa-cyan: #4BA8CB;
+      --tecnovoa-accent: #61CE70;
+      --wilson-orange: #f97316;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    h1, h2, h3, h4, .slide-badge {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Sticky Top Toolbar */
+    .pres-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--tecnovoa-dark);
+      color: #ffffff;
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 3px solid var(--tecnovoa-cyan);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .pres-toolbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .pres-toolbar-brand img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+    }
+    .pres-toolbar-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    .pres-toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      transition: all 0.15s ease;
+    }
+    .btn:hover { background: rgba(255,255,255,0.2); }
+    .btn-primary {
+      background: var(--wilson-orange);
+      border-color: var(--wilson-orange);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #ea580c; }
+    .btn-cyan {
+      background: var(--tecnovoa-cyan);
+      border-color: var(--tecnovoa-cyan);
+      color: #0b2540;
+      font-weight: 700;
+    }
+
+    /* Deck Wrapper */
+    .deck-container {
+      max-width: 1320px;
+      margin: 28px auto;
+      padding: 0 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Slide Card */
+    .slide {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      position: relative;
+      page-break-after: always;
+    }
+    .slide-header {
+      background: linear-gradient(135deg, #0b2540 0%, #145FA0 100%);
+      color: #ffffff;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 4px solid var(--tecnovoa-cyan);
+    }
+    .slide-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .slide-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--tecnovoa-cyan);
+    }
+    .slide-header h2 {
+      font-size: 21px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .slide-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.12);
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .slide-body {
+      padding: 28px 30px;
+    }
+
+    /* Cover Slide */
+    .slide-cover {
+      background: linear-gradient(135deg, #07192e 0%, #0f3866 60%, #145FA0 100%);
+      color: #ffffff;
+      padding: 52px 44px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 960px) {
+      .slide-cover { grid-template-columns: 1fr; padding: 32px 24px; }
+    }
+    .cover-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(75, 168, 203, 0.2);
+      border: 1px solid var(--tecnovoa-cyan);
+      color: #7dd3fc;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .slide-cover h1 {
+      font-size: 32px;
+      line-height: 1.22;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .slide-cover p.lead {
+      font-size: 15.5px;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+    }
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .cover-meta-item strong {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #7dd3fc;
+      letter-spacing: 0.04em;
+    }
+    .cover-preview-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 2px solid var(--tecnovoa-cyan);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.45);
+    }
+    .cover-preview-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .cover-preview-caption {
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #e2e8f0;
+      background: rgba(11, 37, 64, 0.95);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 960px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--tecnovoa-primary);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .info-box.orange { border-left-color: var(--wilson-orange); background: #fffaf5; }
+    .info-box.green { border-left-color: #16a34a; background: #f0fdf4; }
+    .info-box h3 {
+      font-size: 15px;
+      color: var(--tecnovoa-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-box.orange h3 { color: #c2410c; }
+    .info-box.green h3 { color: #15803d; }
+    .info-box ul {
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+    .info-box li { margin-bottom: 6px; }
+
+    /* Figure Card */
+    .fig-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .fig-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: zoom-in;
+    }
+    .fig-caption {
+      background: #f8fafc;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+    }
+    .fig-caption strong { color: var(--tecnovoa-primary); }
+
+    /* Product Cards */
+    .prod-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .prod-img-box {
+      height: 200px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .prod-img-box img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .prod-body {
+      padding: 14px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sku-pill {
+      display: inline-block;
+      align-self: flex-start;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .prod-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--tecnovoa-dark);
+    }
+    .prod-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    th {
+      background: #0b2540;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    /* Slide Footer */
+    .slide-footer {
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      padding: 10px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      background: #fff;
+    }
+
+    @media print {
+      body { background: #ffffff; }
+      .pres-toolbar { display: none !important; }
+      .deck-container { margin: 0; padding: 0; max-width: 100%; gap: 0; }
+      .slide { box-shadow: none; border-radius: 0; border: none; page-break-after: always; margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Print Toolbar -->
+  <div class="pres-toolbar">
+    <div class="pres-toolbar-brand">
+      <img src="./assets/logo-tecnovoa.png" alt="Tecnovoa" />
+      <div class="pres-toolbar-title">
+        Presentación de Ingeniería RF &amp; Conectividad — Ilustre Municipalidad de Pedro Aguirre Cerda
+      </div>
+    </div>
+    <div class="pres-toolbar-actions">
+      <a href="./index.html" class="btn">⬅️ Volver al Gemelo Digital 3D</a>
+      <a href="#slide-visita" class="btn">1. Visita Terreno</a>
+      <a href="#slide-arquitectura" class="btn">2. Arquitectura 2× Office 200</a>
+      <a href="#slide-planos" class="btn">3. Planos de Cobertura</a>
+      <a href="#slide-equipamiento" class="btn">4. Equipamiento &amp; BOM</a>
+      <a href="#slide-techumbre" class="btn">5. Red Techumbre &amp; Drones</a>
+      <button class="btn btn-cyan" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    </div>
+  </div>
+
+  <div class="deck-container">
+
+    <!-- SLIDE 1: PORTADA EJECUTIVA -->
+    <section class="slide">
+      <div class="slide-cover">
+        <div>
+          <div class="cover-tag">📡 Ingeniería de Radiofrecuencia &amp; Redes In-Building</div>
+          <h1>Diseño Técnico de Cobertura Celular Multibanda (Pisos -1 y 1) y Conectividad en Techumbre</h1>
+          <p class="lead">
+            Arquitectura Maestra basada en <strong>2 Sistemas weBoost Office 200 LATAM (50 Ω)</strong> y <strong>4 Antenas Domo Interiores</strong> para iluminar el 100% del Zócalo Subterráneo (Nivel -1) y el Óvalo del Alcalde / Sala de Concejo Municipal (Nivel 1).
+          </p>
+          <div class="cover-meta-grid">
+            <div class="cover-meta-item">
+              <strong>Mandante / Institución</strong>
+              Ilustre Municipalidad de Pedro Aguirre Cerda<br/>Av. Pdte. Salvador Allende N° 2029
+            </div>
+            <div class="cover-meta-item">
+              <strong>Contraparte Municipal</strong>
+              Álvaro O. Carreño Cerda<br/>Jefe Depto. Informática (SECPLA)
+            </div>
+            <div class="cover-meta-item">
+              <strong>Equipo de Ingeniería Tecnovoa</strong>
+              Cristián Díaz (KAM TI)<br/>Javier De la Fuente &amp; Diego Pérez (Ingeniería)
+            </div>
+            <div class="cover-meta-item">
+              <strong>Operadores Soportados</strong>
+              Entel · Movistar · Claro · WOM<br/>Voz HD (VoLTE / 3G) y Datos 4G LTE
+            </div>
+          </div>
+        </div>
+        <div class="cover-preview-card">
+          <img src="./assets/fotos/26-configuracion-maestra-2-office200-aerea.jpg" alt="Vista Aérea Configuración Maestra Dual Office 200" onclick="openLightbox(this.src)" />
+          <div class="cover-preview-caption">
+            Vista Satelital Maestra: 2 Hubs Amplificadores + 4 Antenas Domo Interiores (Haz clic para ampliar)
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Tecnovoa Tecnología &amp; Servicios Ltda. · www.tecnovoa.cl</span>
+        <span>Documento Técnico para Evaluación de Ingeniería</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: HALLAZGOS DEL LEVANTAMIENTO EN TERRENO (29 OCTUBRE 2026) -->
+    <section class="slide" id="slide-visita">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Levantamiento Técnico en Sitio · 29 de Octubre de 2026</span>
+          <h2>1. Diagnóstico en Terreno e Infraestructura Existente</h2>
+        </div>
+        <span class="slide-num">Lámina 01 / 06</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 22px;">
+          <div class="info-box">
+            <h3>🏢 Zonas Críticas Identificadas con el Cliente</h3>
+            <ul>
+              <li><strong>Geometría en "U" del Piso -1 (Subterráneo):</strong> El nivel -1 rodea el patio central y concentra unidades operativas críticas sin señal celular de voz por el apantallamiento de las losas de hormigón armado:
+                <ul>
+                  <li><strong>Sector Norte (Zona 3):</strong> Video Wall, Seguridad Ciudadana y Despacho de Móviles.</li>
+                  <li><strong>Sector Poniente (Zona 2):</strong> Servicios Especiales (ala poniente bajo acceso principal).</li>
+                  <li><strong>Sector Sur / Oriente (Zona 1):</strong> Oficina Jefe de Informática (Álvaro Carreño), Técnicos TI y Pasillo Trasero.</li>
+                </ul>
+              </li>
+              <li><strong>Ampliación a Piso 1 — Óvalo del Alcalde / Sala de Concejo:</strong> Se solicita asegurar cobertura celular en el edificio ovalado central (Sala de Concejo Municipal en Piso 1).</li>
+            </ul>
+          </div>
+          <div class="info-box green">
+            <h3>✅ Factibilidad de Postación y Racks Existentes</h3>
+            <ul>
+              <li><strong>Postes de 3,5 metros en ambos extremos de Techumbre:</strong> El edificio cuenta en ambos extremos (Norte y Sur) con salidas a techumbre equipadas con mástiles metálicos de <code>3,5 m</code> de altura, ideales para instalar las 2 antenas donantes omnidireccionales.</li>
+              <li><strong>Salas de Racks Comunicadas Verticalmente:</strong>
+                <ul>
+                  <li><strong>Piso -1:</strong> Rack Dirección de Seguridad Ciudadana.</li>
+                  <li><strong>Piso 1:</strong> Rack Principal / Recepciones Comunitarias.</li>
+                  <li><strong>Piso 2:</strong> Rack SecPlan (conectado hacia cubierta).</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="fig-card">
+            <img src="./assets/visita/foto_zonas_123.jpg" alt="Zonas 1, 2 y 3 en Piso -1 y Sala de Concejo en Piso 1" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Figura 1.1:</strong> Identificación de Sala de Concejo (Óvalo Piso 1) y Zonas 1, 2 y 3 en la planta tipo "U" del Piso -1.
+            </div>
+          </div>
+          <div class="fig-card">
+            <img src="./assets/visita/foto_postacion_techumbre.jpg" alt="Postes de 3.5 metros disponibles en ambos extremos de la techumbre" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Figura 1.2:</strong> Postación existente de <code>3,5 metros</code> en ambos extremos de la techumbre para fijación de antenas donantes exteriores.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Levantamiento en Terreno: Javier De la Fuente &amp; Cristián Díaz (Tecnovoa) junto a Álvaro Carreño (PAC)</span>
+        <span>Haz clic sobre cualquier imagen para ampliar a pantalla completa</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: ARQUITECTURA MAESTRA DUAL (2x WEBOOST OFFICE 200 + 4 DOMOS) -->
+    <section class="slide" id="slide-arquitectura">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Ingeniería de Radiofrecuencia In-Building</span>
+          <h2>2. Configuración Maestra: 2 Sistemas weBoost Office 200 + 4 Antenas Domo</h2>
+        </div>
+        <span class="slide-num">Lámina 02 / 06</span>
+      </div>
+      <div class="slide-body">
+        <p style="font-size:14px; color:var(--text); margin-bottom:18px;">
+          Debido a las dimensiones de la planta en "U" (más de 85 metros de desarrollo lineal) y a las divisiones interiores de hormigón, un solo amplificador no logra cubrir simultáneamente ambas alas y el Óvalo del Alcalde sin exceder las tiradas máximas de cable coaxial de baja pérdida. Se diseña una <strong>arquitectura simétrica de 2 sistemas independientes <code>weBoost Office 200 LATAM (50 Ω)</code></strong>, cada uno dividido en 2 antenas interiores mediante un <strong>Splitter Pasivo de 2 Vías (<code>-3 dB</code>)</strong>:
+        </p>
+
+        <div class="grid-2" style="margin-bottom: 20px;">
+          <div class="info-box orange">
+            <h3>🔴 SISTEMA 1: Hub Norte / Poniente (Seguridad &amp; Servicios Especiales)</h3>
+            <ul>
+              <li><strong>Antena Donante #1 (<code>314422</code>):</strong> Instalada en el poste de <code>3,5 m</code> de la Techumbre Norte, con protector de sobretensión (<code>859902</code>) y bajada vertical de <strong><code>18,28 m</code></strong> (cable <code>952360</code> incluido) hacia el <strong>Rack Dirección de Seguridad (Piso -1)</strong>.</li>
+              <li><strong>Amplificador Office 200 #1 + Splitter 2 Vías (<code>859957</code>):</strong>
+                <ul>
+                  <li><strong>🔵 Antena Domo 1A (Piso -1 Ala Norte):</strong> Utiliza el rollo incluido de <strong><code>22,86 m</code> (<code>952375</code>)</strong> avanzando hacia el oriente por el pasillo norte para iluminar <strong>Video Wall, Seguridad Ciudadana y Despacho de Móviles</strong>.</li>
+                  <li><strong>🔵 Antena Domo 1B (Piso -1 Ala Poniente):</strong> Utiliza un rollo adicional de <strong><code>15,24 m</code> (<code>952350</code>)</strong> hacia el sur para iluminar <strong>Servicios Especiales</strong>.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h3>🟢 SISTEMA 2: Hub Sur / Oriente (Óvalo del Alcalde &amp; Informática)</h3>
+            <ul>
+              <li><strong>Antena Donante #2 (<code>314422</code>):</strong> Instalada en el poste de <code>3,5 m</code> de la Techumbre Sur, con bajada vertical de <strong><code>18,28 m</code></strong> (cable <code>952360</code> incluido) hasta el <strong>Rack Piso 1 / Shaft Sur</strong> (frente al puente del Óvalo).</li>
+              <li><strong>Amplificador Office 200 #2 + Splitter 2 Vías (<code>859957</code>):</strong>
+                <ul>
+                  <li><strong>🟢 Antena Domo 2A (Piso 1 — Óvalo del Alcalde / Concejo):</strong> Utiliza un rollo adicional de <strong><code>15,24 m</code> (<code>952350</code>)</strong> cruzando la pasarela peatonal del Piso 1 hacia el centro de la <strong>Sala de Concejo Municipal</strong>.</li>
+                  <li><strong>🟢 Antena Domo 2B (Piso -1 — Informática &amp; Pasillo Trasero):</strong> Utiliza el rollo incluido de <strong><code>22,86 m</code> (<code>952375</code>)</strong> bajando al Piso -1 para cubrir la <strong>Oficina de Álvaro Carreño (TI)</strong> y el <strong>Pasillo Trasero Oriente</strong>.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Resumen de Presupuesto de Enlace -->
+        <table>
+          <thead>
+            <tr>
+              <th>Sistema / Rama</th>
+              <th>Recinto Cubierto</th>
+              <th>Nivel</th>
+              <th>Cable Coaxial Indoor</th>
+              <th>Pérdida Splitter + Cable (1900 MHz)</th>
+              <th>Potencia Efectiva en Antena Domo</th>
+              <th>Radio Cobertura Indoor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sistema 1 · Domo 1A</strong></td>
+              <td>Video Wall, Seguridad Ciudadana y Despacho Móviles</td>
+              <td>Piso -1</td>
+              <td><code>22,86 m</code> (SKU 952375 incluido)</td>
+              <td><code>-3,2 dB</code> (Splitter) <code>-4,3 dB</code> (Cable)</td>
+              <td><strong>+14,5 dBm Downlink</strong> (+66,5 dB ganancia neta)</td>
+              <td><code>12 a 15 m</code> lineales</td>
+            </tr>
+            <tr>
+              <td><strong>Sistema 1 · Domo 1B</strong></td>
+              <td>Servicios Especiales (Ala Poniente)</td>
+              <td>Piso -1</td>
+              <td><code>15,24 m</code> (SKU 952350 adicional)</td>
+              <td><code>-3,2 dB</code> (Splitter) <code>-2,9 dB</code> (Cable)</td>
+              <td><strong>+15,9 dBm Downlink</strong> (+67,9 dB ganancia neta)</td>
+              <td><code>12 a 15 m</code> lineales</td>
+            </tr>
+            <tr>
+              <td><strong>Sistema 2 · Domo 2A</strong></td>
+              <td>Óvalo del Alcalde / Sala de Concejo Municipal</td>
+              <td>Piso 1</td>
+              <td><code>15,24 m</code> (SKU 952350 adicional)</td>
+              <td><code>-3,2 dB</code> (Splitter) <code>-2,9 dB</code> (Cable)</td>
+              <td><strong>+15,9 dBm Downlink</strong> (Planta libre ovalada)</td>
+              <td><code>100% Sala Concejo</code></td>
+            </tr>
+            <tr>
+              <td><strong>Sistema 2 · Domo 2B</strong></td>
+              <td>Oficina Álvaro Carreño (Informática) y Pasillo Trasero</td>
+              <td>Piso -1</td>
+              <td><code>22,86 m</code> (SKU 952375 incluido)</td>
+              <td><code>-3,2 dB</code> (Splitter) <code>-4,3 dB</code> (Cable)</td>
+              <td><strong>+14,5 dBm Downlink</strong> (+66,5 dB ganancia neta)</td>
+              <td><code>12 a 15 m</code> lineales</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slide-footer">
+        <span>Ingeniería RF Tecnovoa · Impedancia Profesional 50 Ω · Cumple Resolución Exenta N° 737 SUBTEL</span>
+        <span>Tecnología XDR (eXtended Dynamic Range) anti-saturación</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: PLANOS DE DISTRIBUCIÓN Y RADIOS DE CABLE -->
+    <section class="slide" id="slide-planos">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Planimetría CAD y Fotogrametría Satelital</span>
+          <h2>3. Planos de Distribución de Cableado y Cobertura (Pisos 1 y -1)</h2>
+        </div>
+        <span class="slide-num">Lámina 03 / 06</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 20px;">
+          <div class="fig-card">
+            <img src="./assets/fotos/26-configuracion-maestra-2-office200-aerea.jpg" alt="Plano Satelital Configuración Maestra" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Figura 3.1 — Vista Aérea Satelital:</strong> Emplazamiento de los 2 puntos de bajada desde techumbre (círculos rojos) y distribución hacia los 4 Domos (1A, 1B, 2A y 2B).
+            </div>
+          </div>
+          <div class="fig-card">
+            <img src="./assets/fotos/27-configuracion-maestra-2-office200-planta.jpg" alt="Plano CAD Configuración Maestra" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Figura 3.2 — Planta Arquitectónica CAD:</strong> Trazado de cables coaxiales <code>Wilson400</code> de <code>22,86 m</code> y <code>15,24 m</code> cubriendo Piso -1 y el Óvalo en Piso 1.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="fig-card">
+            <img src="./assets/fotos/23-propuesta-distribucion-2-antenas-15m.jpg" alt="Validación de Radio de 15 metros desde puntos de bajada" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Figura 3.3 — Validación Geométrica de Radio 15 m:</strong> Escala verificada sobre grilla estructural de <code>6,0 m</code> entre ejes para los tramos de <code>15,24 m (50 ft)</code>.
+            </div>
+          </div>
+          <div class="info-box">
+            <h3>📐 Criterios de Diseño Planimétrico</h3>
+            <ul>
+              <li><strong>Escala Estructural Verificada:</strong> La modulación de columnas del edificio es de <strong><code>6,00 metros</code> entre ejes</strong>. Cada rollo de <code>15,24 m (50 ft)</code> permite absorber <code>~2,5 m</code> de holgura vertical en cielo falso más <code>12,5 m</code> de recorrido horizontal efectivo.</li>
+              <li><strong>Aprovechamiento de los Rollos de <code>22,86 m (75 ft)</code>:</strong> Cada kit <code>weBoost Office 200</code> ya incluye de fábrica un rollo de <code>22,86 m</code>. Estos dos rollos largos se destinan a los dos pasillos más extensos (<strong>Video Wall / Despacho de Móviles</strong> en el Norte y <strong>Oficina de Álvaro Carreño + Pasillo Trasero</strong> en el Sur-Oriente).</li>
+              <li><strong>Cruce Limpio hacia el Óvalo del Alcalde:</strong> Al ubicar el segundo amplificador junto al núcleo sur en Piso 1, la rama <strong>Domo 2A</strong> cruza directamente hacia la Sala de Concejo Municipal sin pérdidas por cambio de piso.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Planos generados sobre arquitectura oficial GMM Arquitectos</span>
+        <span>Haz clic en los planos para inspeccionar en alta resolución</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: EQUIPAMIENTO Y LISTA DE MATERIALES (SIN PRECIOS NI REFERENCIAS EXTERNAS) -->
+    <section class="slide" id="slide-equipamiento">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Hardware Profesional 50 Ohm · Wilson Electronics</span>
+          <h2>4. Especificación de Equipamiento y Lista de Materiales (BOM)</h2>
+        </div>
+        <span class="slide-num">Lámina 04 / 06</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-4" style="margin-bottom: 24px;">
+          <div class="prod-card">
+            <div class="prod-img-box">
+              <img src="./assets/productos/kit-office-200-531047.png" alt="Kit weBoost Office 200 50 Ohm SKU 531047" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="prod-body">
+              <span class="sku-pill">SKU 531047 · 50 Ω</span>
+              <div class="prod-title">Kit weBoost Office 200 LATAM</div>
+              <div class="prod-desc">
+                Incluye Amplificador 74 dB con pantalla LCD, 1 Antena Omni Plus (314422), 1 Antena Domo (314407), Protector Relámpago (859902), Jumper 0,60 m (952302), Cable 18,28 m (952360) y Cable 22,86 m (952375).
+              </div>
+            </div>
+          </div>
+
+          <div class="prod-card">
+            <div class="prod-img-box">
+              <img src="./assets/productos/splitter-2vias-wilson.jpg" alt="Splitter Pasivo 2 Vías Wideband 698-2700 MHz" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="prod-body">
+              <span class="sku-pill">SKU 859957 · -3 dB</span>
+              <div class="prod-title">Wideband 2-Way Splitter</div>
+              <div class="prod-desc">
+                Divisor de potencia pasivo balanceado (698–2700 MHz, 50 Ω, conectores N-Hembra). Divide la salida de cada amplificador hacia 2 antenas interiores.
+              </div>
+            </div>
+          </div>
+
+          <div class="prod-card">
+            <div class="prod-img-box">
+              <img src="./assets/productos/antena-domo-314407.jpg" alt="Antena Interior Domo de Perfil Bajo 314407" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="prod-body">
+              <span class="sku-pill">SKU 314407 · 50 Ω</span>
+              <div class="prod-title">Low Profile Dome Antenna</div>
+              <div class="prod-desc">
+                Antena interior omnidireccional 360° de perfil ultradelgado para montaje en cielo falso (608–2700 MHz, pigtail plenum N-Hembra).
+              </div>
+            </div>
+          </div>
+
+          <div class="prod-card">
+            <div class="prod-img-box">
+              <img src="./assets/productos/cable-wilson400-952350.jpg" alt="Cable Coaxial Wilson400 50 ft / 15.24 m SKU 952350" onclick="openLightbox(this.src)" />
+            </div>
+            <div class="prod-body">
+              <span class="sku-pill">SKU 952350 · 15,24 m</span>
+              <div class="prod-title">Cable Coaxial Wilson400 (50 ft)</div>
+              <div class="prod-desc">
+                Cable coaxial de ultra baja pérdida equivalente a LMR-400 (50 Ω) con conectores N-Macho pre-conectorizados de fábrica para la segunda rama de cada splitter.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:15px; color:var(--tecnovoa-primary); margin-bottom:10px;">📋 Cuadro Consolidado de Materiales para Ingeniería (Sin Valorizar)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Ítem</th>
+              <th>SKU / N° Parte</th>
+              <th>Componente / Descripción Técnica</th>
+              <th>Cant. (1 Ala)</th>
+              <th>Cant. (Solución Total 2 Alas)</th>
+              <th>Ubicación / Función en Proyecto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>01</strong></td>
+              <td><code>531047</code></td>
+              <td><strong>Kit Amplificador Celular weBoost Office 200 LATAM (50 Ω)</strong><br/><span style="font-size:11.5px; color:var(--muted);">Incluye: 1 Amplificador 74 dB, 1 Antena Exterior Omni Plus (314422), 1 Antena Interior Domo (314407), 1 Protector Rayos (859902), 1 Jumper 0,60 m (952302), 1 Cable 18,28 m (952360) y 1 Cable 22,86 m (952375).</span></td>
+              <td>1 Kit</td>
+              <td><strong>2 Kits</strong></td>
+              <td>Hub Norte (Rack Seguridad -1) y Hub Sur (Rack Piso 1 / -1)</td>
+            </tr>
+            <tr>
+              <td><strong>02</strong></td>
+              <td><code>859957</code></td>
+              <td><strong>Splitter Pasivo de 2 Vías Wideband (698–2700 MHz, 50 Ω, N-Hembra)</strong></td>
+              <td>1 un.</td>
+              <td><strong>2 un.</strong></td>
+              <td>Divide cada amplificador en 2 ramas interiores balanceadas (-3 dB)</td>
+            </tr>
+            <tr>
+              <td><strong>03</strong></td>
+              <td><code>314407</code></td>
+              <td><strong>Antena Interior Domo de Perfil Bajo Adicional (50 Ω, N-Hembra)</strong></td>
+              <td>1 un.</td>
+              <td><strong>2 un.</strong></td>
+              <td>Completa las 4 antenas domo interiores (2 incluidas en kits + 2 adicionales)</td>
+            </tr>
+            <tr>
+              <td><strong>04</strong></td>
+              <td><code>952350</code></td>
+              <td><strong>Cable Coaxial Baja Pérdida Wilson400 de 50 ft / 15,24 m (N-Macho)</strong></td>
+              <td>1 rollo</td>
+              <td><strong>2 rollos</strong></td>
+              <td>Ramas secundarias hacia Servicios Especiales (1B) y Óvalo Concejo (2A)</td>
+            </tr>
+            <tr>
+              <td><strong>05</strong></td>
+              <td><code>952302</code></td>
+              <td><strong>Jumper Coaxial Wilson400 de 2 ft / 0,60 m (N-Macho a N-Macho)</strong></td>
+              <td>1 un.</td>
+              <td><strong>2 un.</strong></td>
+              <td>Interconexión entre puerto Indoor del Amplificador y entrada del Splitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slide-footer">
+        <span>Listado de Hardware para validación de Ingeniería y Obras Civiles Tecnovoa</span>
+        <span>Impedancia 50 Ω en toda la cadena pasiva y activa</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: RED EN TECHUMBRE (HELIPUERTO DRONES + ESTACIÓN METEOROLÓGICA) Y RACKS -->
+    <section class="slide" id="slide-techumbre">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Requerimiento Complementario Detectado en Visita</span>
+          <h2>5. Puntos de Red y Wi-Fi Outdoor en Techumbre + Racks de Comunicaciones</h2>
+        </div>
+        <span class="slide-num">Lámina 05 / 06</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 20px;">
+          <div class="info-box">
+            <h3>🚁 Requerimiento Adicional en Techumbre (Drones + Fluviómetro)</h3>
+            <ul>
+              <li><strong>Helipuerto de Drones (Seguridad Comunal) y Estación Meteorológica:</strong> A partir de la visita técnica se suma la solicitud de habilitar conectividad de red y cobertura Wi-Fi en el sector de techumbre.</li>
+              <li><strong>Alcance de Red Estructurada:</strong>
+                <ul>
+                  <li>Habilitación de <strong>2 puntos de red Cat.6 para exterior</strong> en la zona de techumbre (canalizados desde el Rack SecPlan en Piso 2 o Rack Seguridad en Piso -1).</li>
+                  <li>Suministro e instalación de <strong>1 Access Point Cisco Meraki Outdoor</strong> compatible con el portal de administración (Dashboard) del cliente para iluminar la zona de operación de drones y enlazar la estación meteorológica.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="fig-card">
+            <img src="./assets/visita/foto_techumbre_drones.jpg" alt="Zona de techumbre a iluminar con Wi-Fi Outdoor para operación de drones" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Figura 5.1 — Zona a Iluminar en Techumbre:</strong> Explanada superior destinada a operación de drones y sensores meteorológicos.
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:15px; color:var(--tecnovoa-primary); margin-bottom:10px;">🗄️ Registro Fotográfico de Racks de Comunicaciones por Nivel</h3>
+        <div class="grid-3">
+          <div class="fig-card">
+            <img src="./assets/visita/foto_rack_seguridad_menos1.jpg" alt="Rack Dirección de Seguridad Piso -1" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Rack Piso -1:</strong> Dirección de Seguridad Ciudadana (Punto de llegada Hub Norte).
+            </div>
+          </div>
+          <div class="fig-card">
+            <img src="./assets/visita/foto_rack_piso1.jpg" alt="Rack Recepciones Comunitarias Piso 1" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Rack Piso 1:</strong> Recepciones Comunitarias / Rack Principal (Interconexión vertical).
+            </div>
+          </div>
+          <div class="fig-card">
+            <img src="./assets/visita/foto_rack_secplan_piso2.jpg" alt="Rack SecPlan Piso 2" onclick="openLightbox(this.src)" />
+            <div class="fig-caption">
+              <strong>Rack Piso 2:</strong> SecPlan (Punto más cercano a techumbre para puntos de red outdoor).
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Registro de Infraestructura de Racks · Reporte de Visita Técnica Tecnovoa</span>
+        <span>Todos los racks cuentan con comunicación hacia el Rack Principal en Piso 1</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: PRÓXIMOS PASOS PARA ÁREA TÉCNICA -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Hoja de Ruta de Ingeniería y Preventa</span>
+          <h2>6. Próximos Pasos para Cierre de Propuesta Técnica</h2>
+        </div>
+        <span class="slide-num">Lámina 06 / 06</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="info-box">
+            <h3>1️⃣ Validación de Canalizaciones</h3>
+            <ul>
+              <li>Dimensionamiento de esfuerzo de mano de obra, horas hombre y materiales de montaje para las 2 bajadas desde los postes de <code>3,5 m</code> en techumbre.</li>
+              <li>Revisión de pases hacia cielo falso del Piso -1 y pasarela hacia Sala de Concejo (Óvalo Piso 1).</li>
+            </ul>
+          </div>
+          <div class="info-box orange">
+            <h3>2️⃣ Prueba de Concepto (Demo en Sitio)</h3>
+            <ul>
+              <li>Tal como se recomendó en el informe de visita técnica, coordinar una prueba controlada en bloque AM/PM para certificar en terreno la ganancia y cobertura real en los recintos críticos.</li>
+            </ul>
+          </div>
+          <div class="info-box green">
+            <h3>3️⃣ Red Outdoor &amp; AP Meraki</h3>
+            <ul>
+              <li>Confirmar modelo de Access Point Cisco Meraki Outdoor y licenciamiento requerido para integrarlo al Dashboard existente de la Municipalidad.</li>
+              <li>Cotizar tendido de los 2 puntos de red exterior en techumbre.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span><strong>Tecnovoa Ltda.</strong> · Av. Pedro de Valdivia N° 273, Providencia, Santiago · www.tecnovoa.cl</span>
+        <span>Contacto: Cristián Díaz (cristian@tecnovoa.cl) · Ingeniería: Javier De la Fuente &amp; Diego Pérez</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="Vista Ampliada" />
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxModal').style.display = 'flex';
+    }
+    function closeLightbox() {
+      document.getElementById('lightboxModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

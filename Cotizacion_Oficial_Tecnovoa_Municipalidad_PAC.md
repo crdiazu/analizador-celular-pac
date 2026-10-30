@@ -1,93 +1,52 @@
-# Cotización Comercial N° TEC-2026-0842
-**Solución Integral de Conectividad Celular Indoor (weBoost Office 200 LATAM)**
+# Propuesta Técnica de Ingeniería: Solución Integral de Cobertura Celular Indoor y Red en Techumbre
+**Documento en Evaluación Conjunta con Área Técnica e Ingeniería — Sin Valorizar**
 
-| Datos del Emisor (Contratista / Integrador) | Datos del Cliente (Institución Pública) |
+| Datos del Integrador | Datos de la Institución |
 | :--- | :--- |
 | **Razón Social:** Tecnovoa Ltda. | **Razón Social:** Ilustre Municipalidad de Pedro Aguirre Cerda |
 | **RUT:** 76.842.190-K | **RUT:** 69.254.800-4 |
-| **Dirección:** Pedro de Valdivia #273, Providencia, Santiago | **Dirección:** Av. Presidente Salvador Allende N° 2029, PAC |
-| **Contacto Comercial:** Cristián Díaz — KAM TI | **Atención:** **Álvaro O. Carreño Cerda** — Jefe Depto. Informática (SECPLA) |
-| **Teléfono:** +569 4943 8288 | **Teléfono:** +569 9442 7478 / 22 396 5042 |
-| **Email:** cristian@tecnovoa.cl | **Email:** alvarocarreno@pedroaguirrecerda.cl |
-| **Web:** www.tecnovoa.cl | **Portal Mercado Público:** Acepta Orden de Compra / Compra Ágil |
-| **Partner de Hardware:** CellSignal Chile (`www.cellsignal.cl`) | **Fecha de Emisión:** 28 de Octubre de 2026 |
-| **Validez de la Oferta:** 30 días corridos | **Plazo de Entrega:** Stock Inmediato (Instalación: 1 jornada) |
+| **Dirección:** Av. Pedro de Valdivia N° 273, Providencia, Santiago | **Dirección:** Av. Presidente Salvador Allende N° 2029, PAC |
+| **Contacto Comercial:** Cristián Díaz — KAM TI (`cristian@tecnovoa.cl`) | **Atención:** **Álvaro O. Carreño Cerda** — Jefe Depto. Informática (SECPLA) |
+| **Ingeniería de Terreno y Preventa:** Javier De la Fuente & Diego Pérez | **Fecha de Actualización:** 30 de Octubre de 2026 |
 
 ---
 
-## 🎯 1. Resumen Ejecutivo del Requerimiento
-Suministro, instalación, calibración y certificación de un sistema de amplificación y retransmisión celular in-building para solucionar el aislamiento radioeléctrico en el **Piso -1 (Zócalo / Subterráneo)** del Centro Consistorial, donde operan el Departamento de Informática, Jefatura de Emergencia, Relaciones Públicas y Archivo Municipal.
-
-La solución amplifica transparentemente la cobertura de voz (VoLTE / 3G) y datos móviles 4G para los **4 operadores móviles de Chile (Entel, Movistar, Claro y WOM)**, captando la señal en azotea técnica (+8,25 m) y reinyectándola bajo tierra a través de cables coaxiales de ultra baja pérdida por el Shaft técnico GI 07/08.
+## 🎯 1. Alcance Técnico del Proyecto
+Suministro, instalación, canalización y puesta en marcha de una solución de amplificación celular in-building multibanda (Entel, Movistar, Claro y WOM) para cubrir las dependencias del **Piso -1 (Zócalo Subterráneo)** y la **Sala de Concejo Municipal / Óvalo del Alcalde (Piso 1)**, complementada con la habilitación de **2 puntos de red exterior y cobertura Wi-Fi Cisco Meraki Outdoor en la techumbre** para la operación de drones de Seguridad Comunal y la estación meteorológica.
 
 ---
 
-## 💼 2. Cuadro de Precios y Opciones de Suministro
+## 📡 2. Detalle de Equipamiento de Radiofrecuencia (Configuración 1 Ala vs. 2 Alas)
 
-### Opción A (Base Cotizada): Kit weBoost Office 200 LATAM (1 Antena Domo)
-*Diseñada para cubrir de forma directa el área neurálgica de **Informática (Técnicos + Oficina de Álvaro Carreño) y Jefatura de Emergencia**.*
+### Configuración por 1 Ala (1 Amplificador + 2 Antenas Domo Interiores)
 
-| Ítem | Código / SKU | Descripción del Producto / Servicio | Cant. | Precio Unitario (CLP) | Total Neto (CLP) |
-| :---: | :---: | :--- | :---: | :---: | :---: |
-| **1** | `531047` | **Kit Amplificador Celular weBoost Office 200 LATAM (50 Ω)**<br>• Amplificador Office 200 LATAM (74 dB ganancia, +22 dBm Downlink, pantalla táctil LCD, tecnología XDR anti-saturación)<br>• Bandas soportadas: B5 (850 MHz), B4 (AWS 1700/2100 MHz), B2 (1900 MHz PCS)<br>• 1 Antena Exterior Omni Plus 360° (SKU 314422, N-Hembra)<br>• 1 Antena Interior Domo de Perfil Bajo (SKU 314407, N-Hembra)<br>• 1 Protector de Sobretensión de Rayos 50 Ω (SKU 859902)<br>• 1 Jumper Wilson400 0,60 m (SKU 952302)<br>• 1 Bobina Wilson400 18,28 m (SKU 952360) para tramo Azotea ➔ Rack<br>• 1 Bobina Wilson400 22,86 m (SKU 952375) para tramo Rack ➔ Domo<br>• Fuente de poder 220V/12V 3A (SKU 850021)<br>• Accesorios de fijación en mástil y muro | 1 set | \$ 1.650.898 | \$ 1.650.898 |
-| **SUBTOTAL NETO OPCIÓN A** | | | | | **\$ 1.650.898** |
-| **IVA (19%)** | | | | | **\$ 313.671** |
-| **TOTAL BRUTO OPCIÓN A** | | *(Equivalente a ~29,3 UTM — Apta para Compra Ágil)* | | | **\$ 1.964.569** |
-
----
-
-### Opción B (Expansión Multi-Zona): weBoost Office 200 LATAM + 2 Antenas Domo
-*Recomendada si la inspección técnica determina que se requiere extender la señal hacia **Relaciones Públicas (Ejes S–T)** o hacia **Archivo Municipal (Ejes K–P)** a través de un splitter pasivo.*
-
-| Ítem | Código / SKU | Descripción del Producto / Servicio | Cant. | Precio Unitario (CLP) | Total Neto (CLP) |
-| :---: | :---: | :--- | :---: | :---: | :---: |
-| **1** | `531047` | **Kit Amplificador weBoost Office 200 LATAM Base** (descripción ítem 1) | 1 set | \$ 1.650.898 | \$ 1.650.898 |
-| **2** | `859957` | **Splitter Pasivo de 2 Vías 50 Ω Wilson Electronics** (N-Hembra, pérdida de inserción 3,2 dB, balanceado de banda ancha 700-2700 MHz) | 1 un. | \$ 68.900 | \$ 68.900 |
-| **3** | `314407` | **Segunda Antena Interior Domo de Perfil Bajo (50 Ω)** con conector N-Hembra para montaje en cielo americano | 1 un. | \$ 89.900 | \$ 89.900 |
-| **4** | `952350` | **Tramo Coaxial Adicional Wilson400 (15,24 m / 50 ft)** con conectores N-Macho para bajada hacia segundo domo | 1 un. | \$ 79.900 | \$ 79.900 |
-| **SUBTOTAL NETO OPCIÓN B** | | | | | **\$ 1.889.598** |
-| **IVA (19%)** | | | | | **\$ 359.024** |
-| **TOTAL BRUTO OPCIÓN B** | | | | | **\$ 2.248.622** |
+| Ítem | SKU Wilson | Descripción Técnica del Componente | Cantidad |
+| :---: | :---: | :--- | :---: |
+| **1** | `531047` | **Kit Amplificador Celular weBoost Office 200 LATAM (50 Ω)**<br>• 1 Amplificador Office 200 LATAM (74 dB ganancia, +22 dBm Downlink, pantalla LCD, XDR)<br>• 1 Antena Exterior Omni Plus 360° (SKU 314422)<br>• 1 Antena Interior Domo de Perfil Bajo (SKU 314407)<br>• 1 Protector de Sobretensión de Rayos 50 Ω (SKU 859902)<br>• 1 Jumper Wilson400 0,60 m (SKU 952302)<br>• 1 Cable Wilson400 18,28 m (SKU 952360) para bajada desde poste de techumbre<br>• 1 Cable Wilson400 22,86 m (SKU 952375) para rama interior larga | 1 set |
+| **2** | `859957` | **Splitter Pasivo de 2 Vías Wideband 50 Ω (698–2700 MHz, -3 dB)** | 1 un. |
+| **3** | `314407` | **Segunda Antena Interior Domo de Perfil Bajo (50 Ω, N-Hembra)** | 1 un. |
+| **4** | `952350` | **Cable Coaxial Adicional Wilson400 (15,24 m / 50 ft, N-Macho)** | 1 rollo |
+| **5** | `952302` | **Jumper Coaxial Adicional Wilson400 (0,60 m / 2 ft, N-Macho)** | 1 un. |
 
 ---
 
-### Ítem Opcional: Servicio de Instalación y Certificación Llave en Mano Tecnovoa
+### Configuración Maestra 2 Alas Completa (2 Amplificadores + 4 Antenas Domo Interiores)
+*Cubre el 100% de las zonas identificadas en la visita técnica: **Video Wall, Seguridad Ciudadana, Despacho de Móviles y Servicios Especiales** (Sistema 1 Norte) + **Óvalo del Alcalde / Sala de Concejo en Piso 1, Oficina de Álvaro Carreño y Pasillo Trasero en Piso -1** (Sistema 2 Sur).*
 
-| Ítem | Descripción del Servicio | Total Neto (CLP) |
+| Ítem | SKU Wilson | Descripción Técnica del Componente | Cantidad Total |
+| :---: | :---: | :--- | :---: |
+| **1** | `531047` | **Kit Amplificador Celular weBoost Office 200 LATAM (50 Ω)** | **2 sets** |
+| **2** | `859957` | **Splitter Pasivo de 2 Vías Wideband 50 Ω (698–2700 MHz, -3 dB)** | **2 un.** |
+| **3** | `314407` | **Antena Interior Domo de Perfil Bajo Adicional (50 Ω, N-Hembra)** *(Total 4 domos sumando los 2 de los kits)* | **2 un.** |
+| **4** | `952350` | **Cable Coaxial Adicional Wilson400 (15,24 m / 50 ft, N-Macho)** | **2 rollos** |
+| **5** | `952302` | **Jumper Coaxial Adicional Wilson400 (0,60 m / 2 ft, N-Macho)** | **2 un.** |
+
+---
+
+## 🌐 3. Partidas de Obras Civiles, Montaje y Red en Techumbre (En Dimensionamiento por Área Técnica)
+
+| Partida | Descripción de Ingeniería e Instalación | Estado |
 | :---: | :--- | :---: |
-| **S-01** | **Instalación Profesional, Montaje en Shaft GI 07/08 y Puesta en Marcha:**<br>• Fijación de mástil galvanizado y antena Omni Plus en azotea técnica.<br>• Sellado hermético con cinta vulcanizante 3M Scotch 23 + 3M Super 33+.<br>• Conexión de protector de relámpago a barra de tierra de corrientes débiles.<br>• Tendido y peinado de cable Wilson400 por shaft vertical GI 07/08 y cielo americano.<br>• Montaje de chasis Office 200 en Sala de Racks (Nivel 1) o Bodega TI.<br>• Montaje de antena(s) domo en palmeta de cielo falso.<br>• Medición de certificación RF "Antes vs. Después" con informe técnico formal. | **\$ 350.000 + IVA** |
-
----
-
-## 📋 3. Condiciones Comerciales y Contractuales
-
-1. **Forma de Pago:**
-   * **Instituciones Públicas / Municipalidades:** Vía **Orden de Compra en Mercado Público (ChileCompra)** a **30 días contra recepción conforme y factura electrónica**.
-   * Posibilidad de tramitación mediante **Compra Ágil (< 30 UTM)** o Trato Directo fundado.
-2. **Plazo de Entrega e Instalación:**
-   * **Equipamiento:** Stock disponible para entrega inmediata en Santiago a través de nuestro distribuidor mayorista **CellSignal Chile (`cellsignal.cl`)**.
-   * **Instalación en Terreno:** **1 jornada de trabajo (8 horas)** coordinada con Informática para no entorpecer la operación municipal.
-3. **Garantía Técnica:**
-   * **3 Años de Garantía Oficial Wilson Electronics** sobre el amplificador Office 200.
-   * **1 Año de Garantía Tecnovoa** sobre la instalación, cableado y herrajes.
-4. **Cumplimiento Normativo:**
-   * Equipamiento 100% homologado y en estricto cumplimiento de la **Resolución Exenta N° 737 de SUBTEL** (Control Automático de Ganancia XDR, tecnología anti-oscilación y auto-standby). Cero interferencia hacia las redes públicas de telecomunicaciones.
-
----
-
-## ✍️ 4. Aceptación de la Propuesta
-
-Para formalizar la emisión de la Orden de Compra o solicitar la factura proforma, favor suscribir la presente cotización o emitir la OC respectiva a través de `www.mercadopublico.cl` a nombre de **Tecnovoa Ltda. (RUT 76.842.190-K)**.
-
-<br/><br/>
-_____________________________________________  
-**Cristián Díaz**  
-KAM TI — Tecnovoa Ltda.  
-`cristian@tecnovoa.cl` | `+569 4943 8288`  
-Pedro de Valdivia #273, Providencia, Santiago  
-
-<br/><br/>
-_____________________________________________  
-**Álvaro O. Carreño Cerda**  
-Jefe Depto. de Informática (SECPLA)  
-Ilustre Municipalidad de Pedro Aguirre Cerda  
+| **I-01** | **Montaje e Instalación RF In-Building:** Fijación de 2 antenas donantes en los postes existentes de `3,5 m` en techumbre, canalización vertical hacia racks de Piso -1 y Piso 1, montaje de amplificadores y tendido sobre cielo falso hacia los 4 domos interiores. | En cubicación por Área Técnica |
+| **I-02** | **Habilitación de 2 Puntos de Red Cat.6 Exterior en Techumbre:** Canalización y certificación desde Rack SecPlan (Piso 2) o Rack Seguridad (Piso -1) hacia la explanada de drones y estación meteorológica. | En cubicación por Área Técnica |
+| **I-03** | **Suministro y Configuración de 1 Access Point Cisco Meraki Outdoor:** Integración al portal Dashboard de la Municipalidad para cobertura inalámbrica en el helipuerto de drones. | En evaluación de modelo y licencia |
