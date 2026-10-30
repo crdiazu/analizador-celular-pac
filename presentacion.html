@@ -438,6 +438,7 @@
       <a href="#slide-arquitectura" class="btn">4. Arquitectura 2× Office 200</a>
       <a href="#slide-planos" class="btn">5. Planos</a>
       <a href="#slide-equipamiento" class="btn">6. Equipamiento</a>
+      <a href="#slide-racks" class="btn">7. Racks &amp; Canalizaciones</a>
       <button class="btn btn-cyan" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
     </div>
   </div>
@@ -449,7 +450,7 @@
       <div class="slide-cover">
         <div>
           <div class="cover-tag">📡 Ingeniería de Radiofrecuencia &amp; Redes In-Building</div>
-          <h1>Diseño Técnico de Cobertura Celular Multibanda (Pisos -1 y 1) y Conectividad en Techumbre</h1>
+          <h1>Diseño Técnico de Cobertura Celular Multibanda en Subterráneo (Piso -1) y Sala de Concejo (Piso 1)</h1>
           <p class="lead">
             Arquitectura Maestra basada en <strong>2 Sistemas weBoost Office 200 LATAM (50 Ω)</strong> y <strong>4 Antenas Domo Interiores</strong> para iluminar el 100% del Zócalo Subterráneo (Nivel -1) y el Óvalo del Alcalde / Sala de Concejo Municipal (Nivel 1).
           </p>
@@ -928,67 +929,65 @@
       </div>
     </section>
 
-    <!-- SLIDE 6: RED EN TECHUMBRE (HELIPUERTO DRONES + ESTACIÓN METEOROLÓGICA) Y RACKS -->
-    <section class="slide" id="slide-techumbre">
+    <!-- SLIDE 7: INFRAESTRUCTURA DE RACKS Y CANALIZACIONES VERTICALES -->
+    <section class="slide" id="slide-racks">
       <div class="slide-header">
         <div class="slide-header-left">
-          <span class="slide-badge">Requerimiento Complementario Detectado en Visita</span>
-          <h2>7. Puntos de Red y Wi-Fi Outdoor en Techumbre + Racks de Comunicaciones</h2>
+          <span class="slide-badge">Infraestructura de Telecomunicaciones Existente</span>
+          <h2>7. Infraestructura de Racks de Comunicaciones y Canalizaciones Verticales</h2>
         </div>
         <span class="slide-num">Lámina 07 / 08</span>
       </div>
       <div class="slide-body">
-        <div class="grid-2" style="margin-bottom: 20px;">
+        <div class="grid-2" style="margin-bottom: 22px;">
           <div class="info-box">
-            <h3>🚁 Requerimiento Adicional en Techumbre (Drones + Fluviómetro)</h3>
+            <h3>🗄️ Salas de Racks Seleccionadas para los Amplificadores</h3>
             <ul>
-              <li><strong>Helipuerto de Drones (Seguridad Comunal) y Estación Meteorológica:</strong> A partir de la visita técnica se suma la solicitud de habilitar conectividad de red y cobertura Wi-Fi en el sector de techumbre.</li>
-              <li><strong>Alcance de Red Estructurada:</strong>
-                <ul>
-                  <li>Habilitación de <strong>2 puntos de red Cat.6 para exterior</strong> en la zona de techumbre (canalizados desde el Rack SecPlan en Piso 2 o Rack Seguridad en Piso -1).</li>
-                  <li>Suministro e instalación de <strong>1 Access Point Cisco Meraki Outdoor</strong> compatible con el portal de administración (Dashboard) del cliente para iluminar la zona de operación de drones y enlazar la estación meteorológica.</li>
-                </ul>
-              </li>
+              <li><strong>Hub Norte — Rack Dirección de Seguridad Ciudadana (Piso -1):</strong> Aloja el amplificador <code>weBoost Office 200 #1</code> y el Splitter de 2 Vías (<code>859957</code>). Recibe la bajada vertical directa desde el mástil norte y alimenta mediante cielo falso el Domo 1A (Seguridad / Video Wall) y el Domo 1B (Servicios Especiales).</li>
+              <li><strong>Hub Sur — Rack Piso 1 / Shaft Sur (Frente a Pasarela Óvalo):</strong> Aloja el amplificador <code>weBoost Office 200 #2</code> y el Splitter de 2 Vías (<code>859957</code>). Recibe la bajada vertical del mástil sur, conectando el Domo 2A (Sala de Concejo en Piso 1) y el Domo 2B (Oficina Álvaro Carreño / Informática en Piso -1).</li>
+              <li><strong>Alimentación y Energía Respaldada:</strong> Ambos puntos disponen de circuitos eléctricos protegidos y respaldados por UPS municipal y grupo electrógeno.</li>
             </ul>
           </div>
 
-          <div class="fig-card">
-            <img src="./assets/visita/foto_techumbre_drones.jpg" alt="Zona de techumbre a iluminar con Wi-Fi Outdoor para operación de drones" onclick="openLightbox(this.src)" />
-            <div class="fig-caption">
-              <strong>Figura 5.1 — Zona a Iluminar en Techumbre:</strong> Explanada superior destinada a operación de drones y sensores meteorológicos.
-            </div>
+          <div class="info-box green">
+            <h3>📐 Trazado Limpio con Planos Eléctricos y de Corrientes Débiles</h3>
+            <ul>
+              <li><strong>Aprovechamiento de Escalerillas Existentes:</strong> La información de bandejas portacables (cable trays) y ductos de corrientes débiles permite mover el cable coaxial <code>Wilson400</code> por las rutas ya habilitadas sobre cielo falso sin perforaciones adicionales.</li>
+              <li><strong>Shafts Técnicos con Espacio Disponible:</strong> Los ductos verticales comunican techumbre con Piso 2, Piso 1 y Piso -1 con capacidad suficiente para las 2 tiradas verticales de <code>18,28 m</code>.</li>
+              <li><strong>Aislamiento Normativo:</strong> Se respeta la separación respecto a cables de fuerza (220V/380V) para evitar inducción y ruido radioeléctrico.</li>
+            </ul>
           </div>
         </div>
 
-        <h3 style="font-size:15px; color:var(--tecnovoa-primary); margin-bottom:10px;">🗄️ Registro Fotográfico de Racks de Comunicaciones por Nivel</h3>
+        <h3 style="font-size:15px; color:var(--tecnovoa-primary); margin-bottom:12px;">🗄️ Registro Fotográfico de Racks de Comunicaciones por Nivel</h3>
         <div class="grid-3">
           <div class="fig-card">
             <img src="./assets/visita/foto_rack_seguridad_menos1.jpg" alt="Rack Dirección de Seguridad Piso -1" onclick="openLightbox(this.src)" />
             <div class="fig-caption">
-              <strong>Rack Piso -1:</strong> Dirección de Seguridad Ciudadana (Punto de llegada Hub Norte).
+              <strong>Rack Piso -1 (Seguridad Ciudadana):</strong> Espacio confirmado para alojar Amplificador Office 200 #1 y Splitter 2 Vías.
             </div>
           </div>
           <div class="fig-card">
             <img src="./assets/visita/foto_rack_piso1.jpg" alt="Rack Recepciones Comunitarias Piso 1" onclick="openLightbox(this.src)" />
             <div class="fig-caption">
-              <strong>Rack Piso 1:</strong> Recepciones Comunitarias / Rack Principal (Interconexión vertical).
+              <strong>Rack Piso 1 (Recepciones Comunitarias):</strong> Nodo intermedio frente al puente hacia la Sala de Concejo Municipal.
             </div>
           </div>
           <div class="fig-card">
             <img src="./assets/visita/foto_rack_secplan_piso2.jpg" alt="Rack SecPlan Piso 2" onclick="openLightbox(this.src)" />
             <div class="fig-caption">
-              <strong>Rack Piso 2:</strong> SecPlan (Punto más cercano a techumbre para puntos de red outdoor).
+              <strong>Rack Piso 2 (SecPlan):</strong> Punto de paso de shaft vertical desde cubierta hacia niveles inferiores.
             </div>
           </div>
         </div>
       </div>
       <div class="slide-footer">
         <span>Registro de Infraestructura de Racks · Reporte de Visita Técnica Tecnovoa</span>
-        <span>Todos los racks cuentan con comunicación hacia el Rack Principal en Piso 1</span>
+        <span>Todos los racks cuentan con canalizaciones y bandejas de corrientes débiles</span>
       </div>
     </section>
 
-    <!-- SLIDE 7: PRÓXIMOS PASOS PARA ÁREA TÉCNICA -->
+    <!-- SLIDE 8: PRÓXIMOS PASOS PARA ÁREA TÉCNICA -->
     <section class="slide">
       <div class="slide-header">
         <div class="slide-header-left">
@@ -1013,10 +1012,10 @@
             </ul>
           </div>
           <div class="info-box green">
-            <h3>3️⃣ Red Outdoor &amp; AP Meraki</h3>
+            <h3>3️⃣ Revisión de Planos Eléctricos</h3>
             <ul>
-              <li>Confirmar modelo de Access Point Cisco Meraki Outdoor y licenciamiento requerido para integrarlo al Dashboard existente de la Municipalidad.</li>
-              <li>Cotizar tendido de los 2 puntos de red exterior en techumbre.</li>
+              <li>Revisar las láminas de corrientes débiles para confirmar el recorrido exacto por escalerillas existentes sobre cielo falso.</li>
+              <li>Validar los pases verticales de losa y la separación normativa con líneas de fuerza de 220V/380V.</li>
             </ul>
           </div>
         </div>

@@ -12,7 +12,9 @@
 ---
 
 ## 🎯 1. Alcance Técnico del Proyecto
-Suministro, instalación, canalización y puesta en marcha de una solución de amplificación celular in-building multibanda (Entel, Movistar, Claro y WOM) para cubrir las dependencias del **Piso -1 (Zócalo Subterráneo)** y la **Sala de Concejo Municipal / Óvalo del Alcalde (Piso 1)**, complementada con la habilitación de **2 puntos de red exterior y cobertura Wi-Fi Cisco Meraki Outdoor en la techumbre** para la operación de drones de Seguridad Comunal y la estación meteorológica.
+Suministro, instalación, canalización y puesta en marcha de una solución de amplificación celular in-building multibanda (Entel, Movistar, Claro y WOM) para cubrir al 100% las dependencias del **Piso -1 (Zócalo Subterráneo: Video Wall, Seguridad Ciudadana, Despacho de Móviles, Servicios Especiales, Jefatura de Informática y Pasillo Trasero)** y la **Sala de Concejo Municipal / Óvalo del Alcalde (Piso 1)**.
+
+*(Nota: Los requerimientos de red exterior para drones y telemetría en techumbre se gestionan de manera independiente en el documento complementario correspondiente).*
 
 ---
 
@@ -43,10 +45,8 @@ Suministro, instalación, canalización y puesta en marcha de una solución de a
 
 ---
 
-## 🌐 3. Partidas de Obras Civiles, Montaje y Red en Techumbre (En Dimensionamiento por Área Técnica)
+## 🌐 3. Partidas de Obras Civiles y Montaje RF (En Dimensionamiento por Área Técnica)
 
 | Partida | Descripción de Ingeniería e Instalación | Estado |
 | :---: | :--- | :---: |
-| **I-01** | **Montaje e Instalación RF In-Building:** Fijación de 2 antenas donantes en los postes existentes de `3,5 m` en techumbre, canalización vertical hacia racks de Piso -1 y Piso 1, montaje de amplificadores y tendido sobre cielo falso hacia los 4 domos interiores. | En cubicación por Área Técnica |
-| **I-02** | **Habilitación de 2 Puntos de Red Cat.6 Exterior en Techumbre:** Canalización y certificación desde Rack SecPlan (Piso 2) o Rack Seguridad (Piso -1) hacia la explanada de drones y estación meteorológica. | En cubicación por Área Técnica |
-| **I-03** | **Suministro y Configuración de 1 Access Point Cisco Meraki Outdoor:** Integración al portal Dashboard de la Municipalidad para cobertura inalámbrica en el helipuerto de drones. | En evaluación de modelo y licencia |
+| **I-01** | **Montaje e Instalación RF In-Building:** Fijación de 2 antenas donantes en los postes metálicos existentes de `3,5 m` en techumbre, canalización vertical por shaft hacia racks de Piso -1 y Piso 1, montaje de 2 amplificadores weBoost Office 200 + Splitters y tendido por escalerilla/cielo falso hacia los 4 domos interiores. | En cubicación por Área Técnica |

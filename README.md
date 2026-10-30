@@ -23,8 +23,6 @@ Sin embargo, tras el levantamiento técnico en sitio se identificaron las siguie
    - **Sector Sur-Oriente (Zona 1):** Oficina Jefe de Informática (Álvaro Carreño), Técnicos TI y Pasillo Trasero.
 2. **Piso 1 — Óvalo del Alcalde / Sala de Concejo Municipal:**
    - Volumen central ovalado donde se requiere garantizar continuidad de voz y datos móviles durante sesiones municipales.
-3. **Requerimiento Complementario en Techumbre (Drones y Estación Meteorológica):**
-   - Habilitación de **2 puntos de red Cat.6 exterior** y **1 Access Point Cisco Meraki Outdoor** en la techumbre para dar cobertura Wi-Fi al helipuerto de drones de Seguridad Comunal y respaldar la estación meteorológica / fluviómetro.
 
 ---
 

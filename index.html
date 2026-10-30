@@ -1989,7 +1989,7 @@
     groupLevel2.add(uLevel2);
 
     // =========================================================
-    // 4. TECHUMBRE / AZOTEA (+8.20 m) + HELIPUERTO DRONES
+    // 4. TECHUMBRE / AZOTEA (+8.20 m)
     // =========================================================
     const uRoofSlab = makeExtrudedPolygon(U_BUILDING_PX, 8.15, 0.35, 0x475569, 0.78, 0x94a3b8);
     groupRoof.add(uRoofSlab);
@@ -2000,11 +2000,6 @@
 
     const casetaSurPx = [[668, 535], [732, 538], [732, 578], [668, 575]];
     groupRoof.add(makeExtrudedPolygon(casetaSurPx, 8.5, 2.6, 0x334155, 0.9, 0xcbd5e1));
-
-    // Zona Helipuerto de Drones + Estación Meteorológica en Techumbre Norponiente
-    const droneDeckPx = [[105, 65], [222, 82], [220, 155], [100, 145]];
-    const droneDeckMesh = makeExtrudedPolygon(droneDeckPx, 8.52, 0.15, 0x0284c7, 0.65, 0x38bdf8);
-    groupRoof.add(droneDeckMesh);
   }
 
   function buildWilsonHardware3D() {
@@ -2148,17 +2143,6 @@
       ], 0x4ade80);
       addIndoorDome(710, 515, -0.8, 0x22c55e, 0x22c55e, 14.5, '🟢 Domo 2B: Of. Álvaro Carreño + Pasillo (-1)');
     }
-
-    // Helipuerto de Drones + AP Meraki Outdoor en Techumbre Norponiente
-    const apX = pxToX(162);
-    const apZ = pyToZ(108);
-    const apMesh = makeBox(1.2, 0.4, 1.2, 0x06b6d4);
-    apMesh.position.set(apX, 8.9, apZ);
-    groupRoof.add(apMesh);
-
-    const droneLbl = makeTextSprite('🚁 Zona Drones + AP Meraki Outdoor', 'rgba(8, 51, 68, 0.92)', '#06b6d4', '#ecfeff', 21);
-    droneLbl.position.set(apX, 11.8, apZ);
-    groupLabels3D.add(droneLbl);
   }
 
   function buildMeasurementSpheres() {

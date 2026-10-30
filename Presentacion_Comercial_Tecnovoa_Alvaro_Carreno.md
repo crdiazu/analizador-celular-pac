@@ -49,13 +49,5 @@ SISTEMA 2 (HUB SUR - RACK PISO 1 / SHAFT SUR)
 
 ---
 
-## 🚁 3. Conectividad en Techumbre: Helipuerto de Drones y Estación Meteorológica
-
-Como requerimiento complementario levantado en la visita técnica, Tecnovoa contempla:
-1. **2 Puntos de Red Cat.6 Exterior** en el sector de techumbre, canalizados desde el Rack SecPlan (Piso 2) o Rack Seguridad (Piso -1).
-2. **1 Access Point Cisco Meraki Outdoor**, integrable al portal de administración (Dashboard) de la Municipalidad, para proveer conectividad Wi-Fi de alta estabilidad a la operación de drones de Seguridad Comunal y a la estación meteorológica en azotea.
-
----
-
 *Tecnovoa Ltda. — Conectividad e Infraestructura de Telecomunicaciones*  
 *Av. Pedro de Valdivia N° 273, Providencia | www.tecnovoa.cl | cristian@tecnovoa.cl*

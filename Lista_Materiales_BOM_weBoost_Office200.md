@@ -33,12 +33,3 @@ Para cubrir tanto el **Ala Norte/Poniente (Video Wall, Seguridad Ciudadana, Desp
 | **03** | `314407` | **Antena Interior Domo de Perfil Bajo Adicional (50 Ω)** | 1 un. | **2 un.** | Suma 2 domos adicionales a los 2 ya incluidos en los kits (Total = **4 Domos Interiores**). |
 | **04** | `952350` | **Cable Coaxial Wilson400 de 50 ft / 15,24 m (N-Macho)** | 1 rollo | **2 rollos** | Alimenta la segunda salida de cada splitter (hacia Servicios Especiales y hacia el Óvalo del Alcalde). |
 | **05** | `952302` | **Jumper Coaxial Wilson400 de 2 ft / 0,60 m (N-Macho)** | 1 un. | **2 un.** | Une el puerto Indoor de cada amplificador con la entrada `INPUT` de su Splitter `859957`. |
-
----
-
-## 🌐 3. Requerimiento Complementario en Techumbre (Drones y Fluviómetro)
-
-| Ítem | Especialidad | Descripción del Requerimiento | Cantidad |
-| :---: | :--- | :--- | :---: |
-| **R-01** | **Cableado Estructurado Exterior** | Habilitación de puntos de red Cat.6 para intemperie en techumbre (conectados a Rack SecPlan Piso 2 o Rack Seguridad Piso -1) para operación de drones y estación meteorológica. | **2 Puntos** |
-| **R-02** | **Wi-Fi Outdoor** | Suministro e integración de Access Point **Cisco Meraki Outdoor** compatible con el portal Dashboard existente de la Municipalidad. | **1 Unidad** |
