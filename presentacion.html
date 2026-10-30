@@ -433,10 +433,11 @@
     <div class="pres-toolbar-actions">
       <a href="./index.html" class="btn">⬅️ Volver al Gemelo Digital 3D</a>
       <a href="#slide-visita" class="btn">1. Visita Terreno</a>
-      <a href="#slide-arquitectura" class="btn">2. Arquitectura 2× Office 200</a>
-      <a href="#slide-planos" class="btn">3. Planos de Cobertura</a>
-      <a href="#slide-equipamiento" class="btn">4. Equipamiento &amp; BOM</a>
-      <a href="#slide-techumbre" class="btn">5. Red Techumbre &amp; Drones</a>
+      <a href="#slide-corte" class="btn">2. Corte Transversal</a>
+      <a href="#slide-subtel" class="btn">3. Torres SUBTEL 3D</a>
+      <a href="#slide-arquitectura" class="btn">4. Arquitectura 2× Office 200</a>
+      <a href="#slide-planos" class="btn">5. Planos</a>
+      <a href="#slide-equipamiento" class="btn">6. Equipamiento</a>
       <button class="btn btn-cyan" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
     </div>
   </div>
@@ -491,7 +492,7 @@
           <span class="slide-badge">Levantamiento Técnico en Sitio · 29 de Octubre de 2026</span>
           <h2>1. Diagnóstico en Terreno e Infraestructura Existente</h2>
         </div>
-        <span class="slide-num">Lámina 01 / 06</span>
+        <span class="slide-num">Lámina 01 / 08</span>
       </div>
       <div class="slide-body">
         <div class="grid-2" style="margin-bottom: 22px;">
@@ -500,9 +501,9 @@
             <ul>
               <li><strong>Geometría en "U" del Piso -1 (Subterráneo):</strong> El nivel -1 rodea el patio central y concentra unidades operativas críticas sin señal celular de voz por el apantallamiento de las losas de hormigón armado:
                 <ul>
-                  <li><strong>Sector Norte (Zona 3):</strong> Video Wall, Seguridad Ciudadana y Despacho de Móviles.</li>
+                  <li><strong>Sector Norte (Zona 3):</strong> Video Wall, Seguridad Ciudadana, Pasillo Interior Norte y Despacho de Móviles.</li>
                   <li><strong>Sector Poniente (Zona 2):</strong> Servicios Especiales (ala poniente bajo acceso principal).</li>
-                  <li><strong>Sector Sur / Oriente (Zona 1):</strong> Oficina Jefe de Informática (Álvaro Carreño), Técnicos TI y Pasillo Trasero.</li>
+                  <li><strong>Sector Sur / Oriente (Zona 1):</strong> Oficina Jefe de Informática (Álvaro Carreño), Técnicos TI y Pasillo Interior Trasero.</li>
                 </ul>
               </li>
               <li><strong>Ampliación a Piso 1 — Óvalo del Alcalde / Sala de Concejo:</strong> Se solicita asegurar cobertura celular en el edificio ovalado central (Sala de Concejo Municipal en Piso 1).</li>
@@ -544,14 +545,122 @@
       </div>
     </section>
 
+    <!-- NUEVA LÁMINA 2: CÓMO FUNCIONA — CORTE TRANSVERSAL DE BAJADA DE CABLE Y UBICACIÓN DE EQUIPOS -->
+    <section class="slide" id="slide-corte">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Esquema de Montaje Vertical y Cielo Falso</span>
+          <h2>2. Cómo Funciona: Corte Transversal del Edificio, Bajada de Cable y Ubicación de Equipos</h2>
+        </div>
+        <span class="slide-num">Lámina 02 / 08</span>
+      </div>
+      <div class="slide-body">
+        <p style="font-size:14px; color:var(--text); margin-bottom:16px;">
+          El siguiente corte transversal muestra exactamente <strong>por dónde baja el cable coaxial de baja pérdida</strong> desde los postes existentes en la techumbre, <strong>dónde se alojan los amplificadores y splitters</strong> dentro de los racks municipales, y <strong>cómo se distribuye el cableado por el cielo falso</strong> hacia las antenas domo interiores en el Piso 1 (Sala de Concejo) y Piso -1 (Subterráneo):
+        </p>
+
+        <div class="fig-card" style="margin-bottom: 18px;">
+          <img src="./assets/fotos/30-corte-transversal-como-funciona-pac.svg" alt="Corte Transversal Cómo Funciona Centro Consistorial PAC" onclick="openLightbox(this.src)" style="max-height: 490px; background: #ffffff; padding: 6px;" />
+          <div class="fig-caption">
+            <strong>Figura 2.1 — Corte Transversal Personalizado Centro Consistorial PAC (Pisos 2, 1 y -1):</strong> Recorrido real desde los postes de <code>3,5 m</code> en Techumbre (círculo naranja), bajada vertical de <code>18,28 m</code> por shaft hacia los Racks (círculos turquesa) y tendido por cielo falso hacia los 4 Domos Interiores (semiesferas moradas).
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="fig-card">
+            <img src="./assets/fotos/28-como-funciona-referencia-weboost.png" alt="Esquema Conceptual Cómo Funciona weBoost Office 200" onclick="openLightbox(this.src)" style="max-height: 250px; background: #ffffff;" />
+            <div class="fig-caption">
+              <strong>Figura 2.2 — Principio de Operación weBoost Office 200:</strong> 1) Antena Exterior capta señal en techo · 2) Amplificador potencia la señal en Rack · 3) Antena Domo irradia desde cielo falso.
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h3>📍 Detalle Paso a Paso de la Bajada y Colocación</h3>
+            <ul>
+              <li><strong>🟠 1. Captación en Techumbre (+8,25 m + Poste 3,5 m):</strong> Se fijan las 2 antenas donantes <strong>Omni Plus 360° (<code>314422</code>)</strong> en los postes metálicos existentes en los extremos Norte y Sur de la cubierta, protegidas con pararrayos coaxial (<code>859902</code>).</li>
+              <li><strong>🔴 Bajada Vertical por Ducto/Shaft (Cable <code>18,28 m</code> SKU <code>952360</code>):</strong> El cable coaxial <code>Wilson400</code> baja verticalmente por el shaft de corrientes débiles atravesando el Piso 2 hasta llegar a los racks existentes sin cableado a la vista.</li>
+              <li><strong>🟢 2. Colocación de Amplificadores y Splitters en Racks:</strong>
+                <ul>
+                  <li><strong>Hub Norte (Rack Seguridad Piso -1):</strong> Se aloja el Amplificador #1 + Splitter 2 Vías (<code>859957</code>).</li>
+                  <li><strong>Hub Sur (Rack Piso 1 / Shaft Sur):</strong> Se aloja el Amplificador #2 + Splitter 2 Vías (<code>859957</code>).</li>
+                </ul>
+              </li>
+              <li><strong>🟣 3. Distribución Oculta por Cielo Falso hacia 4 Domos (<code>314407</code>):</strong> Desde cada Splitter salen 2 cables coaxiales (<code>22,86 m</code> y <code>15,24 m</code>) sobre la bandeja del cielo falso, empotrando las antenas tipo platillo blanco en el techo de <strong>Seguridad Ciudadana / Video Wall / Despacho Móviles</strong>, <strong>Servicios Especiales</strong>, <strong>Sala de Concejo Municipal (Óvalo Piso 1)</strong> y <strong>Oficina Álvaro Carreño / Pasillo Interior Trasero</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Esquema de Canalización Vertical y Distribución Horizontal en Cielo Falso · Tecnovoa Ingeniería</span>
+        <span>Instalación 100% limpia aprovechando shafts y salas de racks existentes</span>
+      </div>
+    </section>
+
+    <!-- NUEVA LÁMINA 3: ENTORNO RADIOELÉCTRICO SUBTEL 3D (GOOGLE EARTH) Y EXPLICACIÓN TÉCNICA -->
+    <section class="slide" id="slide-subtel">
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <span class="slide-badge">Catastro Oficial SUBTEL · Fotogrametría Satelital 3D</span>
+          <h2>3. Explicación del Entorno Radioeléctrico SUBTEL (10 Antenas Vecinas vs. Sombra Subterránea)</h2>
+        </div>
+        <span class="slide-num">Lámina 03 / 08</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="margin-bottom: 18px;">
+          <div class="fig-card">
+            <img src="./assets/fotos/29-google-earth-10-antenas-subtel-pac.jpg" alt="Vista 3D Google Earth de las 10 Estaciones Base SUBTEL convergiendo en la Azotea Municipal" onclick="openLightbox(this.src)" style="max-height: 390px; object-fit: cover;" />
+            <div class="fig-caption">
+              <strong>Figura 3.1 — Modelamiento 3D Google Earth (Catastro SUBTEL):</strong> Convergencia de las 10 radiobases celulares vecinas (<code>T1 a T10</code>) sobre la Antena Donante <strong>Omni Plus 360°</strong> en la azotea del Centro Consistorial PAC (Haz clic para ampliar).
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div class="info-box green">
+              <h3>📡 1. ¿Qué demuestra el modelo 3D de Antenas SUBTEL?</h3>
+              <ul>
+                <li><strong>10 Estaciones Base en un radio menor a 750 metros:</strong> Alrededor del edificio municipal existen <strong>10 torres celulares activas (<code>T1 a T10</code>)</strong> de <strong>Entel, Movistar, Claro y WOM</strong> transmitiendo en las bandas <strong>B2 (1900 MHz), B4 AWS (1700/2100 MHz) y B5 (850 MHz)</strong>.</li>
+                <li><strong>Línea de Vista Despejada en Techumbre (<code>-66 a -72 dBm</code>):</strong> A <code>+11,75 m</code> de altura (losa de techo + poste de <code>3,5 m</code>), la señal exterior de las 4 compañías llega con excelente potencia y calidad (RSRP/SINR óptimo).</li>
+              </ul>
+            </div>
+
+            <div class="info-box orange">
+              <h3>🔄 2. ¿Por qué se eligió Antena Donante Omnidireccional 360°?</h3>
+              <ul>
+                <li>Como se observa en las líneas de enlace del mapa 3D, las torres de los 4 operadores rodean el edificio desde <strong>todos los puntos cardinales</strong>:
+                  <ul>
+                    <li><strong>Norte / Nororiente:</strong> <code>T2, T3, T6</code> (WOM, Entel, Claro en Teresa Vial / Club Hípico).</li>
+                    <li><strong>Poniente:</strong> <code>T7, T8</code> (Claro, WOM en Av. La Feria / La Marina).</li>
+                    <li><strong>Sur / Oriente (Ruta 5):</strong> <code>T5, T10</code> (Movistar, Entel, Claro en J.J. Prieto / Salesianos).</li>
+                  </ul>
+                </li>
+                <li>Una antena direccional apuntaría a una sola calle, dejando fuera a las demás compañías. En cambio, la <strong>Antena Donante Omni Plus 360° (<code>314422</code>)</strong> capta los <strong>360 grados simultáneamente</strong>, garantizando cobertura multi-operador real para funcionarios y vecinos.</li>
+              </ul>
+            </div>
+
+            <div class="info-box">
+              <h3>🧱 3. ¿Por qué el Piso -1 está sin señal si hay 10 torres cerca?</h3>
+              <ul>
+                <li>El zócalo subterráneo (<strong>Seguridad Ciudadana, Video Wall, Pasillo Interior, Servicios Especiales y Oficina de Álvaro Carreño</strong>) se encuentra bajo cota de terreno y blindado por losas de hormigón armado que atenúan <strong>más de <code>35 dB</code></strong> la onda electromagnética, cayendo a <strong>zona muerta (<code>-108 a -115 dBm</code>)</strong>.</li>
+                <li>Los 2 sistemas <strong>weBoost Office 200</strong> actúan como un <strong>"puente coaxial directo"</strong> que toma la señal limpia de las 10 torres en la azotea y la inyecta bajo la losa mediante las 4 antenas domo interiores.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Análisis de Propagación Radioeléctrica sobre Catastro Oficial SUBTEL · Bandas 850 / 1900 / 1700-2100 AWS</span>
+        <span>Cobertura simultánea para Entel, Movistar, Claro y WOM</span>
+      </div>
+    </section>
+
     <!-- SLIDE 3: ARQUITECTURA MAESTRA DUAL (2x WEBOOST OFFICE 200 + 4 DOMOS) -->
     <section class="slide" id="slide-arquitectura">
       <div class="slide-header">
         <div class="slide-header-left">
           <span class="slide-badge">Ingeniería de Radiofrecuencia In-Building</span>
-          <h2>2. Configuración Maestra: 2 Sistemas weBoost Office 200 + 4 Antenas Domo</h2>
+          <h2>4. Configuración Maestra: 2 Sistemas weBoost Office 200 + 4 Antenas Domo</h2>
         </div>
-        <span class="slide-num">Lámina 02 / 06</span>
+        <span class="slide-num">Lámina 04 / 08</span>
       </div>
       <div class="slide-body">
         <p style="font-size:14px; color:var(--text); margin-bottom:18px;">
@@ -650,9 +759,9 @@
       <div class="slide-header">
         <div class="slide-header-left">
           <span class="slide-badge">Planimetría CAD y Fotogrametría Satelital</span>
-          <h2>3. Planos de Distribución de Cableado y Cobertura (Pisos 1 y -1)</h2>
+          <h2>5. Planos de Distribución de Cableado y Cobertura (Pisos 1 y -1)</h2>
         </div>
-        <span class="slide-num">Lámina 03 / 06</span>
+        <span class="slide-num">Lámina 05 / 08</span>
       </div>
       <div class="slide-body">
         <div class="grid-2" style="margin-bottom: 20px;">
@@ -698,9 +807,9 @@
       <div class="slide-header">
         <div class="slide-header-left">
           <span class="slide-badge">Hardware Profesional 50 Ohm · Wilson Electronics</span>
-          <h2>4. Especificación de Equipamiento y Lista de Materiales (BOM)</h2>
+          <h2>6. Especificación de Equipamiento y Lista de Materiales (BOM)</h2>
         </div>
-        <span class="slide-num">Lámina 04 / 06</span>
+        <span class="slide-num">Lámina 06 / 08</span>
       </div>
       <div class="slide-body">
         <div class="grid-4" style="margin-bottom: 24px;">
@@ -824,9 +933,9 @@
       <div class="slide-header">
         <div class="slide-header-left">
           <span class="slide-badge">Requerimiento Complementario Detectado en Visita</span>
-          <h2>5. Puntos de Red y Wi-Fi Outdoor en Techumbre + Racks de Comunicaciones</h2>
+          <h2>7. Puntos de Red y Wi-Fi Outdoor en Techumbre + Racks de Comunicaciones</h2>
         </div>
-        <span class="slide-num">Lámina 05 / 06</span>
+        <span class="slide-num">Lámina 07 / 08</span>
       </div>
       <div class="slide-body">
         <div class="grid-2" style="margin-bottom: 20px;">
@@ -884,9 +993,9 @@
       <div class="slide-header">
         <div class="slide-header-left">
           <span class="slide-badge">Hoja de Ruta de Ingeniería y Preventa</span>
-          <h2>6. Próximos Pasos para Cierre de Propuesta Técnica</h2>
+          <h2>8. Próximos Pasos para Cierre de Propuesta Técnica</h2>
         </div>
-        <span class="slide-num">Lámina 06 / 06</span>
+        <span class="slide-num">Lámina 08 / 08</span>
       </div>
       <div class="slide-body">
         <div class="grid-3">
@@ -936,3 +1045,4 @@
   </script>
 </body>
 </html>
+
