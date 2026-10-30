@@ -868,6 +868,31 @@
       font-size: 12px;
     }
 
+    
+    .header-tools-mobile-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    @media (max-width: 992px) {
+      .header-tools-mobile-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        width: 100%;
+        padding-bottom: 4px;
+      }
+      .header-tools-mobile-row::-webkit-scrollbar { display: none; }
+      .header-tools-mobile-row .btn {
+        flex-shrink: 0;
+        font-size: 11px;
+        padding: 5px 9px;
+      }
+    }
+
     /* Mobile Phone Responsive Optimizations — Tecnovoa Mobile Experience */
     @media (max-width: 992px) {
       .header-inner {
@@ -943,6 +968,72 @@
     }
 
     @media (max-width: 640px) {
+      /* Compact mobile header actions to reveal 3D stage immediately */
+      .header-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+      .scenario-selector-wrap {
+        order: 1;
+        width: 100%;
+        margin-bottom: 2px;
+      }
+      .header-actions a[href="presentacion.html"] {
+        order: 2;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        padding: 9px 14px;
+        font-size: 13px;
+        background: #145FA0 !important;
+        box-shadow: 0 4px 12px rgba(20,95,160,0.3);
+      }
+      /* Place file exports in a subtle horizontal scrollbar so they don't push 3D down */
+      .header-actions .btn:not([href="presentacion.html"]) {
+        font-size: 10.5px;
+        padding: 5px 8px;
+        white-space: nowrap;
+      }
+      .header-tools-row {
+        order: 3;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+      }
+      .header-tools-row::-webkit-scrollbar { display: none; }
+      .kpi-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
+      }
+      .kpi-card {
+        padding: 8px 10px !important;
+      }
+      .kpi-num {
+        font-size: 17px !important;
+        margin: 2px 0 !important;
+      }
+      .kpi-label {
+        font-size: 9.5px !important;
+      }
+      .kpi-sub {
+        font-size: 9px !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .stage-3d-box {
+        height: 390px !important;
+        margin-top: 4px;
+      }
+
       .top-bar {
         font-size: 10px;
         padding: 6px 12px;
@@ -1103,7 +1194,8 @@
           <option value="con_2_antenas" selected>🟢 3. Con 2 antenas Office 200 (2 Kits — Solución Total 2 Alas + Concejo)</option>
         </select>
       </div>
-      <button class="btn btn-gnettrack" onclick="exportGNetTrack()" title="Exportar log en formato oficial G-NetTrack Lite (.txt / .csv)">
+      <div class="header-tools-mobile-row">
+        <button class="btn btn-gnettrack" onclick="exportGNetTrack()" title="Exportar log en formato oficial G-NetTrack Lite (.txt / .csv)">
         📶 Exportar G-NetTrack Lite
       </button>
       <a class="btn" href="./Antenas_SUBTEL_PAC_Consistorial.kml" download="Antenas_SUBTEL_PAC_Consistorial.kml" title="Descargar KML de antenas y puntos para Google Earth" style="background:#0284c7; color:#fff; border-color:#0284c7;">
@@ -1115,6 +1207,7 @@
         <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="importCSV(event)" />
       </label>
       <a class="btn" href="./531047-530047_office200_ss_LATAM_102721b%20(1).pdf" target="_blank">📄 Datasheet Office 200 PDF</a>
+      </div>
     </div>
   </div>
 </header>
@@ -2496,6 +2589,161 @@
 
     animate();
   }
+
+  
+  // --- 3D INTERIOR OFFICES & X-RAY MODELING (SEGURIDAD, ÁLVARO CARREÑO, CONCEJO) ---
+  function buildInteriorOffices3D() {
+    if (!groupOffices) return;
+    groupOffices.clear();
+
+    const matDesk = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6 });
+    const matScreen = new THREE.MeshStandardMaterial({
+      color: 0x0284c7,
+      emissive: 0x0284c7,
+      emissiveIntensity: 0.7,
+      roughness: 0.2
+    });
+    const matRack = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.8 });
+    const matRackLed = new THREE.MeshStandardMaterial({
+      color: 0x22c55e,
+      emissive: 0x22c55e,
+      emissiveIntensity: 0.9
+    });
+    const matOvalTable = new THREE.MeshStandardMaterial({ color: 0x7c2d12, roughness: 0.4 });
+
+    // 1. ZONA SEGURIDAD CIUDADANA & VIDEO WALL (Ala Norte, Piso -1, Y = -2.0)
+    // Video Wall 6 Monitores
+    const videoWall = new THREE.Group();
+    videoWall.position.set(16, -2.1, 16);
+    const wallFrame = new THREE.Mesh(new THREE.BoxGeometry(8, 3.2, 0.3), matRack);
+    videoWall.appendChild ? videoWall.add(wallFrame) : null;
+    
+    // 6 screens (3 cols x 2 rows)
+    for (let row = 0; row < 2; row++) {
+      for (let col = 0; col < 3; col++) {
+        const scr = new THREE.Mesh(new THREE.BoxGeometry(2.3, 1.3, 0.08), matScreen);
+        scr.position.set(-2.5 + col * 2.5, -0.65 + row * 1.4, 0.18);
+        videoWall.add(scr);
+      }
+    }
+    // Despacho desk
+    const deskSec = new THREE.Mesh(new THREE.BoxGeometry(7, 0.7, 1.8), matDesk);
+    deskSec.position.set(0, -1.1, -2.2);
+    videoWall.add(deskSec);
+    groupOffices.add(videoWall);
+
+    // 2. OFICINA ÁLVARO CARREÑO & RACK COMUNICACIONES (Ala Sur, Piso -1, Y = -2.0)
+    const oficinaAlvaro = new THREE.Group();
+    oficinaAlvaro.position.set(-18, -2.1, 18);
+
+    // Rack de telecomunicaciones Piso -1 con LEDs
+    const rackBox = new THREE.Mesh(new THREE.BoxGeometry(1.4, 3.2, 1.4), matRack);
+    rackBox.position.set(-3.5, 0, -2);
+    oficinaAlvaro.add(rackBox);
+
+    // LEDs frontales
+    for (let k = 0; k < 6; k++) {
+      const led = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.08, 0.05), matRackLed);
+      led.position.set(-3.5, -1.0 + k * 0.45, -1.28);
+      oficinaAlvaro.add(led);
+    }
+
+    // Escritorio Álvaro Carreño
+    const deskAlvaro = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.75, 1.6), matDesk);
+    deskAlvaro.position.set(0, -0.85, 0);
+    oficinaAlvaro.add(deskAlvaro);
+
+    const monAlvaro = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.08), matScreen);
+    monAlvaro.position.set(0, -0.2, -0.4);
+    oficinaAlvaro.add(monAlvaro);
+    groupOffices.add(oficinaAlvaro);
+
+    // 3. SALA DE CONCEJO MUNICIPAL / ÓVALO DEL ALCALDE (Piso 1, Y = 1.2)
+    const concejoGroup = new THREE.Group();
+    concejoGroup.position.set(0, 1.1, -12);
+
+    // Mesa ovalada de sesiones
+    const mesaGeo = new THREE.CylinderGeometry(4.8, 4.8, 0.35, 32);
+    mesaGeo.scale(1.7, 1, 0.85); // Elongated oval table
+    const mesaMesh = new THREE.Mesh(mesaGeo, matOvalTable);
+    concejoGroup.add(mesaMesh);
+
+    // 12 puestos / sillas de concejales
+    const chairMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 });
+    for (let c = 0; c < 12; c++) {
+      const ang = (c / 12) * Math.PI * 2;
+      const ch = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.9, 0.8), chairMat);
+      ch.position.set(Math.cos(ang) * 9.2, 0.2, Math.sin(ang) * 4.8);
+      ch.rotation.y = -ang + Math.PI / 2;
+      concejoGroup.add(ch);
+    }
+    groupOffices.add(concejoGroup);
+
+    groupOffices.visible = showOffices3D;
+  }
+
+  // --- 3D CORRIDORS, ACCESSES & CIRCULATION ---
+  function buildCorridorsAndAccess3D() {
+    if (!groupCorridors) return;
+    groupCorridors.clear();
+
+    const matCorridor = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.38,
+      wireframe: false
+    });
+    const matAccessPoint = new THREE.MeshStandardMaterial({
+      color: 0x22c55e,
+      emissive: 0x22c55e,
+      emissiveIntensity: 0.6
+    });
+    const matCriticalZone = new THREE.MeshStandardMaterial({
+      color: 0xef4444,
+      emissive: 0xef4444,
+      emissiveIntensity: 0.5,
+      transparent: true,
+      opacity: 0.45
+    });
+
+    // Pasillo Circulación Ala Norte (Piso -1)
+    const pasilloNorte = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.05, 48), matCorridor);
+    pasilloNorte.position.set(16, -3.3, 2);
+    groupCorridors.add(pasilloNorte);
+
+    // Pasillo Circulación Ala Sur (Piso -1)
+    const pasilloSur = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.05, 48), matCorridor);
+    pasilloSur.position.set(-18, -3.3, 2);
+    groupCorridors.add(pasilloSur);
+
+    // Pasillo Conector Central / Puente hacia Óvalo (Piso 1)
+    const pasilloCentral = new THREE.Mesh(new THREE.BoxGeometry(34, 0.05, 4.0), matCorridor);
+    pasilloCentral.position.set(-1, 0.1, -12);
+    groupCorridors.add(pasilloCentral);
+
+    // Puertas / Accesos Principales
+    // Acceso Salvador Allende (Frontal)
+    const portalNorte = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 2.8, 16), matAccessPoint);
+    portalNorte.position.set(16, 1.4, 28);
+    groupCorridors.add(portalNorte);
+
+    // Acceso Patio Cívico
+    const portalCivico = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 2.8, 16), matAccessPoint);
+    portalCivico.position.set(-18, 1.4, 28);
+    groupCorridors.add(portalCivico);
+
+    // Puntos Críticos Subterráneo (Zona de Sombra Extrema por Losa de Hormigón)
+    const zonaCritica1 = new THREE.Mesh(new THREE.SphereGeometry(3.5, 16, 16), matCriticalZone);
+    zonaCritica1.position.set(16, -2.2, 16); // Seguridad / Video Wall sin antena
+    groupCorridors.add(zonaCritica1);
+
+    const zonaCritica2 = new THREE.Mesh(new THREE.SphereGeometry(3.5, 16, 16), matCriticalZone);
+    zonaCritica2.position.set(-18, -2.2, 18); // Oficina Álvaro Carreño sin antena
+    groupCorridors.add(zonaCritica2);
+
+    groupCorridors.visible = showCorridors3D;
+  }
+
 
   function buildSatelliteBasePlane() {
     groupSatellite.clear();
